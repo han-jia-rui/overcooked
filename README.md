@@ -7,7 +7,7 @@ This lab is to write strategy for the simplified version of the Overcooked game.
 ## Get Started
 
 ```shell
-$ git clone https://git.nju.edu.cn/psv/overcooked.git
+$ git clone https://git.nju.edu.cn/psv/overcooked-2022.git
 ```
 
 ## Compile
