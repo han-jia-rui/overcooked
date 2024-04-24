@@ -1,6 +1,6 @@
 # Overcooked
 
-This is the lab for Problem Solving Ⅳ in Nanjing University in 2023.
+This is the lab for Problem Solving Ⅳ in Nanjing University in 2024.
 
 This lab is to write strategy for the simplified version of the Overcooked game.
 
