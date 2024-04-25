@@ -7,10 +7,16 @@ all:
 		mkdir -p build; \
 		cd build && cmake .. -DCMAKE_BUILD_TYPE=Debug; fi
 	@make -C build
+	@if [[ ! -e build-win/Makefile ]]; then \
+		mkdir -p build-win; \
+		cd build-win && cmake .. -DCMAKE_BUILD_TYPE=Debug -DFOR_WIN=ON; fi
+	@make -C build-win
 
 clean:
 	@if [[ -d build ]]; then \
 		rm -r build; fi
+	@if [[ -d build-win ]]; then \
+		rm -r build-win; fi
 
 submit:
 	$(eval TEMP := $(shell mktemp -d))
