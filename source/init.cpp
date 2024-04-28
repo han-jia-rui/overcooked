@@ -70,22 +70,22 @@ void init_read() {
   }
 
   /* 读入玩家信息：初始坐标 */
-  ss >> Player_cnt;
-  assert(Player_cnt == 2);
-  Player.resize(Player_cnt);
-  for (int i = 0; i < Player_cnt; i++) {
-    ss >> Player[i].x >> Player[i].y;
-    Player[i].containerKind = Container_T::None;
-    Player[i].entity.clear();
-  }
-
-  /* 读入实体信息：坐标、实体组成 */
-  ss >> Entity_cnt;
-  Entity.resize(Entity_cnt);
-  for (int i = 0; i < Entity_cnt; i++) {
-    ss >> Entity[i].x >> Entity[i].y >> s;
-    Entity[i].entity.push_back(s);
-  }
+  // ss >> Player_cnt;
+  // assert(Player_cnt == 2);
+  // Player.resize(Player_cnt);
+  // for (int i = 0; i < Player_cnt; i++) {
+  //   ss >> Player[i].x >> Player[i].y;
+  //   Player[i].containerKind = Container_T::None;
+  //   Player[i].entity.clear();
+  // }
+  //
+  // /* 读入实体信息：坐标、实体组成 */
+  // ss >> Entity_cnt;
+  // Entity.resize(Entity_cnt);
+  // for (int i = 0; i < Entity_cnt; i++) {
+  //   ss >> Entity[i].x >> Entity[i].y >> s;
+  //   Entity[i].entity.push_back(s);
+  // }
 }
 
 bool frame_read(int nowFrame) {
