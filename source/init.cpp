@@ -2,7 +2,6 @@
 #include <init.h>
 #include <iostream>
 #include <sstream>
-#include <vector>
 
 int width, height;
 vector<vector<char>> map;
@@ -27,7 +26,7 @@ void init_read() {
 
   /* 读取初始地图信息 */
   getline(std::cin, s, '\0');
-  stringstream ss(s);
+  // stringstream ss(s);
 
   // ss >> width >> height;
   // map.resize(height);
