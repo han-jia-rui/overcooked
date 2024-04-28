@@ -7,7 +7,7 @@ int Order_cnt;
 vector<Order_T> Order;
 int remainFrame, Fund;
 
-bool frame_check(int Frame_cur) {
+bool frame_update(int Frame_cur) {
   string s;
   stringstream ss;
   getline(cin, s, '\0');

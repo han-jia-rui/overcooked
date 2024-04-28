@@ -1,5 +1,5 @@
-#include <init.h>
 #include <frame.h>
+#include <init.h>
 #include <iostream>
 
 int main() {
@@ -10,8 +10,7 @@ int main() {
   init();
 
   for (int i = 0; i < totalFrame; i++) {
-    bool skip = frame_check(i);
-    if (skip)
+    if (frame_update(i))
       continue;
 
     /* 输出当前帧的操作，此处仅作示例 */
