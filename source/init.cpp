@@ -4,6 +4,7 @@
 #include <sstream>
 
 Map_T Map;
+int width,height;
 int Ingredient_cnt;
 vector<Ingredient_T> Ingredient;
 int Recipe_cnt;
@@ -26,7 +27,7 @@ void init_read() {
   getline(std::cin, s, '\0');
   stringstream ss(s);
 
-  ss >> Map.width >> Map.height;
+  ss >> width >> height;
   Map.map.resize(Map.height);
   for (int i = 0; i < Map.height; i++){
     Map.map[i].resize(Map.width);
