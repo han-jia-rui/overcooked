@@ -31,14 +31,10 @@ void init_read() {
   for (int i = 0; i < Map.height; i++)
     for (int j = 0; j < Map.width; j++)
       ss >> Map.map[i][j];
-  vector<char> test;
-  test.reserve(10);
-  for (int i = 0; i < test.size(); i++)
-    ss >> test[i];
 
   /* 读入原料箱：位置、名字、以及采购单价 */
-  // ss >> Ingredient_cnt;
-  // Ingredient.resize(Ingredient_cnt);
+  ss >> Ingredient_cnt;
+  Ingredient.resize(Ingredient_cnt);
   // for (int i = 0; i < Ingredient_cnt; i++) {
   //   ss >> s;
   //   assert(s == "IngredientBox");
