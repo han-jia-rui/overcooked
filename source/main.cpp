@@ -3,17 +3,10 @@
 #include <iostream>
 
 int main() {
-  ios::sync_with_stdio(false);
   cerr.tie(nullptr);
   cerr << std::nounitbuf;
-  int frame;
 
   init();
-
-  /*
-      你可以在读入后进行一些相关预处理，时间限制：5秒钟
-      init();
-  */
 
   for (int i = 0; i < totalFrame; i++) {
     bool skip = frame_read(i);

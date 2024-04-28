@@ -65,6 +65,7 @@ struct Entity_T {
   int sum;
 };
 
+// init.cpp
 extern int width, height;
 extern vector<vector<char>> map;
 extern int Ingredient_cnt;
@@ -74,16 +75,18 @@ extern vector<Recipe_T> Recipe;
 extern int totalFrame, randomizeSeed;
 extern int OrderTable_cnt;
 extern vector<Order_T> OrderTable;
-extern int Order_cnt;
-extern vector<Order_T> Order;
 extern int Player_cnt;
 extern vector<Player_T> Player;
 extern int Entity_cnt;
 extern vector<Entity_T> Entity;
+
+// frame.cpp
+extern int Order_cnt;
+extern vector<Order_T> Order;
 extern int remainFrame, Fund;
 
+// common.cpp
 Tile_T getTileKind(char kindChar);
-
 inline char getAbbrev(Tile_T kind);
 
 #endif
