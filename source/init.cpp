@@ -38,8 +38,8 @@ void init_read() {
   for (int i = 0; i < Ingredient_cnt; i++) {
     ss >> s;
     assert(s == "IngredientBox");
-  //   ss >> Ingredient[i].x >> Ingredient[i].y >> Ingredient[i].name >>
-  //       Ingredient[i].price;
+    ss >> Ingredient[i].x >> Ingredient[i].y >> Ingredient[i].name >>
+        Ingredient[i].price;
   }
   //
   // /* 读入配方：加工时间、加工前的字符串表示、加工容器、加工后的字符串表示 */
