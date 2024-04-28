@@ -15,7 +15,7 @@ int main() {
 
     /* 输出当前帧的操作，此处仅作示例 */
     cout << "Frame " << i << "\n";
-    string player0_Action = move(Player[0], 9, 9);
+    string player0_Action = move(Player[0], 8, 8);
     string player1_Action = "Move D";
 
     /* 合成一个字符串再输出，否则输出有可能会被打断 */
