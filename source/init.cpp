@@ -12,13 +12,10 @@ vector<Recipe_T> Recipe;
 int totalFrame, randomizeSeed;
 int OrderTable_cnt;
 vector<Order_T> OrderTable;
-int Order_cnt;
-vector<Order_T> Order;
 int Player_cnt;
 vector<Player_T> Player;
 int Entity_cnt;
 vector<Entity_T> Entity;
-int remainFrame, Fund;
 
 static void read() {
   string s;

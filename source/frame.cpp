@@ -3,6 +3,10 @@
 #include <iostream>
 #include <sstream>
 
+int Order_cnt;
+vector<Order_T> Order;
+int remainFrame, Fund;
+
 bool frame_read(int nowFrame) {
   string s;
   stringstream ss;
