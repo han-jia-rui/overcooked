@@ -3,6 +3,6 @@
 
 #include <common.h>
 
-void move(double x, double y);
+string move(Player_T palyer, double x, double y);
 
 #endif
