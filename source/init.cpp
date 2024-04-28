@@ -30,33 +30,33 @@ void init_read() {
   stringstream ss(s);
 
   ss >> width >> height;
-  map.resize(height);
-  for (int i = 0; i < height; i++) {
-    map[i].resize(width);
-    for (int j = 0; j < width; j++)
-      ss >> map[i][j];
-  }
+  // map.resize(height);
+  // for (int i = 0; i < height; i++) {
+  //   map[i].resize(width);
+  //   for (int j = 0; j < width; j++)
+  //     ss >> map[i][j];
+  // }
+  //
+  // /* 读入原料箱：位置、名字、以及采购单价 */
+  // ss >> Ingredient_cnt;
+  // Ingredient.resize(Ingredient_cnt);
+  // for (int i = 0; i < Ingredient_cnt; i++) {
+  //   ss >> s;
+  //   assert(s == "IngredientBox");
+  //   ss >> Ingredient[i].x >> Ingredient[i].y >> Ingredient[i].name >>
+  //       Ingredient[i].price;
+  // }
 
-  /* 读入原料箱：位置、名字、以及采购单价 */
-  ss >> Ingredient_cnt;
-  Ingredient.resize(Ingredient_cnt);
-  for (int i = 0; i < Ingredient_cnt; i++) {
-    ss >> s;
-    assert(s == "IngredientBox");
-    ss >> Ingredient[i].x >> Ingredient[i].y >> Ingredient[i].name >>
-        Ingredient[i].price;
-  }
-
-  /* 读入配方：加工时间、加工前的字符串表示、加工容器、加工后的字符串表示 */
-  ss >> Recipe_cnt;
-  Recipe.resize(Recipe_cnt);
-  for (int i = 0; i < Recipe_cnt; i++) {
-    ss >> Recipe[i].time >> Recipe[i].nameBefore >> Recipe[i].operation >>
-        Recipe[i].nameAfter;
-  }
-
-  /* 读入总帧数、当前采用的随机种子、一共可能出现的订单数量 */
-  ss >> totalFrame >> randomizeSeed;
+  // /* 读入配方：加工时间、加工前的字符串表示、加工容器、加工后的字符串表示 */
+  // ss >> Recipe_cnt;
+  // Recipe.resize(Recipe_cnt);
+  // for (int i = 0; i < Recipe_cnt; i++) {
+  //   ss >> Recipe[i].time >> Recipe[i].nameBefore >> Recipe[i].operation >>
+  //       Recipe[i].nameAfter;
+  // }
+  //
+  // /* 读入总帧数、当前采用的随机种子、一共可能出现的订单数量 */
+  // ss >> totalFrame >> randomizeSeed;
 
   // ss >> OrderTable_cnt;
   // /* 读入订单的有效帧数、价格、权重、订单组成 */
