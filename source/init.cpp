@@ -24,7 +24,7 @@ void init_read() {
 
   /* 读取初始地图信息 */
   getline(std::cin, s, '\0');
-  // stringstream ss(s);
+  stringstream ss(s);
   //
   // ss >> Map.width >> Map.height;
   // cerr << "Map size: " << Map.width << "x" << Map.height << endl;
