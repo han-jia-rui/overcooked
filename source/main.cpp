@@ -12,7 +12,7 @@ int main()
     stringstream ss;
     int frame;
 
-    // init_read();
+    init_read();
 
     /*
         你可以在读入后进行一些相关预处理，时间限制：5秒钟
