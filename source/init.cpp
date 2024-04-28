@@ -32,7 +32,7 @@ static void read() {
     for (int j = 0; j < width; j++){
       char ch;
       ss >> ch;
-      map[i][j] = getTileKind(ch);
+      map[j][i] = getTileKind(ch);
     }
   }
 
