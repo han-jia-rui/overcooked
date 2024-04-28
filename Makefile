@@ -17,8 +17,8 @@ all:
 	@make -C build-win
 
 clean:
-	@if [[ -d build ]]; then \
-		rm -r build; fi
+	# @if [[ -d build ]]; then \
+	# 	rm -r build; fi
 	@if [[ -d build-win ]]; then \
 		rm -r build-win; fi
 
