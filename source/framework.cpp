@@ -1,4 +1,4 @@
-#include <enum.h>
+#include <common.h>
 #include <framework.h>
 #include <string>
 #include <iostream>
@@ -77,7 +77,7 @@ void init_read()
     for (int i = 0; i < k; i++)
     {
         ss >> Players[i].x >> Players[i].y;
-        Players[i].containerKind = ContainerKind::None;
+        Players[i].containerKind = Container_T::None;
         Players[i].entity.clear();
     }
 
@@ -134,7 +134,7 @@ bool frame_read(int nowFrame)
         ss >> Players[i].x >> Players[i].y >> Players[i].X_Velocity >> Players[i].Y_Velocity >> Players[i].live;
         getline(ss, s);
         std::stringstream tmp(s);
-        Players[i].containerKind = ContainerKind::None;
+        Players[i].containerKind = Container_T::None;
         Players[i].entity.clear();
         while (tmp >> s)
         {
@@ -157,9 +157,9 @@ bool frame_read(int nowFrame)
                 Todo: 其他容器
             */
             if (s == "Plate")
-                Players[i].containerKind = ContainerKind::Plate;
+                Players[i].containerKind = Container_T::Plate;
             else if (s == "DirtyPlates")
-                Players[i].containerKind = ContainerKind::DirtyPlates;
+                Players[i].containerKind = Container_T::DirtyPlates;
             else
                 Players[i].entity.push_back(s);
         }
@@ -172,7 +172,7 @@ bool frame_read(int nowFrame)
         ss >> Entity[i].x >> Entity[i].y;
         getline(ss, s);
         std::stringstream tmp(s);
-        Entity[i].containerKind = ContainerKind::None;
+        Entity[i].containerKind = Container_T::None;
         Entity[i].entity.clear();
         Entity[i].currentFrame = Entity[i].totalFrame = 0;
         Entity[i].sum = 1;
@@ -200,10 +200,10 @@ bool frame_read(int nowFrame)
                 Todo: 其他容器
             */
             if (s == "Plate")
-                Entity[i].containerKind = ContainerKind::Plate;
+                Entity[i].containerKind = Container_T::Plate;
             else if (s == "DirtyPlates")
             {
-                Entity[i].containerKind = ContainerKind::DirtyPlates;
+                Entity[i].containerKind = Container_T::DirtyPlates;
                 tmp >> Entity[i].sum;
             }
             else

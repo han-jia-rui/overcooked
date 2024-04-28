@@ -3,7 +3,7 @@
 
 #include <string>
 #include <vector>
-#include <enum.h>
+#include <common.h>
 
 struct Ingredient
 {
@@ -32,14 +32,14 @@ struct Player
     double X_Velocity;
     double Y_Velocity;
     int live;
-    ContainerKind containerKind;
+    Container_T containerKind;
     std::vector<std::string> entity;
 };
 
 struct Entity
 {
     double x, y;
-    ContainerKind containerKind;
+    Container_T containerKind;
     std::vector<std::string> entity;
     int currentFrame, totalFrame;
     int sum;
