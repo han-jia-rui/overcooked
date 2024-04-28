@@ -4,9 +4,9 @@
 #include <sstream>
 
 Map_T map;
-extern int IngredientCount;
+int IngredientCount;
 vector<Ingredient_T> Ingredient;
-extern int RecipeCount;
+int RecipeCount;
 vector<Recipe_T> Recipe;
 int totalTime, randomizeSeed, totalOrderCount;
 struct Order_T totalOrder[20 + 5];
