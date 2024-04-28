@@ -99,6 +99,7 @@ bool frame_read(int nowFrame) {
     return true;
   }
   ss >> s;
+  cerr << s << flush;
   assert(s == "Frame");
   int currentFrame;
   ss >> currentFrame;
