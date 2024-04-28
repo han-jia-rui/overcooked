@@ -10,7 +10,7 @@ int main() {
   init();
 
   for (int i = 0; i < totalFrame; i++) {
-    bool skip = frame_read(i);
+    bool skip = frame_check(i);
     if (skip)
       continue;
 

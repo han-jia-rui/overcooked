@@ -3,6 +3,6 @@
 
 #include <common.h>
 
-bool frame_read(int nowFrame);
+bool frame_check(int nowFrame);
 
 #endif

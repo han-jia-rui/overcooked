@@ -7,7 +7,7 @@ int Order_cnt;
 vector<Order_T> Order;
 int remainFrame, Fund;
 
-bool frame_read(int nowFrame) {
+bool frame_check(int nowFrame) {
   string s;
   stringstream ss;
   int frame;
