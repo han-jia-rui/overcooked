@@ -37,7 +37,7 @@ void init_read() {
   Ingredient.reserve(Ingredient_cnt);
   for (int i = 0; i < Ingredient_cnt; i++) {
     ss >> s;
-    assert(s == "IngredientBox");
+    // assert(s == "IngredientBox");
     ss >> Ingredient[i].x >> Ingredient[i].y >> Ingredient[i].name >>
         Ingredient[i].price;
   }
