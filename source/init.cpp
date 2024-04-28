@@ -4,7 +4,6 @@
 #include <sstream>
 #include <vector>
 
-Map_T Map;
 int width,height;
 vector<vector<char>> map;
 int Ingredient_cnt;
