@@ -29,7 +29,7 @@ void init_read() {
   getline(std::cin, s, '\0');
   stringstream ss(s);
 
-  ss >> width >> height;
+  // ss >> width >> height;
   // map.resize(height);
   // for (int i = 0; i < height; i++) {
   //   map[i].resize(width);
