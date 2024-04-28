@@ -1,10 +1,12 @@
+#include <cassert>
 #include <common.h>
+#include <iostream>
 
-Tile_T getTileKind(char kindChar) {
-  if (isalpha(kindChar) && isupper(kindChar))
+Tile_T getTileKind(char ch) {
+  if (isalpha(ch) && isupper(ch))
     return Tile_T::IngredientBox;
   else
-    switch (kindChar) {
+    switch (ch) {
     case '_':
       return Tile_T::Void;
     case '.':
@@ -26,8 +28,10 @@ Tile_T getTileKind(char kindChar) {
     case 'r':
       return Tile_T::PlateRack;
     default:
+      cerr << "Wrong Char :" << ch << endl;
       assert(0);
     }
+  assert(0);
 }
 
 char getAbbrev(Tile_T kind) {
@@ -51,4 +55,5 @@ char getAbbrev(Tile_T kind) {
   default:
     assert(0);
   }
+  assert(0);
 }
