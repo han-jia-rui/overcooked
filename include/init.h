@@ -1,5 +1,5 @@
-#ifndef FRAMEWORK_H
-#define FRAMEWORK_H
+#ifndef INIT_H
+#define INIT_H
 
 #include <common.h>
 /* 初始化时的读入。 */
