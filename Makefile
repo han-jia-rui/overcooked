@@ -1,4 +1,4 @@
-.PHONY: all clean run test submit
+.PHONY: all clean run test play submit
 .DEFAULT_GOAL := all
 TOKEN ?= submit
 SHELL := /bin/bash
@@ -27,6 +27,9 @@ run: all
 
 test: all
 	@cd ../QtOvercooked && wine runner.exe -p ../overcooked-2022/build-win/main-win.exe -l $(shell find ../overcooked-2022/maps -name "level${LEVEL}-${MAP}.txt")
+
+play:
+	@cd ../QtOvercooked && wine QtOvercooked.exe -l $(shell find ../overcooked-2022/maps -name "level${LEVEL}-${MAP}.txt")
 
 submit:
 	$(eval TEMP := $(shell mktemp -d))
