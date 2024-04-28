@@ -3,7 +3,8 @@
 #include <iostream>
 #include <sstream>
 
-Map_T Map;
+int width, height;
+vector<vector<int>> map;
 int Ingredient_cnt;
 vector<Ingredient_T> Ingredient;
 int Recipe_cnt;
@@ -26,13 +27,12 @@ void init_read() {
   getline(std::cin, s, '\0');
   stringstream ss(s);
 
-  ss >> Map.width >> Map.height;
-  Map.map.resize(Map.height);
-
-  for (int i = 0; i < Map.height; i++){
-    Map.map[i].resize(Map.width);
-    for (int j = 0; j < Map.width; j++)
-      ss >> Map.map[i][j];
+  ss >> width >> height;
+  map.resize(height);
+  for (int i = 0; i < height; i++){
+    map[i].resize(width);
+    for (int j = 0; j < width; j++)
+      ss >> map[i][j];
   }
 
   /* 读入原料箱：位置、名字、以及采购单价 */
