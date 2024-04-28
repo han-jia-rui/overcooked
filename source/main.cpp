@@ -16,7 +16,7 @@ int main() {
 
     /* 输出当前帧的操作，此处仅作示例 */
     cout << "Frame " << i << "\n";
-    string player0_Action = ;
+    string player0_Action = getIngredient(Player[0], Ingredient[0]);
     string player1_Action = Pick(Player[1], Entity[3]);
 
     /* 合成一个字符串再输出，否则输出有可能会被打断 */
