@@ -50,34 +50,34 @@ void init_read() {
   //       Recipe[i].nameAfter;
   // }
   //
-  // /* 读入总帧数、当前采用的随机种子、一共可能出现的订单数量 */
-  // ss >> totalTime >> randomizeSeed >> totalOrderCount;
-  //
-  // /* 读入订单的有效帧数、价格、权重、订单组成 */
-  // for (int i = 0; i < totalOrderCount; i++) {
-  //   ss >> totalOrder[i].validFrame >> totalOrder[i].price >>
-  //       totalOrder[i].frequency;
-  //   getline(ss, s);
-  //   std::stringstream tmp(s);
-  //   while (tmp >> s)
-  //     totalOrder[i].recipe.push_back(s);
-  // }
-  //
-  // /* 读入玩家信息：初始坐标 */
-  // ss >> k;
-  // assert(k == 2);
-  // for (int i = 0; i < k; i++) {
-  //   ss >> Players[i].x >> Players[i].y;
-  //   Players[i].containerKind = Container_T::None;
-  //   Players[i].entity.clear();
-  // }
-  //
-  // /* 读入实体信息：坐标、实体组成 */
-  // ss >> entityCount;
-  // for (int i = 0; i < entityCount; i++) {
-  //   ss >> Entity[i].x >> Entity[i].y >> s;
-  //   Entity[i].entity.push_back(s);
-  // }
+  /* 读入总帧数、当前采用的随机种子、一共可能出现的订单数量 */
+  ss >> totalTime >> randomizeSeed >> totalOrderCount;
+
+  /* 读入订单的有效帧数、价格、权重、订单组成 */
+  for (int i = 0; i < totalOrderCount; i++) {
+    ss >> totalOrder[i].validFrame >> totalOrder[i].price >>
+        totalOrder[i].frequency;
+    getline(ss, s);
+    std::stringstream tmp(s);
+    while (tmp >> s)
+      totalOrder[i].recipe.push_back(s);
+  }
+
+  /* 读入玩家信息：初始坐标 */
+  ss >> k;
+  assert(k == 2);
+  for (int i = 0; i < k; i++) {
+    ss >> Players[i].x >> Players[i].y;
+    Players[i].containerKind = Container_T::None;
+    Players[i].entity.clear();
+  }
+
+  /* 读入实体信息：坐标、实体组成 */
+  ss >> entityCount;
+  for (int i = 0; i < entityCount; i++) {
+    ss >> Entity[i].x >> Entity[i].y >> s;
+    Entity[i].entity.push_back(s);
+  }
 }
 
 bool frame_read(int nowFrame) {
