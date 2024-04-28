@@ -26,7 +26,6 @@ static void read() {
   stringstream ss(s);
 
   ss >> width >> height;
-  cerr << "1" << endl;
   map.resize(height);
   for (int i = 0; i < height; i++) {
     map[i].resize(width);
@@ -40,7 +39,6 @@ static void read() {
     }
   }
 
-  cerr << "2" << endl;
   /* 读入原料箱：位置、名字、以及采购单价 */
   ss >> Ingredient_cnt;
   Ingredient.resize(Ingredient_cnt);
