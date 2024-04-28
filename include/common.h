@@ -14,6 +14,13 @@ enum class Container_T {
   DirtyPlates,
 };
 
+enum class Face_T {
+  UP,
+  DOWN,
+  LEFT,
+  RIGHT,
+};
+
 enum class Tile_T {
   None,
   Void,
@@ -32,6 +39,7 @@ enum class Tile_T {
 
 struct Coordinate_T {
   double x, y;
+  Face_T face;
 };
 
 struct Ingredient_T {

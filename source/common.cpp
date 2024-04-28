@@ -1,12 +1,13 @@
 #include <common.h>
 
-static int dx[4] = {0, 1, 0, -1}, dy[4] = {1, 0, -1, 0};
+static int dx[4] = {0, 0, -1, 1}, dy[4] = {-1, 1, 0, 0};
 
 Coordinate_T getNearestPosition(int x, int y) {
   Coordinate_T ret;
   if (map[x][y] == Tile_T::Floor) {
     ret.x = double(x) + 0.5;
     ret.y = double(y) + 0.5;
+    ret.face = Face_T(0);
     return ret;
   } else {
     for (int i = 0; i < 4; i++) {
@@ -15,6 +16,7 @@ Coordinate_T getNearestPosition(int x, int y) {
         if (map[nx][ny] == Tile_T::Floor) {
           ret.x = double(nx) + 0.5;
           ret.y = double(ny) + 0.5;
+          ret.face = Face_T(i);
           return ret;
         }
       }

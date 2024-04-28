@@ -26,5 +26,18 @@ string Pick(Player_T palyer, Entity_T entity) {
   string s = "";
   Coordinate_T coord = getNearestPosition(entity.coord.x, entity.coord.y);
   s = Move(palyer, coord.x, coord.y);
+  if (s == "Move ") {
+    s = "PutOrPick ";
+  }
+  switch (coord.face) {
+  case Face_T::UP:
+    s += "D";
+  case Face_T::DOWN:
+    s += "U";
+  case Face_T::LEFT:
+    s += "R";
+  case Face_T::RIGHT:
+    s += "L";
+  }
   return s;
 }
