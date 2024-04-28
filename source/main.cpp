@@ -1,6 +1,6 @@
 #include <init.h>
+#include <frame.h>
 #include <iostream>
-#include <string>
 
 int main() {
   ios::sync_with_stdio(false);
