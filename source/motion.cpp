@@ -32,12 +32,16 @@ string Pick(Player_T palyer, Entity_T entity) {
   switch (coord.face) {
   case Face_T::UP:
     s += "D";
+    break;
   case Face_T::DOWN:
     s += "U";
+    break;
   case Face_T::LEFT:
     s += "R";
+    break;
   case Face_T::RIGHT:
     s += "L";
+    break;
   }
   return s;
 }
