@@ -23,7 +23,8 @@ clean:
 		rm -r build-win; fi
 
 run:all
-	@wine ../QtOvercooked/QtOvercooked.exe -p ./build-win/main-win.exe -l $(shell find ./maps -name "level${LEVEL}-${MAP}.txt")
+	@echo $(shell find ./maps -name "level${LEVEL}-${MAP}.txt")
+	# @wine ../QtOvercooked/QtOvercooked.exe -p ./build-win/main-win.exe -l $(shell find ./maps -name "level${LEVEL}-${MAP}.txt")
 
 
 submit:
