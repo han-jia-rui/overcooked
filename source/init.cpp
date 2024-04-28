@@ -35,6 +35,7 @@ void init_read() {
     for (int j = 0; j < Map.width; j++)
       ss >> Map.map[i][j];
 
+  cerr << "HERE\n" << flush;
   /* 读入原料箱：位置、名字、以及采购单价 */
   ss >> Ingredient_cnt;
   Ingredient.reserve(Ingredient_cnt);
@@ -56,6 +57,7 @@ void init_read() {
   /* 读入总帧数、当前采用的随机种子、一共可能出现的订单数量 */
   ss >> totalTime >> randomizeSeed >> totalOrderCount;
 
+  cerr << "HERE\n" << flush;
   /* 读入订单的有效帧数、价格、权重、订单组成 */
   for (int i = 0; i < totalOrderCount; i++) {
     ss >> totalOrder[i].validFrame >> totalOrder[i].price >>
