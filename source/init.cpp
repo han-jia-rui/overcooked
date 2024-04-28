@@ -58,16 +58,16 @@ void init_read() {
   /* 读入总帧数、当前采用的随机种子、一共可能出现的订单数量 */
   ss >> totalFrame >> randomizeSeed;
 
-  ss >> OrderTable_cnt;
-  /* 读入订单的有效帧数、价格、权重、订单组成 */
-  OrderTable.resize(OrderTable_cnt);
-  for (int i = 0; i < OrderTable_cnt; i++) {
-    ss >> OrderTable[i].validFrame >> OrderTable[i].price >> OrderTable[i].frequency;
-    getline(ss, s);
-    std::stringstream tmp(s);
-    while (tmp >> s)
-      OrderTable[i].require.push_back(s);
-  }
+  // ss >> OrderTable_cnt;
+  // /* 读入订单的有效帧数、价格、权重、订单组成 */
+  // OrderTable.resize(OrderTable_cnt);
+  // for (int i = 0; i < OrderTable_cnt; i++) {
+  //   ss >> OrderTable[i].validFrame >> OrderTable[i].price >> OrderTable[i].frequency;
+  //   getline(ss, s);
+  //   std::stringstream tmp(s);
+  //   while (tmp >> s)
+  //     OrderTable[i].require.push_back(s);
+  // }
 
   /* 读入玩家信息：初始坐标 */
   // ss >> Player_cnt;
