@@ -34,7 +34,7 @@ void init_read() {
 
   /* 读入原料箱：位置、名字、以及采购单价 */
   ss >> Ingredient_cnt;
-  Ingredient.reserve(Ingredient_cnt);
+  Ingredient.resize(Ingredient_cnt);
   for (int i = 0; i < Ingredient_cnt; i++) {
     ss >> s;
     // assert(s == "IngredientBox");
