@@ -47,7 +47,7 @@ void frame_update(int Frame_cur) {
   assert(Player_cnt == 2);
   /* 读入玩家坐标、x方向速度、y方向速度、剩余复活时间 */
   for (int i = 0; i < Player_cnt; i++) {
-    ss >> Player[i].x >> Player[i].y >> Player[i].vx >>
+    ss >> Player[i].coordinate.x >> Player[i].coordinate.y >> Player[i].vx >>
         Player[i].vy >> Player[i].live;
     getline(ss, s);
     stringstream tmp(s);
