@@ -28,10 +28,10 @@ void init_read() {
   stringstream ss(s);
 
   ss >> width >> height;
-  Map.map.resize(Map.height);
-  for (int i = 0; i < Map.height; i++){
-    Map.map[i].resize(Map.width);
-    for (int j = 0; j < Map.width; j++)
+  Map.map.resize(height);
+  for (int i = 0; i < height; i++){
+    Map.map[i].resize(width);
+    for (int j = 0; j < width; j++)
       ss >> Map.map[i][j];
   }
 
