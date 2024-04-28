@@ -2,7 +2,7 @@
 #include <move.h>
 #include <string>
 
-string move(Player_T player, int x, int y){
+string move(Player_T player, double x, double y){
   string s = "Move";
   return s;
 }
