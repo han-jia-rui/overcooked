@@ -65,6 +65,8 @@ struct Entity_T {
   int sum;
 };
 
+extern int width,height;
+extern vector<vector<char>> map;
 extern int Ingredient_cnt;
 extern vector<Ingredient_T> Ingredient;
 extern int Recipe_cnt;
