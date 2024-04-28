@@ -111,16 +111,17 @@ bool frame_read(int nowFrame) {
   assert(currentFrame == nowFrame);
   ss >> remainFrame >> Fund;
   /* 读入当前的订单剩余帧数、价格、以及配方 */
-  // ss >> Order_cnt;
-  // for (int i = 0; i < Order_cnt; i++) {
-  //   ss >> Order[i].validFrame >> Order[i].price;
-  //   Order[i].require.clear();
-  //   getline(ss, s);
-  //   std::stringstream tmp(s);
-  //   while (tmp >> s) {
-  //     Order[i].require.push_back(s);
-  //   }
-  // }
+  ss >> Order_cnt;
+  Order.resize(Order_cnt);
+  for (int i = 0; i < Order_cnt; i++) {
+    ss >> Order[i].validFrame >> Order[i].price;
+    Order[i].require.clear();
+    getline(ss, s);
+    std::stringstream tmp(s);
+    while (tmp >> s) {
+      Order[i].require.push_back(s);
+    }
+  }
   // ss >> Player_cnt;
   // assert(Player_cnt == 2);
   // /* 读入玩家坐标、x方向速度、y方向速度、剩余复活时间 */
