@@ -1,5 +1,4 @@
 #include <common.h>
-#include <iostream>
 #include <math.h>
 #include <motion.h>
 
@@ -26,7 +25,6 @@ string Move(Player_T player, double x, double y) {
 string Pick(Player_T palyer, Entity_T entity) {
   string s = "";
   Coordinate_T coord = getNearestPosition(entity.coord.x, entity.coord.y);
-  cerr << "x = " << coord.x << ", y = " << coord.y << endl;
   s = Move(palyer, coord.x, coord.y);
   return s;
 }
