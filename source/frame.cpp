@@ -47,8 +47,8 @@ void frame_update(int Frame_cur) {
   assert(Player_cnt == 2);
   /* 读入玩家坐标、x方向速度、y方向速度、剩余复活时间 */
   for (int i = 0; i < Player_cnt; i++) {
-    ss >> Player[i].x >> Player[i].y >> Player[i].X_Velocity >>
-        Player[i].Y_Velocity >> Player[i].live;
+    ss >> Player[i].x >> Player[i].y >> Player[i].vx >>
+        Player[i].vy >> Player[i].live;
     getline(ss, s);
     stringstream tmp(s);
     Player[i].Container_hold = Container_T::None;
@@ -74,7 +74,7 @@ void frame_update(int Frame_cur) {
     ss >> Entity[i].x >> Entity[i].y;
     getline(ss, s);
     std::stringstream tmp(s);
-    Entity[i].containerKind = Container_T::None;
+    Entity[i].container = Container_T::None;
     Entity[i].entity.clear();
     Entity[i].currentFrame = Entity[i].totalFrame = 0;
     Entity[i].sum = 1;
@@ -100,9 +100,9 @@ void frame_update(int Frame_cur) {
           Todo: 其他容器
       */
       if (s == "Plate")
-        Entity[i].containerKind = Container_T::Plate;
+        Entity[i].container = Container_T::Plate;
       else if (s == "DirtyPlates") {
-        Entity[i].containerKind = Container_T::DirtyPlates;
+        Entity[i].container = Container_T::DirtyPlates;
         tmp >> Entity[i].sum;
       } else
         Entity[i].entity.push_back(s);

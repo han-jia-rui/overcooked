@@ -50,8 +50,8 @@ struct Order_T {
 
 struct Player_T {
   double x, y;
-  double X_Velocity;
-  double Y_Velocity;
+  double vx;
+  double vy;
   int live;
   Container_T Container_hold;
   vector<string> entity;
@@ -59,7 +59,7 @@ struct Player_T {
 
 struct Entity_T {
   double x, y;
-  Container_T containerKind;
+  Container_T container;
   vector<string> entity;
   int currentFrame, totalFrame;
   int sum;
