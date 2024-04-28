@@ -2,7 +2,6 @@
 #include <init.h>
 #include <iostream>
 #include <sstream>
-#include <vector>
 
 int width, height;
 vector<vector<char>> map;
@@ -21,7 +20,7 @@ int Entity_cnt;
 vector<Entity_T> Entity;
 int remainFrame, Fund;
 
-void init_read() {
+static void read() {
   string s;
   int frame;
 
@@ -62,7 +61,8 @@ void init_read() {
   /* 读入订单的有效帧数、价格、权重、订单组成 */
   OrderTable.resize(OrderTable_cnt);
   for (int i = 0; i < OrderTable_cnt; i++) {
-    ss >> OrderTable[i].validFrame >> OrderTable[i].price >> OrderTable[i].frequency;
+    ss >> OrderTable[i].validFrame >> OrderTable[i].price >>
+        OrderTable[i].frequency;
     getline(ss, s);
     std::stringstream tmp(s);
     while (tmp >> s)
@@ -100,11 +100,11 @@ bool frame_read(int nowFrame) {
   */
   if (cin.rdbuf()->in_avail() > 0) {
     cerr << "Warning: skipping frame " << nowFrame
-              << " to catch up with the game" << endl;
+         << " to catch up with the game" << endl;
+    assert(0);
     return true;
   }
   ss >> s;
-  // cerr<< "string = " << s << endl;
   assert(s == "Frame");
   int currentFrame;
   ss >> currentFrame;
@@ -202,3 +202,5 @@ bool frame_read(int nowFrame) {
   }
   return false;
 }
+
+void init() { read(); }

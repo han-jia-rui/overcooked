@@ -8,15 +8,13 @@ int main() {
   cerr << std::nounitbuf;
   int frame;
 
-  init_read();
+  init();
 
   /*
       你可以在读入后进行一些相关预处理，时间限制：5秒钟
       init();
   */
-  cerr << "HERE" << endl;
 
-  int totalFrame = 14400;
   for (int i = 0; i < totalFrame; i++) {
     bool skip = frame_read(i);
     if (skip)
