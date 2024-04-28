@@ -45,7 +45,7 @@ struct Order_T {
   int validFrame;
   int price;
   int frequency;
-  vector<std::string> recipe;
+  vector<string> require;
 };
 
 struct Player_T {
@@ -54,31 +54,32 @@ struct Player_T {
   double Y_Velocity;
   int live;
   Container_T containerKind;
-  vector<std::string> entity;
+  vector<string> entity;
 };
 
 struct Entity_T {
   double x, y;
   Container_T containerKind;
-  vector<std::string> entity;
+  vector<string> entity;
   int currentFrame, totalFrame;
   int sum;
 };
 
-extern int width,height;
+extern int width, height;
 extern vector<vector<char>> map;
 extern int Ingredient_cnt;
 extern vector<Ingredient_T> Ingredient;
 extern int Recipe_cnt;
 extern vector<Recipe_T> Recipe;
-extern int totalTime, randomizeSeed, totalOrderCount;
-extern struct Order_T totalOrder[20 + 5];
-extern int orderCount;
-extern struct Order_T Order[20 + 5];
-extern int k;
-extern struct Player_T Players[2 + 5];
-extern int entityCount;
-extern struct Entity_T Entity[20 + 5];
+extern int totalFrame, randomizeSeed;
+extern int OrderTable_cnt;
+extern vector<Order_T> OrderTable;
+extern int Order_cnt;
+extern vector<Order_T> Order;
+extern int Player_cnt;
+extern vector<Player_T> Player;
+extern int Entity_cnt;
+extern vector<Entity_T> Entity;
 extern int remainFrame, Fund;
 
 Tile_T getTileKind(char kindChar);

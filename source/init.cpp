@@ -4,20 +4,21 @@
 #include <sstream>
 #include <vector>
 
-int width,height;
+int width, height;
 vector<vector<char>> map;
 int Ingredient_cnt;
 vector<Ingredient_T> Ingredient;
 int Recipe_cnt;
 vector<Recipe_T> Recipe;
-int totalTime, randomizeSeed, totalOrderCount;
-struct Order_T totalOrder[20 + 5];
-int orderCount;
-struct Order_T Order[20 + 5];
-int k;
-struct Player_T Players[2 + 5];
-int entityCount;
-struct Entity_T Entity[20 + 5];
+int totalFrame, randomizeSeed;
+int OrderTable_cnt;
+vector<Order_T> OrderTable;
+int Order_cnt;
+vector<Order_T> Order;
+int Player_cnt;
+vector<Player_T> Player;
+int Entity_cnt;
+vector<Entity_T> Entity;
 int remainFrame, Fund;
 
 void init_read() {
@@ -30,7 +31,7 @@ void init_read() {
 
   ss >> width >> height;
   map.resize(height);
-  for (int i = 0; i < height; i++){
+  for (int i = 0; i < height; i++) {
     map[i].resize(width);
     for (int j = 0; j < width; j++)
       ss >> map[i][j];
@@ -55,30 +56,33 @@ void init_read() {
   }
 
   /* 读入总帧数、当前采用的随机种子、一共可能出现的订单数量 */
-  ss >> totalTime >> randomizeSeed >> totalOrderCount;
+  ss >> totalFrame >> randomizeSeed;
 
+  ss >> OrderTable_cnt;
   /* 读入订单的有效帧数、价格、权重、订单组成 */
-  for (int i = 0; i < totalOrderCount; i++) {
-    ss >> totalOrder[i].validFrame >> totalOrder[i].price >>
-        totalOrder[i].frequency;
+  OrderTable.resize(OrderTable_cnt);
+  for (int i = 0; i < OrderTable_cnt; i++) {
+    ss >> OrderTable[i].validFrame >> OrderTable[i].price >> OrderTable[i].frequency;
     getline(ss, s);
     std::stringstream tmp(s);
     while (tmp >> s)
-      totalOrder[i].recipe.push_back(s);
+      OrderTable[i].require.push_back(s);
   }
 
   /* 读入玩家信息：初始坐标 */
-  ss >> k;
-  assert(k == 2);
-  for (int i = 0; i < k; i++) {
-    ss >> Players[i].x >> Players[i].y;
-    Players[i].containerKind = Container_T::None;
-    Players[i].entity.clear();
+  ss >> Player_cnt;
+  assert(Player_cnt == 2);
+  Player.resize(Player_cnt);
+  for (int i = 0; i < Player_cnt; i++) {
+    ss >> Player[i].x >> Player[i].y;
+    Player[i].containerKind = Container_T::None;
+    Player[i].entity.clear();
   }
 
   /* 读入实体信息：坐标、实体组成 */
-  ss >> entityCount;
-  for (int i = 0; i < entityCount; i++) {
+  ss >> Entity_cnt;
+  Entity.resize(Entity_cnt);
+  for (int i = 0; i < Entity_cnt; i++) {
     ss >> Entity[i].x >> Entity[i].y >> s;
     Entity[i].entity.push_back(s);
   }
@@ -107,26 +111,26 @@ bool frame_read(int nowFrame) {
   assert(currentFrame == nowFrame);
   ss >> remainFrame >> Fund;
   /* 读入当前的订单剩余帧数、价格、以及配方 */
-  ss >> orderCount;
-  for (int i = 0; i < orderCount; i++) {
+  ss >> Order_cnt;
+  for (int i = 0; i < Order_cnt; i++) {
     ss >> Order[i].validFrame >> Order[i].price;
-    Order[i].recipe.clear();
+    Order[i].require.clear();
     getline(ss, s);
     std::stringstream tmp(s);
     while (tmp >> s) {
-      Order[i].recipe.push_back(s);
+      Order[i].require.push_back(s);
     }
   }
-  ss >> k;
-  assert(k == 2);
+  ss >> Player_cnt;
+  assert(Player_cnt == 2);
   /* 读入玩家坐标、x方向速度、y方向速度、剩余复活时间 */
-  for (int i = 0; i < k; i++) {
-    ss >> Players[i].x >> Players[i].y >> Players[i].X_Velocity >>
-        Players[i].Y_Velocity >> Players[i].live;
+  for (int i = 0; i < Player_cnt; i++) {
+    ss >> Player[i].x >> Player[i].y >> Player[i].X_Velocity >>
+        Player[i].Y_Velocity >> Player[i].live;
     getline(ss, s);
     std::stringstream tmp(s);
-    Players[i].containerKind = Container_T::None;
-    Players[i].entity.clear();
+    Player[i].containerKind = Container_T::None;
+    Player[i].entity.clear();
     while (tmp >> s) {
       /*
           若若该玩家手里有东西，则接下来一个分号，分号后一个空格，空格后为一个实体。
@@ -147,17 +151,17 @@ bool frame_read(int nowFrame) {
           Todo: 其他容器
       */
       if (s == "Plate")
-        Players[i].containerKind = Container_T::Plate;
+        Player[i].containerKind = Container_T::Plate;
       else if (s == "DirtyPlates")
-        Players[i].containerKind = Container_T::DirtyPlates;
+        Player[i].containerKind = Container_T::DirtyPlates;
       else
-        Players[i].entity.push_back(s);
+        Player[i].entity.push_back(s);
     }
   }
 
-  ss >> entityCount;
+  ss >> Entity_cnt;
   /* 读入实体坐标 */
-  for (int i = 0; i < entityCount; i++) {
+  for (int i = 0; i < Entity_cnt; i++) {
     ss >> Entity[i].x >> Entity[i].y;
     getline(ss, s);
     std::stringstream tmp(s);
