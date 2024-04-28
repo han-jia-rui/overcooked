@@ -4,7 +4,7 @@
 #include <sstream>
 
 int width, height;
-vector<vector<char>> map;
+vector<vector<Tile_T>> map;
 int Ingredient_cnt;
 vector<Ingredient_T> Ingredient;
 int Recipe_cnt;
@@ -29,8 +29,11 @@ static void read() {
   map.resize(height);
   for (int i = 0; i < height; i++) {
     map[i].resize(width);
-    for (int j = 0; j < width; j++)
-      ss >> map[i][j];
+    for (int j = 0; j < width; j++){
+      char ch;
+      ss >> ch;
+      map[i][j] = getTileKind(ch);
+    }
   }
 
   /* 读入原料箱：位置、名字、以及采购单价 */
@@ -72,7 +75,7 @@ static void read() {
   Player.resize(Player_cnt);
   for (int i = 0; i < Player_cnt; i++) {
     ss >> Player[i].x >> Player[i].y;
-    Player[i].Container_hold = Container_T::None;
+    Player[i].container_hold = Container_T::None;
     Player[i].entity.clear();
   }
 

@@ -53,7 +53,7 @@ struct Player_T {
   double vx;
   double vy;
   int live;
-  Container_T Container_hold;
+  Container_T container_hold;
   vector<string> entity;
 };
 
@@ -67,7 +67,7 @@ struct Entity_T {
 
 // init.cpp
 extern int width, height;
-extern vector<vector<char>> map;
+extern vector<vector<Tile_T>> map;
 extern int Ingredient_cnt;
 extern vector<Ingredient_T> Ingredient;
 extern int Recipe_cnt;
@@ -86,7 +86,7 @@ extern vector<Order_T> Order;
 extern int Grade;
 
 // common.cpp
-Tile_T getTileKind(char kindChar);
+Tile_T getTileKind(char ch);
 inline char getAbbrev(Tile_T kind);
 
 #endif

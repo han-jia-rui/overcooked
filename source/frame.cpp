@@ -51,7 +51,7 @@ void frame_update(int Frame_cur) {
         Player[i].vy >> Player[i].live;
     getline(ss, s);
     stringstream tmp(s);
-    Player[i].Container_hold = Container_T::None;
+    Player[i].container_hold = Container_T::None;
     Player[i].entity.clear();
     Player[i].entity.push_back(s);
       /*
