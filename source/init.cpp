@@ -30,7 +30,10 @@ static void read() {
   map.resize(height);
   for (int i = 0; i < height; i++) {
     map[i].resize(width);
-    for (int j = 0; j < width; j++){
+  }
+
+  for (int i = 0; i < height; i++) {
+    for (int j = 0; j < width; j++) {
       char ch;
       ss >> ch;
       map[j][i] = getTileKind(ch);
@@ -44,8 +47,8 @@ static void read() {
   for (int i = 0; i < Ingredient_cnt; i++) {
     ss >> s;
     assert(s == "IngredientBox");
-    ss >> Ingredient[i].coord.x >> Ingredient[i].coord.y >> Ingredient[i].name >>
-        Ingredient[i].price;
+    ss >> Ingredient[i].coord.x >> Ingredient[i].coord.y >>
+        Ingredient[i].name >> Ingredient[i].price;
   }
 
   /* 读入配方：加工时间、加工前的字符串表示、加工容器、加工后的字符串表示 */
