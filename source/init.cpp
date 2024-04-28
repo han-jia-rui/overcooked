@@ -45,6 +45,7 @@ static void read() {
     ss >> Ingredient[i].coord.x >> Ingredient[i].coord.y >> Ingredient[i].name >>
         Ingredient[i].price;
   }
+  cerr << "2" << endl;
 
   /* 读入配方：加工时间、加工前的字符串表示、加工容器、加工后的字符串表示 */
   ss >> Recipe_cnt;
