@@ -1,5 +1,6 @@
 #include <common.h>
 
+
 Tile_T getTileKind(char ch) {
   if (isalpha(ch) && isupper(ch))
     return Tile_T::IngredientBox;

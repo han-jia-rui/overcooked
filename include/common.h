@@ -30,9 +30,14 @@ enum class Tile_T {
   PlateRack,
 };
 
+struct Coordinate_T {
+  double x, y;
+};
+
 struct Ingredient_T {
   string name;
-  int x, y, price;
+  Coordinate_T coordinate;
+  int price;
 };
 
 struct Recipe_T {
@@ -49,7 +54,7 @@ struct Order_T {
 };
 
 struct Player_T {
-  double x, y;
+  Coordinate_T coordinate;
   double vx;
   double vy;
   int live;

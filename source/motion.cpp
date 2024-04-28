@@ -11,13 +11,13 @@ double dist(double x1, double y1, double x2, double y2) {
 
 string Move(Player_T player, double x, double y) {
   string s = "Move ";
-  if (player.x < x - StopDistance)
+  if (player.coordinate.x < x - StopDistance)
     s += "R";
-  if (player.x > x + StopDistance)
+  if (player.coordinate.x > x + StopDistance)
     s += "L";
-  if (player.y > y + StopDistance)
+  if (player.coordinate.y > y + StopDistance)
     s += "U";
-  if (player.y < y - StopDistance)
+  if (player.coordinate.y < y - StopDistance)
     s += "D";
   return s;
 }

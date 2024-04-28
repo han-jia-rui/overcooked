@@ -42,7 +42,7 @@ static void read() {
   for (int i = 0; i < Ingredient_cnt; i++) {
     ss >> s;
     assert(s == "IngredientBox");
-    ss >> Ingredient[i].x >> Ingredient[i].y >> Ingredient[i].name >>
+    ss >> Ingredient[i].coordinate.x >> Ingredient[i].coordinate.y >> Ingredient[i].name >>
         Ingredient[i].price;
   }
 
@@ -74,7 +74,7 @@ static void read() {
   assert(Player_cnt == 2);
   Player.resize(Player_cnt);
   for (int i = 0; i < Player_cnt; i++) {
-    ss >> Player[i].x >> Player[i].y;
+    ss >> Player[i].coordinate.x >> Player[i].coordinate.y;
     Player[i].container_hold = Container_T::None;
     Player[i].entity.clear();
   }
