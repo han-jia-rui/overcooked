@@ -29,7 +29,8 @@ void init_read() {
 
   ss >> width >> height;
   map.resize(height);
-  for (int i = 0; i < height; i++){
+  cerr << ss.str() << endl;
+  for (int i = 0; i < height; i++) {
     map[i].resize(width);
     for (int j = 0; j < width; j++)
       ss >> map[i][j];
