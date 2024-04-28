@@ -99,7 +99,7 @@ bool frame_read(int nowFrame) {
     return true;
   }
   ss >> s;
-  cerr << s << flush;
+  cerr<< "string = " << s << endl;
   assert(s == "Frame");
   int currentFrame;
   ss >> currentFrame;
