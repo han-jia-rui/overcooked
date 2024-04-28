@@ -7,10 +7,9 @@ int Order_cnt;
 vector<Order_T> Order;
 int remainFrame, Fund;
 
-bool frame_check(int nowFrame) {
+bool frame_check(int Frame_cur) {
   string s;
   stringstream ss;
-  int frame;
   getline(cin, s, '\0');
   ss.str(s);
   /*
@@ -18,15 +17,17 @@ bool frame_check(int nowFrame) {
     这时候我们应该跳过当前帧，以便能够及时响应游戏。
   */
   if (cin.rdbuf()->in_avail() > 0) {
-    cerr << "Warning: skipping frame " << nowFrame
+    cerr << "Warning: skipping frame " << Frame_cur
          << " to catch up with the game" << endl;
     assert(0);
   }
+
   ss >> s;
   assert(s == "Frame");
-  int currentFrame;
-  ss >> currentFrame;
-  assert(currentFrame == nowFrame);
+  int frame;
+  ss >> frame;
+  assert(frame == Frame_cur);
+
   ss >> remainFrame >> Fund;
   /* 读入当前的订单剩余帧数、价格、以及配方 */
   ss >> Order_cnt;
