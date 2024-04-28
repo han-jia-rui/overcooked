@@ -36,6 +36,7 @@ void init_read() {
     for (int j = 0; j < width; j++)
       ss >> map[i][j];
   }
+  cerr<< ss.str() << endl;
 
   /* 读入原料箱：位置、名字、以及采购单价 */
   ss >> Ingredient_cnt;
