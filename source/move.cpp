@@ -2,7 +2,7 @@
 #include <move.h>
 #include <string>
 
-const double StopDistance = 0.3;
+const double StopDistance = 0.29;
 
 string move(Player_T player, double x, double y) {
   string s = "Move ";
