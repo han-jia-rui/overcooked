@@ -3,6 +3,6 @@
 
 #include <common.h>
 
-void move();
+void move(double x, double y);
 
 #endif
