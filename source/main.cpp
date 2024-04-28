@@ -35,6 +35,6 @@ int main()
         cout << action;
 
         /* 不要忘记刷新输出流，否则游戏将无法及时收到响应 */
-        cout << flush;
+        cout.flush();
     }
 }
