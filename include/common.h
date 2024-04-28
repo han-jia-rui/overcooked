@@ -30,15 +30,21 @@ enum class Tile_T {
   PlateRack,
 };
 
+struct Map_T {
+  int width;
+  int height;
+  vector<vector<char>> map;
+};
+
 struct Ingredient_T {
-  int x, y, price;
   string name;
+  int x, y, price;
 };
 
 struct Recipe_T {
   int time;
   string nameBefore, nameAfter;
-  string kind;
+  string operation;
 };
 
 struct Order_T {
@@ -64,6 +70,21 @@ struct Entity_T {
   int currentFrame, totalFrame;
   int sum;
 };
+
+extern Map_T map;
+extern int IngredientCount;
+extern vector<Ingredient_T> Ingredient;
+extern int RecipeCount;
+extern vector<Recipe_T> Recipe;
+extern int totalTime, randomizeSeed, totalOrderCount;
+extern struct Order_T totalOrder[20 + 5];
+extern int orderCount;
+extern struct Order_T Order[20 + 5];
+extern int k;
+extern struct Player_T Players[2 + 5];
+extern int entityCount;
+extern struct Entity_T Entity[20 + 5];
+extern int remainFrame, Fund;
 
 Tile_T getTileKind(char kindChar);
 

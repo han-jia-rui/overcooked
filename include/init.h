@@ -2,6 +2,7 @@
 #define INIT_H
 
 #include <common.h>
+
 /* 初始化时的读入。 */
 void init_read();
 
