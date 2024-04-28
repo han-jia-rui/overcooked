@@ -1,4 +1,3 @@
-#include <cassert>
 #include <common.h>
 #include <iostream>
 
@@ -28,10 +27,8 @@ Tile_T getTileKind(char ch) {
     case 'r':
       return Tile_T::PlateRack;
     default:
-      cerr << "Wrong Char :" << ch << endl;
       assert(0);
     }
-  assert(0);
 }
 
 char getAbbrev(Tile_T kind) {
@@ -55,5 +52,4 @@ char getAbbrev(Tile_T kind) {
   default:
     assert(0);
   }
-  assert(0);
 }

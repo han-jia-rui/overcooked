@@ -7,26 +7,20 @@ MAP ?= 1
 
 
 all:
-	# @if [[ ! -e build/Makefile ]]; then \
-	# 	mkdir -p build; \
-	# 	cd build && cmake .. -DCMAKE_BUILD_TYPE=Debug; fi
-	# @make -C build
-	@if [[ ! -e build-win/Makefile ]]; then \
-		mkdir -p build-win; \
-		cd build-win && cmake .. -DCMAKE_BUILD_TYPE=Debug -DFOR_WIN=ON; fi
-	@make -C build-win
+	@if [[ ! -e build/Makefile ]]; then \
+		mkdir -p build; \
+		cd build && cmake .. -DCMAKE_BUILD_TYPE=Debug -DFOR_WIN=ON; fi
+	@make -C build
 
 clean:
-	# @if [[ -d build ]]; then \
-	# 	rm -r build; fi
-	@if [[ -d build-win ]]; then \
-		rm -r build-win; fi
+	@if [[ -d build ]]; then \
+		rm -r build; fi
 
 run: all
-	@cd ../QtOvercooked && wine QtOvercooked.exe -p ../overcooked-2022/build-win/main-win.exe -l $(shell find ../overcooked-2022/maps -name "level${LEVEL}-${MAP}.txt")
+	@cd ../QtOvercooked && wine QtOvercooked.exe -p ../overcooked-2022/build/main-win.exe -l $(shell find ../overcooked-2022/maps -name "level${LEVEL}-${MAP}.txt")
 
 test: all
-	@cd ../QtOvercooked && wine runner.exe -p ../overcooked-2022/build-win/main-win.exe -l $(shell find ../overcooked-2022/maps -name "level${LEVEL}-${MAP}.txt")
+	@cd ../QtOvercooked && wine runner.exe -p ../overcooked-2022/build/main-win.exe -l $(shell find ../overcooked-2022/maps -name "level${LEVEL}-${MAP}.txt")
 
 play:
 	@cd ../QtOvercooked && wine QtOvercooked.exe -l $(shell find ../overcooked-2022/maps -name "level${LEVEL}-${MAP}.txt")
