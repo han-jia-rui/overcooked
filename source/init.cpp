@@ -72,7 +72,7 @@ static void read() {
   Player.resize(Player_cnt);
   for (int i = 0; i < Player_cnt; i++) {
     ss >> Player[i].x >> Player[i].y;
-    Player[i].containerKind = Container_T::None;
+    Player[i].Container_hold = Container_T::None;
     Player[i].entity.clear();
   }
 

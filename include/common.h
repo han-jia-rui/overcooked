@@ -53,7 +53,7 @@ struct Player_T {
   double X_Velocity;
   double Y_Velocity;
   int live;
-  Container_T containerKind;
+  Container_T Container_hold;
   vector<string> entity;
 };
 

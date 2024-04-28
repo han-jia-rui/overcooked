@@ -51,7 +51,7 @@ void frame_update(int Frame_cur) {
         Player[i].Y_Velocity >> Player[i].live;
     getline(ss, s);
     std::stringstream tmp(s);
-    Player[i].containerKind = Container_T::None;
+    Player[i].Container_hold = Container_T::None;
     Player[i].entity.clear();
     while (tmp >> s) {
       /*
@@ -73,9 +73,9 @@ void frame_update(int Frame_cur) {
           Todo: 其他容器
       */
       if (s == "Plate")
-        Player[i].containerKind = Container_T::Plate;
+        Player[i].Container_hold = Container_T::Plate;
       else if (s == "DirtyPlates")
-        Player[i].containerKind = Container_T::DirtyPlates;
+        Player[i].Container_hold = Container_T::DirtyPlates;
       else
         Player[i].entity.push_back(s);
     }
