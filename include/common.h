@@ -36,7 +36,7 @@ struct Coordinate_T {
 
 struct Ingredient_T {
   string name;
-  Coordinate_T coordinate;
+  Coordinate_T coord;
   int price;
 };
 
@@ -54,7 +54,7 @@ struct Order_T {
 };
 
 struct Player_T {
-  Coordinate_T coordinate;
+  Coordinate_T coord;
   double vx;
   double vy;
   int live;
@@ -63,7 +63,7 @@ struct Player_T {
 };
 
 struct Entity_T {
-  double x, y;
+  Coordinate_T coord;
   Container_T container;
   vector<string> entity;
   int currentFrame, totalFrame;

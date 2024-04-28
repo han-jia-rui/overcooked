@@ -47,7 +47,7 @@ void frame_update(int Frame_cur) {
   assert(Player_cnt == 2);
   /* 读入玩家坐标、x方向速度、y方向速度、剩余复活时间 */
   for (int i = 0; i < Player_cnt; i++) {
-    ss >> Player[i].coordinate.x >> Player[i].coordinate.y >> Player[i].vx >>
+    ss >> Player[i].coord.x >> Player[i].coord.y >> Player[i].vx >>
         Player[i].vy >> Player[i].live;
     getline(ss, s);
     stringstream tmp(s);
@@ -71,7 +71,7 @@ void frame_update(int Frame_cur) {
   ss >> Entity_cnt;
   /* 读入实体坐标 */
   for (int i = 0; i < Entity_cnt; i++) {
-    ss >> Entity[i].x >> Entity[i].y;
+    ss >> Entity[i].coord.x >> Entity[i].coord.y;
     getline(ss, s);
     std::stringstream tmp(s);
     Entity[i].container = Container_T::None;
