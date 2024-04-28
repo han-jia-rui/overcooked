@@ -24,5 +24,7 @@ string Move(Player_T player, double x, double y) {
 
 string Pick(Player_T palyer, Entity_T entity) {
   string s = "";
+  Coordinate_T coord = getNearestPosition(entity.coord.x, entity.coord.y);
+  Move(palyer, coord.x, coord.y);
   return s;
 }

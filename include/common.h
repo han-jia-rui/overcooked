@@ -93,5 +93,6 @@ extern int Grade;
 // common.cpp
 Tile_T getTileKind(char ch);
 inline char getAbbrev(Tile_T kind);
+Coordinate_T getNearestPosition(int x, int y);
 
 #endif
