@@ -9,7 +9,7 @@ int Ingredient_cnt;
 vector<Ingredient_T> Ingredient;
 int Recipe_cnt;
 vector<Recipe_T> Recipe;
-int totalFrame, randomizeSeed;
+int Frame_total, randomizeSeed;
 int OrderTable_cnt;
 vector<Order_T> OrderTable;
 int Player_cnt;
@@ -52,7 +52,7 @@ static void read() {
   }
 
   /* 读入总帧数、当前采用的随机种子、一共可能出现的订单数量 */
-  ss >> totalFrame >> randomizeSeed;
+  ss >> Frame_total >> randomizeSeed;
 
   ss >> OrderTable_cnt;
   /* 读入订单的有效帧数、价格、权重、订单组成 */
