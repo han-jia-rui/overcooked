@@ -1,5 +1,4 @@
 #include <common.h>
-#include <iostream>
 
 Tile_T getTileKind(char ch) {
   if (isalpha(ch) && isupper(ch))

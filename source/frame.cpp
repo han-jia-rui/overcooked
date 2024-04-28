@@ -50,35 +50,22 @@ void frame_update(int Frame_cur) {
     ss >> Player[i].x >> Player[i].y >> Player[i].X_Velocity >>
         Player[i].Y_Velocity >> Player[i].live;
     getline(ss, s);
-    // stringstream tmp(s);
-    // Player[i].Container_hold = Container_T::None;
-    // Player[i].entity.clear();
-    // while (tmp >> s) {
-    //   /*
-    //       若若该玩家手里有东西，则接下来一个分号，分号后一个空格，空格后为一个实体。
-    //       以下是可能的输入（省略前面的输入）：
-    //        ;  : fish
-    //        ; @  : fish
-    //        ; @ Plate : fish
-    //        ; Plate
-    //        ; DirtyPlates 1
-    //       ...
-    //   */
-    //
-    //   /* 若你不需要处理这些，可直接忽略 */
-    //   if (s == ";" || s == ":" || s == "@" || s == "*")
-    //     continue;
-    //
-    //   /*
-    //       Todo: 其他容器
-    //   */
-    //   if (s == "Plate")
-    //     Player[i].Container_hold = Container_T::Plate;
-    //   else if (s == "DirtyPlates")
-    //     Player[i].Container_hold = Container_T::DirtyPlates;
-    //   else
-    //     Player[i].entity.push_back(s);
-    // }
+    stringstream tmp(s);
+    Player[i].Container_hold = Container_T::None;
+    Player[i].entity.clear();
+    Player[i].entity.push_back(s);
+      /*
+          若若该玩家手里有东西，则接下来一个分号，分号后一个空格，空格后为一个实体。
+          以下是可能的输入（省略前面的输入）：
+           ;  : fish
+           ; @  : fish
+           ; @ Plate : fish
+           ; Plate
+           ; DirtyPlates 1
+          ...
+      */
+
+      /* 若你不需要处理这些，可直接忽略 */
   }
 
   ss >> Entity_cnt;
