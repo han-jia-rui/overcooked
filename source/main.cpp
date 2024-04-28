@@ -9,9 +9,8 @@ int main() {
 
   init();
 
-  for (int i = 0; i < totalFrame; i++) {
-    if (frame_update(i))
-      continue;
+  for (int i = 0; i < Frame_total; i++) {
+    frame_update(i);
 
     /* 输出当前帧的操作，此处仅作示例 */
     cout << "Frame " << i << "\n";

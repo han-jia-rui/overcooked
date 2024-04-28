@@ -72,7 +72,7 @@ extern int Ingredient_cnt;
 extern vector<Ingredient_T> Ingredient;
 extern int Recipe_cnt;
 extern vector<Recipe_T> Recipe;
-extern int totalFrame, randomizeSeed;
+extern int Frame_total, randomizeSeed;
 extern int OrderTable_cnt;
 extern vector<Order_T> OrderTable;
 extern int Player_cnt;
@@ -83,7 +83,7 @@ extern vector<Entity_T> Entity;
 // frame.cpp
 extern int Order_cnt;
 extern vector<Order_T> Order;
-extern int remainFrame, Fund;
+extern int Grade;
 
 // common.cpp
 Tile_T getTileKind(char kindChar);

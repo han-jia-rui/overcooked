@@ -5,9 +5,9 @@
 
 int Order_cnt;
 vector<Order_T> Order;
-int remainFrame, Fund;
+int Grade;
 
-bool frame_update(int Frame_cur) {
+void frame_update(int Frame_cur) {
   string s;
   stringstream ss;
   getline(cin, s, '\0');
@@ -28,7 +28,9 @@ bool frame_update(int Frame_cur) {
   ss >> frame;
   assert(frame == Frame_cur);
 
-  ss >> remainFrame >> Fund;
+  int remainFrame;
+  ss >> remainFrame >> Grade;
+  assert(remainFrame + Frame_cur == Frame_total);
   /* 读入当前的订单剩余帧数、价格、以及配方 */
   ss >> Order_cnt;
   Order.resize(Order_cnt);

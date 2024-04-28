@@ -3,6 +3,6 @@
 
 #include <common.h>
 
-bool frame_update(int nowFrame);
+void frame_update(int nowFrame);
 
 #endif
