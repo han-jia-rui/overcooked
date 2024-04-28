@@ -1,5 +1,4 @@
 #include <iostream>
-#include <sstream>
 #include <string>
 #include <init.h>
 
@@ -8,8 +7,6 @@ int main()
     ios::sync_with_stdio(false);
     cerr.tie(nullptr);
     cerr << std::nounitbuf;
-    string s;
-    stringstream ss;
     int frame;
 
     init_read();

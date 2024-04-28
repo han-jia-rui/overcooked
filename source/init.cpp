@@ -22,10 +22,11 @@ int remainFrame, Fund;
 void init_read() {
   string s;
   int frame;
+  stringstream ss;
 
   /* 读取初始地图信息 */
   getline(std::cin, s, '\0');
-  stringstream ss(s);
+  ss.str(s);
 
   ss >> width >> height;
   ss >> width >> height;
