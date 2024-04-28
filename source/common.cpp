@@ -2,16 +2,16 @@
 
 static int dx[4] = {0, 0, -1, 1}, dy[4] = {-1, 1, 0, 0};
 
-Coordinate_T getNearestPosition(int x, int y) {
+Coordinate_T getNearestPosition(int ix, int iy) {
   Coordinate_T ret;
-  if (map[x][y] == Tile_T::Floor) {
-    ret.x = double(x) + 0.5;
-    ret.y = double(y) + 0.5;
+  if (map[ix][iy] == Tile_T::Floor) {
+    ret.x = double(ix) + 0.5;
+    ret.y = double(iy) + 0.5;
     ret.face = Face_T(0);
     return ret;
   } else {
     for (int i = 0; i < 4; i++) {
-      int nx = x + dx[i], ny = y + dy[i];
+      int nx = ix + dx[i], ny = iy + dy[i];
       if (nx >= 0 && nx < width && ny >= 0 && ny < height) {
         if (map[nx][ny] == Tile_T::Floor) {
           ret.x = double(nx) + 0.5;
