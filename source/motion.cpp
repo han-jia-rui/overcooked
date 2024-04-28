@@ -1,10 +1,9 @@
 #include <common.h>
-#include <move.h>
-#include <string>
+#include <motion.h>
 
 const double StopDistance = 0.3;
 
-string move(Player_T player, double x, double y) {
+string Move(Player_T player, double x, double y) {
   string s = "Move ";
   if (player.x < x - StopDistance)
     s += "R";
@@ -14,5 +13,11 @@ string move(Player_T player, double x, double y) {
     s += "U";
   if (player.y < y - StopDistance)
     s += "D";
+  return s;
+}
+
+string Pick(Player_T palyer, Entity_T entity){
+  string s = "";
+  if()
   return s;
 }
