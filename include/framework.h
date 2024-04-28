@@ -1,5 +1,5 @@
-#ifndef FRAMEWORK
-#define FRAMEWORK
+#ifndef FRAMEWORK_H
+#define FRAMEWORK_H
 
 #include <string>
 #include <vector>

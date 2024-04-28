@@ -1,7 +1,6 @@
 #ifndef ENUM_H
 #define ENUM_H
 #include <cassert>
-#include <string>
 
 enum class ContainerKind {
   None,
@@ -13,7 +12,7 @@ enum class ContainerKind {
 
 enum class TileKind {
   None,
-  Cliff,
+  Void,
   Floor,
   Wall,
   Table,
@@ -30,7 +29,7 @@ enum class TileKind {
 inline TileKind getTileKind(char kindChar) {
   switch (kindChar) {
   case '_':
-    return TileKind::Cliff;
+    return TileKind::Void;
   case '.':
     return TileKind::Floor;
   case '*':
