@@ -27,7 +27,7 @@ void init_read() {
   stringstream ss(s);
 
   ss >> Map.width >> Map.height;
-  cerr << "Map size: " << Map.width << "x" << Map.height << endl;
+  // cerr << "Map size: " << Map.width << "x" << Map.height << endl;
   Map.map.reserve(Map.height);
   for (int i = 0; i < Map.height; i++)
     Map.map[i].reserve(Map.width);
