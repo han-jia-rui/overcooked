@@ -3,8 +3,7 @@
 #include <iostream>
 #include <sstream>
 
-int width, height;
-vector<vector<int>> map;
+Map_T Map;
 int Ingredient_cnt;
 vector<Ingredient_T> Ingredient;
 int Recipe_cnt;
@@ -22,21 +21,18 @@ int remainFrame, Fund;
 void init_read() {
   string s;
   int frame;
-  stringstream ss;
 
   /* 读取初始地图信息 */
   getline(std::cin, s, '\0');
-  ss.str(s);
+  stringstream ss(s);
 
-  ss >> width >> height;
-  map.resize(height);
-  cerr<< ss.str() << endl;
-  for (int i = 0; i < height; i++) {
-    map[i].resize(width);
-    for (int j = 0; j < width; j++)
-      ss >> map[i][j];
+  ss >> Map.width >> Map.height;
+  Map.map.resize(Map.height);
+  for (int i = 0; i < Map.height; i++){
+    Map.map[i].resize(Map.width);
+    for (int j = 0; j < Map.width; j++)
+      ss >> Map.map[i][j];
   }
-  cerr<< ss.str() << endl;
 
   /* 读入原料箱：位置、名字、以及采购单价 */
   ss >> Ingredient_cnt;
