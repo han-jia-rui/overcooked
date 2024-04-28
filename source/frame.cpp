@@ -24,18 +24,18 @@ void frame_update(int Frame_cur) {
 
   ss >> s;
   assert(s == "Frame");
-  int frame;
-  ss >> frame;
-  assert(frame == Frame_cur);
+  int Frame_now;
+  ss >> Frame_now;
+  assert(Frame_now == Frame_cur);
 
-  int remainFrame;
-  ss >> remainFrame >> Grade;
-  assert(remainFrame + Frame_cur == Frame_total);
+  int Frame_remain;
+  ss >> Frame_remain >> Grade;
+  assert(Frame_remain + Frame_cur == Frame_total);
   /* 读入当前的订单剩余帧数、价格、以及配方 */
   ss >> Order_cnt;
   Order.resize(Order_cnt);
   for (int i = 0; i < Order_cnt; i++) {
-    ss >> Order[i].validFrame >> Order[i].price;
+    ss >> Order[i].Frame_left >> Order[i].price;
     Order[i].require.clear();
     getline(ss, s);
     std::stringstream tmp(s);

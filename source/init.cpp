@@ -58,7 +58,7 @@ static void read() {
   /* 读入订单的有效帧数、价格、权重、订单组成 */
   OrderTable.resize(OrderTable_cnt);
   for (int i = 0; i < OrderTable_cnt; i++) {
-    ss >> OrderTable[i].validFrame >> OrderTable[i].price >>
+    ss >> OrderTable[i].Frame_left >> OrderTable[i].price >>
         OrderTable[i].frequency;
     getline(ss, s);
     std::stringstream tmp(s);

@@ -42,7 +42,7 @@ struct Recipe_T {
 };
 
 struct Order_T {
-  int validFrame;
+  int Frame_left;
   int price;
   int frequency;
   vector<string> require;
