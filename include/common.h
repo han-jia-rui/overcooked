@@ -30,12 +30,6 @@ enum class Tile_T {
   PlateRack,
 };
 
-struct Map_T {
-  int width;
-  int height;
-  vector<vector<char>> map;
-};
-
 struct Ingredient_T {
   string name;
   int x, y, price;
@@ -71,7 +65,6 @@ struct Entity_T {
   int sum;
 };
 
-extern Map_T Map;
 extern int Ingredient_cnt;
 extern vector<Ingredient_T> Ingredient;
 extern int Recipe_cnt;
