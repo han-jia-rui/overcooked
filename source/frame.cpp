@@ -121,5 +121,4 @@ void frame_update(int Frame_cur) {
         Entity[i].entity.push_back(s);
     }
   }
-  return false;
 }
