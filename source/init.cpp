@@ -1,28 +1,23 @@
 #include <common.h>
-#include <framework.h>
-#include <string>
+#include <init.h>
 #include <iostream>
 #include <sstream>
-#include <string>
-#include <cassert>
-#include <vector>
-#include <string>
 
 /* 按照读入顺序定义 */
 int width, height;
 char Map[20 + 5][20 + 5];
 int IngredientCount;
-struct Ingredient Ingredient[20 + 5];
+struct Ingredient_T Ingredient[20 + 5];
 int recipeCount;
-struct Recipe Recipe[20 + 5];
+struct Recipe_T Recipe[20 + 5];
 int totalTime, randomizeSeed, totalOrderCount;
-struct Order totalOrder[20 + 5];
+struct Order_T totalOrder[20 + 5];
 int orderCount;
-struct Order Order[20 + 5];
+struct Order_T Order[20 + 5];
 int k;
-struct Player Players[2 + 5];
+struct Player_T Players[2 + 5];
 int entityCount;
-struct Entity Entity[20 + 5];
+struct Entity_T Entity[20 + 5];
 int remainFrame, Fund;
 
 void init_read()
