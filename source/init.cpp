@@ -92,25 +92,25 @@ bool frame_read(int nowFrame) {
   string s;
   stringstream ss;
   int frame;
-  std::getline(std::cin, s, '\0');
+  getline(cin, s, '\0');
   ss.str(s);
   /*
     如果输入流中还有数据，说明游戏已经在请求下一帧了
     这时候我们应该跳过当前帧，以便能够及时响应游戏。
   */
-  if (std::cin.rdbuf()->in_avail() > 0) {
-    std::cerr << "Warning: skipping frame " << nowFrame
-              << " to catch up with the game" << std::endl;
+  if (cin.rdbuf()->in_avail() > 0) {
+    cerr << "Warning: skipping frame " << nowFrame
+              << " to catch up with the game" << endl;
     return true;
   }
-  // ss >> s;
-  // // cerr<< "string = " << s << endl;
-  // assert(s == "Frame");
-  // int currentFrame;
-  // ss >> currentFrame;
-  // assert(currentFrame == nowFrame);
-  // ss >> remainFrame >> Fund;
-  // /* 读入当前的订单剩余帧数、价格、以及配方 */
+  ss >> s;
+  // cerr<< "string = " << s << endl;
+  assert(s == "Frame");
+  int currentFrame;
+  ss >> currentFrame;
+  assert(currentFrame == nowFrame);
+  ss >> remainFrame >> Fund;
+  /* 读入当前的订单剩余帧数、价格、以及配方 */
   // ss >> Order_cnt;
   // for (int i = 0; i < Order_cnt; i++) {
   //   ss >> Order[i].validFrame >> Order[i].price;
