@@ -1,6 +1,10 @@
+.PHONY: all clean run test submit
 .DEFAULT_GOAL := all
 TOKEN ?= submit
 SHELL := /bin/bash
+LEVEL ?= 1
+MAP ?= 1
+
 
 all:
 	@if [[ ! -e build/Makefile ]]; then \
@@ -17,6 +21,10 @@ clean:
 		rm -r build; fi
 	@if [[ -d build-win ]]; then \
 		rm -r build-win; fi
+
+run:all
+	@wine ../QtOvercooked/QtOvercooked.exe -p ./build-win/main-win.exe -l $(shell find ./maps -name "level${LEVEL}-${MAP}.txt")
+
 
 submit:
 	$(eval TEMP := $(shell mktemp -d))
