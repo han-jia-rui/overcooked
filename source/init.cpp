@@ -27,9 +27,10 @@ void init_read() {
   getline(std::cin, s, '\0');
   stringstream ss(s);
 
+  cerr << ss.str() << endl;
   ss >> width >> height;
   map.resize(height);
-  cerr << ss.str() << endl;
+  cerr<< width << ' ' << height << endl << ss.str() << endl;
   for (int i = 0; i < height; i++) {
     map[i].resize(width);
     for (int j = 0; j < width; j++)
