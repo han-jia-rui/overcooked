@@ -3,10 +3,10 @@
 #include <iostream>
 #include <sstream>
 
-Map_T map;
-int IngredientCount;
+Map_T Map;
+int Ingredient_cnt;
 vector<Ingredient_T> Ingredient;
-int RecipeCount;
+int Recipe_cnt;
 vector<Recipe_T> Recipe;
 int totalTime, randomizeSeed, totalOrderCount;
 struct Order_T totalOrder[20 + 5];
@@ -20,28 +20,25 @@ int remainFrame, Fund;
 
 void init_read() {
   string s;
-  stringstream ss;
   int frame;
 
   /* 读取初始地图信息 */
   getline(std::cin, s, '\0');
-  ss << s;
+  stringstream ss(s);
 
-  /* 若按照该读入，访问坐标(x, y)等价于访问Map[y][x],你可按照自己的习惯进行修改
-   */
-  ss >> map.width >> map.height;
-  cerr << "Map size: " << map.width << "x" << map.height << endl;
-  map.map.reserve(map.height);
-  for (int i = 0; i < map.height; i++)
-    map.map[i].reserve(map.width);
-  for (int i = 0; i < map.height; i++)
-    for (int j = 0; j < map.width; j++)
-      ss >> map.map[i][j];
+  ss >> Map.width >> Map.height;
+  cerr << "Map size: " << Map.width << "x" << Map.height << endl;
+  Map.map.reserve(Map.height);
+  for (int i = 0; i < Map.height; i++)
+    Map.map[i].reserve(Map.width);
+  for (int i = 0; i < Map.height; i++)
+    for (int j = 0; j < Map.width; j++)
+      ss >> Map.map[i][j];
 
   /* 读入原料箱：位置、名字、以及采购单价 */
-  ss >> IngredientCount;
-  Ingredient.reserve(IngredientCount);
-  for (int i = 0; i < IngredientCount; i++) {
+  ss >> Ingredient_cnt;
+  Ingredient.reserve(Ingredient_cnt);
+  for (int i = 0; i < Ingredient_cnt; i++) {
     ss >> s;
     assert(s == "IngredientBox");
     ss >> Ingredient[i].x >> Ingredient[i].y >> Ingredient[i].name >>
@@ -49,9 +46,9 @@ void init_read() {
   }
 
   /* 读入配方：加工时间、加工前的字符串表示、加工容器、加工后的字符串表示 */
-  ss >> RecipeCount;
-  Recipe.reserve(RecipeCount);
-  for (int i = 0; i < RecipeCount; i++) {
+  ss >> Recipe_cnt;
+  Recipe.reserve(Recipe_cnt);
+  for (int i = 0; i < Recipe_cnt; i++) {
     ss >> Recipe[i].time >> Recipe[i].nameBefore >> Recipe[i].operation >>
         Recipe[i].nameAfter;
   }

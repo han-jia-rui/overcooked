@@ -6,8 +6,8 @@
 int main()
 {
     ios::sync_with_stdio(false);
-    cerr.tie(nullptr);
-    cerr << std::nounitbuf;
+    // cerr.tie(nullptr);
+    // cerr << std::nounitbuf;
     string s;
     stringstream ss;
     int frame;

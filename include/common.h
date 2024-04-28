@@ -71,10 +71,10 @@ struct Entity_T {
   int sum;
 };
 
-extern Map_T map;
-extern int IngredientCount;
+extern Map_T Map;
+extern int Ingredient_cnt;
 extern vector<Ingredient_T> Ingredient;
-extern int RecipeCount;
+extern int Recipe_cnt;
 extern vector<Recipe_T> Recipe;
 extern int totalTime, randomizeSeed, totalOrderCount;
 extern struct Order_T totalOrder[20 + 5];
