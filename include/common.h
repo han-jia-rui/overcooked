@@ -33,7 +33,7 @@ enum class Tile_T {
 struct Map_T {
   int width;
   int height;
-  char map[20][20];
+  vector<vector<char>> map;
 };
 
 struct Ingredient_T {
