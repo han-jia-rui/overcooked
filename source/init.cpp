@@ -28,12 +28,12 @@ void init_read() {
 
   ss >> Map.width >> Map.height;
   // cerr << "Map size: " << Map.width << "x" << Map.height << endl;
-  Map.map.reserve(Map.height);
-  for (int i = 0; i < Map.height; i++)
-    Map.map[i].reserve(Map.width);
-  for (int i = 0; i < Map.height; i++)
-    for (int j = 0; j < Map.width; j++)
-      ss >> Map.map[i][j];
+  // Map.map.reserve(Map.height);
+  // for (int i = 0; i < Map.height; i++)
+  //   Map.map[i].reserve(Map.width);
+  // for (int i = 0; i < Map.height; i++)
+  //   for (int j = 0; j < Map.width; j++)
+  //     ss >> Map.map[i][j];
 
   // /* 读入原料箱：位置、名字、以及采购单价 */
   // ss >> Ingredient_cnt;
