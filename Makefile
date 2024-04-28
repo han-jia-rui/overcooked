@@ -22,9 +22,11 @@ clean:
 	@if [[ -d build-win ]]; then \
 		rm -r build-win; fi
 
-run:all
-	@cd ../QtOvercooked && wine QtOvercooked.exe -p ../overcooked-2022/build-win/main-win.exe -l $(shell find ../overcooked-2022/maps -name "level${LEVEL}-${MAP}.txt") 2> /dev/null
+run: all
+	@cd ../QtOvercooked && wine QtOvercooked.exe -p ../overcooked-2022/build-win/main-win.exe -l $(shell find ../overcooked-2022/maps -name "level${LEVEL}-${MAP}.txt")
 
+test: all
+	@cd ../QtOvercooked && wine runner.exe -p ../overcooked-2022/build-win/main-win.exe -l $(shell find ../overcooked-2022/maps -name "level${LEVEL}-${MAP}.txt")
 
 submit:
 	$(eval TEMP := $(shell mktemp -d))
