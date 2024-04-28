@@ -25,7 +25,6 @@ void init_read() {
   /* 读取初始地图信息 */
   getline(std::cin, s, '\0');
   stringstream ss(s);
-  cerr << "HERE\n" << flush;
 
   ss >> Map.width >> Map.height;
   cerr << "Map size: " << Map.width << "x" << Map.height << endl;
@@ -82,6 +81,7 @@ void init_read() {
     ss >> Entity[i].x >> Entity[i].y >> s;
     Entity[i].entity.push_back(s);
   }
+  cerr << "HERE\n" << flush;
 }
 
 bool frame_read(int nowFrame) {
