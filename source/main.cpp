@@ -9,9 +9,11 @@ int main() {
   cerr << std::nounitbuf;
 
   init();
+  cerr << "1" << endl;
 
   for (int i = 0; i < Frame_total; i++) {
     frame_update(i);
+  cerr << "2" << endl;
 
     /* 输出当前帧的操作，此处仅作示例 */
     cout << "Frame " << i << "\n";
