@@ -21,7 +21,6 @@ bool frame_read(int nowFrame) {
     cerr << "Warning: skipping frame " << nowFrame
          << " to catch up with the game" << endl;
     assert(0);
-    return true;
   }
   ss >> s;
   assert(s == "Frame");

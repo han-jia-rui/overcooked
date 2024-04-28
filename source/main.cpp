@@ -3,6 +3,7 @@
 #include <iostream>
 
 int main() {
+  ios::sync_with_stdio(false);
   cerr.tie(nullptr);
   cerr << std::nounitbuf;
 
@@ -15,8 +16,8 @@ int main() {
 
     /* 输出当前帧的操作，此处仅作示例 */
     cout << "Frame " << i << "\n";
-    string player0_Action = "Move R";
-    string player1_Action = "Move U";
+    string player0_Action = "Move LD";
+    string player1_Action = "Move UR";
 
     /* 合成一个字符串再输出，否则输出有可能会被打断 */
     string action = player0_Action + "\n" + player1_Action + "\n";
