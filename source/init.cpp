@@ -2,9 +2,11 @@
 #include <init.h>
 #include <iostream>
 #include <sstream>
+#include <vector>
 
 Map_T Map;
 int width,height;
+vector<vector<char>> map;
 int Ingredient_cnt;
 vector<Ingredient_T> Ingredient;
 int Recipe_cnt;
@@ -28,11 +30,11 @@ void init_read() {
   stringstream ss(s);
 
   ss >> width >> height;
-  Map.map.resize(height);
+  map.resize(height);
   for (int i = 0; i < height; i++){
-    Map.map[i].resize(width);
+    map[i].resize(width);
     for (int j = 0; j < width; j++)
-      ss >> Map.map[i][j];
+      ss >> map[i][j];
   }
 
   /* 读入原料箱：位置、名字、以及采购单价 */
