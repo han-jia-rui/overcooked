@@ -30,7 +30,7 @@ void init_read() {
 
   ss >> width >> height;
   map.resize(height);
-  cerr<< width << ' ' << height << endl << ss.str() << endl;
+  cerr<< ss.str() << endl;
   for (int i = 0; i < height; i++) {
     map[i].resize(width);
     for (int j = 0; j < width; j++)
