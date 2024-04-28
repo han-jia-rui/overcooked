@@ -8,7 +8,6 @@ int main() {
   cerr.tie(nullptr);
   cerr << std::nounitbuf;
 
-  cerr << "1" << endl;
   init();
 
   for (int i = 0; i < Frame_total; i++) {

@@ -26,6 +26,7 @@ static void read() {
   stringstream ss(s);
 
   ss >> width >> height;
+  cerr << "1" << endl;
   map.resize(height);
   for (int i = 0; i < height; i++) {
     map[i].resize(width);
@@ -36,6 +37,7 @@ static void read() {
     }
   }
 
+  cerr << "2" << endl;
   /* 读入原料箱：位置、名字、以及采购单价 */
   ss >> Ingredient_cnt;
   Ingredient.resize(Ingredient_cnt);
@@ -45,7 +47,6 @@ static void read() {
     ss >> Ingredient[i].coord.x >> Ingredient[i].coord.y >> Ingredient[i].name >>
         Ingredient[i].price;
   }
-  cerr << "2" << endl;
 
   /* 读入配方：加工时间、加工前的字符串表示、加工容器、加工后的字符串表示 */
   ss >> Recipe_cnt;
