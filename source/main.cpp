@@ -18,7 +18,7 @@ int main() {
     cout << "Frame " << i << "\n";
     Player[0].action = "Move U";
     Player[1].action = "Move D";
-    // Pick(Player[0], Ingredient[0].coord);
+    Pick(Player[0], Ingredient[0].coord);
     // Move(Player[1], 1.5, 8);
 
     /* 合成一个字符串再输出，否则输出有可能会被打断 */
