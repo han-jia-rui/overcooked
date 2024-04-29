@@ -5,7 +5,7 @@
 
 int width, height;
 vector<vector<Tile_Kind>> map;
-Tile_T ChoppingStation, ServiceWindow, Stove;
+Tile_T ChoppingStation, ServiceWindow, Stove, Sink;
 int Ingredient_cnt;
 vector<Ingredient_T> Ingredient;
 int Recipe_cnt;
