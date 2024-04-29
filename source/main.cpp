@@ -49,8 +49,8 @@ int main() {
           break;
         }
       }
-
-    } else if(Player[1].action == "") {
+    }
+    if (Player[1].action == "" && Player[1].entity.name.empty()) {
       for (auto entity : Entity) {
         if (entity.container == Container_T::DirtyPlates &&
             entity.name.size() == 1) {
@@ -58,7 +58,8 @@ int main() {
           break;
         }
       }
-    } else if (Player[1].action == "") {
+    }
+    if (Player[1].action == "") {
       Put(Player[1], Sink.coord);
     }
 
