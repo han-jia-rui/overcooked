@@ -21,7 +21,12 @@ int main() {
     if(Player[0].entity.empty())
     Pick(Player[0], Ingredient[0].coord);
     else {
-      Put(Player[0], ServiceWindow.coord);
+      for(auto entity : Entity){
+        if(entity.container == Container_T::Plate && entity.entity.empty()){
+          Put(Player[0], entity.coord);
+          break;
+        }
+      }
     }
 
     /* 合成一个字符串再输出，否则输出有可能会被打断 */
