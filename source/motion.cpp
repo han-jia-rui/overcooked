@@ -1,6 +1,5 @@
 #include <common.h>
 #include <math.h>
-#include <iostream>
 #include <motion.h>
 
 const double StopDistance = 0.3;
@@ -10,7 +9,7 @@ double dist(double x1, double y1, double x2, double y2) {
   return sqrt(pow(x1 - x2, 2) + pow(y1 - y2, 2));
 }
 
-void Move(Player_T player, double x, double y) {
+void Move(Player_T &player, double x, double y) {
   player.action = "Move ";
   if (player.coord.x < x - StopDistance)
     player.action += "R";
@@ -22,7 +21,7 @@ void Move(Player_T player, double x, double y) {
     player.action += "D";
 }
 
-void Pick(Player_T player, Coordinate_T coordnate) {
+void Pick(Player_T &player, Coordinate_T coordnate) {
   player.action = "";
   if (!player.entity.empty())
     return;
@@ -47,7 +46,7 @@ void Pick(Player_T player, Coordinate_T coordnate) {
   }
 }
 
-void Put(Player_T player, Coordinate_T coordnate) {
+void Put(Player_T &player, Coordinate_T coordnate) {
   player.action = "";
   if (player.entity.empty())
     return;
