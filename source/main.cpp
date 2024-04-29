@@ -51,7 +51,7 @@ int main() {
       }
     }
     if (Player[1].action == "" && Player[1].entity.name.empty())
-      Pick(Player[1], Ingredient[1].coord);
+      Pick(Player[1], Ingredient[0].coord);
     else if(Player[1].action == ""){
       for (auto entity : Entity) {
         if (entity.container == Container_T::Plate && entity.name.size() == 1) {
