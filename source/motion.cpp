@@ -2,7 +2,7 @@
 #include <cmath>
 #include <motion.h>
 
-const double StopDistance = 0.3;
+const double StopDistance = 0.2;
 const double InteractDistance = 1.2;
 
 double dist(double x1, double y1, double x2, double y2) {
