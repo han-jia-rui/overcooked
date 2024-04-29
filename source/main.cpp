@@ -18,6 +18,7 @@ int main() {
     cout << "Frame " << i << "\n";
     Player[0].action = "";
     Player[1].action = "";
+    cerr << "Frame : " << i << " " << Player[0].action;
     if (Player[0].entity.container == Container_T::Plate &&
         Player[0].entity.name.size() > 1)
       Put(Player[0], ServiceWindow.coord);
