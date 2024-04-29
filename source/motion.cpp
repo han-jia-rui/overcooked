@@ -73,30 +73,3 @@ string Put(Player_T player, Coordinate_T coordnate) {
   }
   return s;
 }
-
-string getIngredient(Player_T player, Ingredient_T ingredient) {
-  string s = "";
-  if (!player.entity.empty())
-    return s;
-  Coordinate_T coord =
-      getNearestPosition(ingredient.coord.x, ingredient.coord.y);
-  s = Move(player, coord.x, coord.y);
-  if (s == "Move ") {
-    s = "PutOrPick ";
-  }
-  switch (coord.face) {
-  case Face_T::UP:
-    s += "D";
-    break;
-  case Face_T::DOWN:
-    s += "U";
-    break;
-  case Face_T::LEFT:
-    s += "R";
-    break;
-  case Face_T::RIGHT:
-    s += "L";
-    break;
-  }
-  return s;
-}
