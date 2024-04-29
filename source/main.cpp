@@ -28,7 +28,6 @@ int main() {
         }
       }
     }
-    Move(Player[1], 2, 8);
 
     /* 合成一个字符串再输出，否则输出有可能会被打断 */
     string action = Player[0].action + '\n' + Player[1].action + '\n';

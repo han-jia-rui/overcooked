@@ -30,7 +30,7 @@ enum class Face_T {
   RIGHT,
 };
 
-enum class Tile_T {
+enum class Tile_Kind {
   None,
   Void,
   Floor,
@@ -98,7 +98,7 @@ struct Player_T {
 
 // init.cpp
 extern int width, height;
-extern vector<vector<Tile_T>> map;
+extern vector<vector<Tile_Kind>> map;
 extern int Ingredient_cnt;
 extern vector<Ingredient_T> Ingredient;
 extern int Recipe_cnt;
@@ -119,8 +119,8 @@ extern vector<Order_T> Order;
 extern int Grade;
 
 // common.cpp
-Tile_T getTileKind(char ch);
-inline char getAbbrev(Tile_T kind);
+Tile_Kind getTileKind(char ch);
+inline char getAbbrev(Tile_Kind kind);
 Coordinate_T getNearestPosition(int x, int y);
 
 #endif
