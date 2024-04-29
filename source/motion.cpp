@@ -9,67 +9,64 @@ double dist(double x1, double y1, double x2, double y2) {
   return sqrt(pow(x1 - x2, 2) + pow(y1 - y2, 2));
 }
 
-string Move(Player_T player, double x, double y) {
-  string s = "Move ";
+void Move(Player_T player, double x, double y) {
+  player.action = "Move ";
   if (player.coord.x < x - StopDistance)
-    s += "R";
+    player.action += "R";
   if (player.coord.x > x + StopDistance)
-    s += "L";
+    player.action += "L";
   if (player.coord.y > y + StopDistance)
-    s += "U";
+    player.action += "U";
   if (player.coord.y < y - StopDistance)
-    s += "D";
-  return s;
+    player.action += "D";
 }
 
-string Pick(Player_T player, Coordinate_T coordnate) {
-  string s = "";
+void Pick(Player_T player, Coordinate_T coordnate) {
+  player.action = "";
   if (!player.entity.empty())
-    return s;
+    return;
   Coordinate_T coord = getNearestPosition(coordnate.x, coordnate.y);
-  s = Move(player, coord.x, coord.y);
-  if (s == "Move ") {
-    s = "PutOrPick ";
+  Move(player, coord.x, coord.y);
+  if (player.action == "Move ") {
+    player.action = "PutOrPick ";
+    switch (coord.face) {
+    case Face_T::UP:
+      player.action += "D";
+      break;
+    case Face_T::DOWN:
+      player.action += "U";
+      break;
+    case Face_T::LEFT:
+      player.action += "R";
+      break;
+    case Face_T::RIGHT:
+      player.action += "L";
+      break;
+    }
   }
-  switch (coord.face) {
-  case Face_T::UP:
-    s += "D";
-    break;
-  case Face_T::DOWN:
-    s += "U";
-    break;
-  case Face_T::LEFT:
-    s += "R";
-    break;
-  case Face_T::RIGHT:
-    s += "L";
-    break;
-  }
-  return s;
 }
 
-string Put(Player_T player, Coordinate_T coordnate) {
-  string s = "";
+void Put(Player_T player, Coordinate_T coordnate) {
+  player.action = "";
   if (player.entity.empty())
-    return s;
+    return;
   Coordinate_T coord = getNearestPosition(coordnate.x, coordnate.y);
-  s = Move(player, coord.x, coord.y);
-  if (s == "Move ") {
-    s = "PutOrPick ";
+  Move(player, coord.x, coord.y);
+  if (player.action == "Move ") {
+    player.action = "PutOrPick ";
+    switch (coord.face) {
+    case Face_T::UP:
+      player.action += "D";
+      break;
+    case Face_T::DOWN:
+      player.action += "U";
+      break;
+    case Face_T::LEFT:
+      player.action += "R";
+      break;
+    case Face_T::RIGHT:
+      player.action += "L";
+      break;
+    }
   }
-  switch (coord.face) {
-  case Face_T::UP:
-    s += "D";
-    break;
-  case Face_T::DOWN:
-    s += "U";
-    break;
-  case Face_T::LEFT:
-    s += "R";
-    break;
-  case Face_T::RIGHT:
-    s += "L";
-    break;
-  }
-  return s;
 }

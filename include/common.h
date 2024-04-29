@@ -93,6 +93,7 @@ struct Player_T {
   Container_T container_hold;
   vector<string> entity;
   Task_T task;
+  string action;
 };
 
 // init.cpp

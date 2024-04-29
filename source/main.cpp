@@ -16,13 +16,13 @@ int main() {
 
     /* 输出当前帧的操作，此处仅作示例 */
     cout << "Frame " << i << "\n";
-    string player0_Action;
+    Player[0].action = "";
+    Player[1].action = "";
     if(Player[0].entity.empty())Pick(Player[0], Ingredient[0].coord);
     else Put(Player[0], Entity[2].coord);
-    string player1_Action = "";
 
     /* 合成一个字符串再输出，否则输出有可能会被打断 */
-    string action = player0_Action + '\n' + player1_Action + '\n';
+    string action = Player[0].action + '\n' + Player[1].action + '\n';
     cout << action;
 
     /* 不要忘记刷新输出流，否则游戏将无法及时收到响应 */
