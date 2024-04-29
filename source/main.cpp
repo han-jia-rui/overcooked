@@ -16,10 +16,10 @@ int main() {
 
     /* 输出当前帧的操作，此处仅作示例 */
     cout << "Frame " << i << "\n";
-    Player[0].action = "";
-    Player[1].action = "";
-    Pick(Player[0], Ingredient[0].coord);
-    Move(Player[1], 1.5, 8);
+    Player[0].action = "Move U";
+    Player[1].action = "Move D";
+    // Pick(Player[0], Ingredient[0].coord);
+    // Move(Player[1], 1.5, 8);
 
     /* 合成一个字符串再输出，否则输出有可能会被打断 */
   cerr << "player0 : " << Player[0].action << " player1 : " << Player[1].action << endl;
