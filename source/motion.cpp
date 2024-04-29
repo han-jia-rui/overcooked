@@ -45,7 +45,6 @@ void Pick(Player_T &player, Coordinate_T coordnate) {
       break;
     }
   }
-  cerr << player.action << endl;
 }
 
 void Put(Player_T &player, Coordinate_T coordnate) {
