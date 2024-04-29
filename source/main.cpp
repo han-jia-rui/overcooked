@@ -29,10 +29,9 @@ int main() {
         }
       }
     }
-    cerr<< "Frame:" << i << ' ' << Player[0].action << endl;
     if (Player[0].action == "" && Player[0].entity.name.empty())
       Pick(Player[0], Ingredient[0].coord);
-    else {
+    else if(Player[0].action == ""){
       for (auto entity : Entity) {
         if (entity.container == Container_T::Plate && entity.name.size() == 1) {
           Put(Player[0], entity.coord);
