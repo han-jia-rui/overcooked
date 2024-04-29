@@ -42,7 +42,11 @@ int main() {
 
     if (Player[1].action == "" && Player[1].entity.name.empty())
       for (auto entity : Entity) {
-        if (entity.container == Container_T::DirtyPlates && entity.name.size() == 1) {
+        if (entity.container == Container_T::DirtyPlates && entity.name.size() == 1 && entity.coord.x == Sink.coord.x && Sink.coord.y == entity.coord.y) {
+          Interact(Player[1], entity.coord);
+          break;
+        }
+        else if(entity.container == Container_T::DirtyPlates && entity.name.size() == 1){
           Pick(Player[1], entity.coord);
           break;
         }

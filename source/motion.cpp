@@ -1,5 +1,5 @@
-#include <common.h>
 #include <cmath>
+#include <common.h>
 #include <motion.h>
 
 const double StopDistance = 0.5;
@@ -54,6 +54,31 @@ void Put(Player_T &player, Coordinate_T coordnate) {
   Move(player, coord.x, coord.y);
   if (player.action == "Move ") {
     player.action = "PutOrPick ";
+    switch (coord.face) {
+    case Face_T::UP:
+      player.action += "D";
+      break;
+    case Face_T::DOWN:
+      player.action += "U";
+      break;
+    case Face_T::LEFT:
+      player.action += "R";
+      break;
+    case Face_T::RIGHT:
+      player.action += "L";
+      break;
+    }
+  }
+}
+
+void Interact(Player_T &player, Coordinate_T coordnate) {
+  player.action = "";
+  if (!player.entity.name.empty())
+    return;
+  Coordinate_T coord = getNearestPosition(coordnate.x, coordnate.y);
+  Move(player, coord.x, coord.y);
+  if (player.action == "Move ") {
+    player.action = "Interact ";
     switch (coord.face) {
     case Face_T::UP:
       player.action += "D";
