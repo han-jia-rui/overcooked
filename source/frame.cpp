@@ -7,6 +7,21 @@ int Order_cnt;
 vector<Order_T> Order;
 int Grade;
 
+static void Order_update(stringstream &ss){
+  string s;
+  ss >> Order_cnt;
+  Order.resize(Order_cnt);
+  for (int i = 0; i < Order_cnt; i++) {
+    ss >> Order[i].Frame_left >> Order[i].price;
+    Order[i].require.clear();
+    getline(ss, s);
+    std::stringstream tmp(s);
+    while (tmp >> s) {
+      Order[i].require.push_back(s);
+    }
+  }
+}
+
 void frame_update(int Frame_cur) {
   string s;
   stringstream ss;
@@ -32,17 +47,7 @@ void frame_update(int Frame_cur) {
   ss >> Frame_remain >> Grade;
   assert(Frame_remain + Frame_cur == Frame_total);
   /* 读入当前的订单剩余帧数、价格、以及配方 */
-  ss >> Order_cnt;
-  Order.resize(Order_cnt);
-  for (int i = 0; i < Order_cnt; i++) {
-    ss >> Order[i].Frame_left >> Order[i].price;
-    Order[i].require.clear();
-    getline(ss, s);
-    std::stringstream tmp(s);
-    while (tmp >> s) {
-      Order[i].require.push_back(s);
-    }
-  }
+  Order_update(ss);
   ss >> Player_cnt;
   assert(Player_cnt == 2);
   /* 读入玩家坐标、x方向速度、y方向速度、剩余复活时间 */
