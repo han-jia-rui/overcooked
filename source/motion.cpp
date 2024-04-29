@@ -28,7 +28,6 @@ void Pick(Player_T &player, Coordinate_T coordnate) {
     return;
   Coordinate_T coord = getNearestPosition(coordnate.x, coordnate.y);
   Move(player, coord.x, coord.y);
-  cerr << player.action << endl;
   if (player.action == "Move ") {
     player.action = "PutOrPick ";
     switch (coord.face) {
