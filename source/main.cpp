@@ -22,6 +22,7 @@ int main() {
     Move(Player[1], 1.5, 8);
 
     /* 合成一个字符串再输出，否则输出有可能会被打断 */
+  cerr << "player0 : " << Player[0].action << " player1 : " << Player[1].action << endl;
     string action = Player[0].action + '\n' + Player[1].action + '\n';
     cout << action;
 
