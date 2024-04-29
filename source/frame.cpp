@@ -47,6 +47,16 @@ static void Player_update(stringstream &ss) {
       if (s == ";" || s == "@" || s == "*" || s == ":")
         continue;
       Player[i].entity.name.push_back(s);
+      if (s == "Plate")
+        Player[i].entity.container = Container_T::Plate;
+      else if (s == "Pan")
+        Player[i].entity.container = Container_T::Pan;
+      else if (s == "Pot")
+        Player[i].entity.container = Container_T::Pot;
+      else if (s == "DirtyPlates") {
+        Player[i].entity.container = Container_T::DirtyPlates;
+        tmp >> Player[i].entity.sum;
+      }
     }
   }
 }

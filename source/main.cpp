@@ -29,7 +29,6 @@ int main() {
         }
       }
     }
-    cerr << "Frame : " << i << " " << Player[0].action<< endl;
     if (Player[0].action == "" && Player[0].entity.name.empty())
       Pick(Player[0], Ingredient[0].coord);
     else if(Player[0].action == ""){
