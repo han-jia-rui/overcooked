@@ -20,6 +20,7 @@ void Move(Player_T player, double x, double y) {
     player.action += "U";
   if (player.coord.y < y - StopDistance)
     player.action += "D";
+  cerr << player.action << endl;
 }
 
 void Pick(Player_T player, Coordinate_T coordnate) {
