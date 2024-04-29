@@ -1,5 +1,6 @@
 #include <common.h>
 #include <math.h>
+#include <iostream>
 #include <motion.h>
 
 const double StopDistance = 0.3;
@@ -44,6 +45,7 @@ void Pick(Player_T player, Coordinate_T coordnate) {
       break;
     }
   }
+  cerr << player.action << endl;
 }
 
 void Put(Player_T player, Coordinate_T coordnate) {
