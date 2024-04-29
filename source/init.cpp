@@ -4,7 +4,7 @@
 #include <sstream>
 
 int width, height;
-vector<vector<Tile_T>> map;
+vector<vector<Tile_Kind>> map;
 int Ingredient_cnt;
 vector<Ingredient_T> Ingredient;
 int Recipe_cnt;
