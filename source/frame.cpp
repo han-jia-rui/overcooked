@@ -1,3 +1,4 @@
+#include <cctype>
 #include <common.h>
 #include <frame.h>
 #include <iostream>

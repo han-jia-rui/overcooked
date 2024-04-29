@@ -37,10 +37,19 @@ static void read() {
       char ch;
       ss >> ch;
       map[j][i] = getTileKind(ch);
-      if(map[j][i] == Tile_Kind::ServiceWindow){
+      switch (map[j][i]) {
+      case Tile_Kind::ServiceWindow:
         ServiceWindow.coord.x = j;
         ServiceWindow.coord.y = i;
         ServiceWindow.tile_kind = map[j][i];
+        break;
+      case Tile_Kind::Sink:
+        Sink.coord.x = j;
+        Sink.coord.y = i;
+        Sink.tile_kind = map[j][i];
+        break;
+      default:
+        break;
       }
     }
   }

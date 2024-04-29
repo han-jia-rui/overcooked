@@ -103,7 +103,7 @@ struct Player_T {
 // init.cpp
 extern int width, height;
 extern vector<vector<Tile_Kind>> map;
-extern Tile_T ChoppingStation, ServiceWindow, Stove;
+extern Tile_T ChoppingStation, ServiceWindow, Stove, Sink;
 extern int Ingredient_cnt;
 extern vector<Ingredient_T> Ingredient;
 extern int Recipe_cnt;
