@@ -84,8 +84,8 @@ static void read() {
   Player.resize(Player_cnt);
   for (int i = 0; i < Player_cnt; i++) {
     ss >> Player[i].coord.x >> Player[i].coord.y;
-    Player[i].container_hold = Container_T::None;
-    Player[i].entity.clear();
+    Player[i].entity.container = Container_T::None;
+    Player[i].entity.entity.clear();
   }
 
   /* 读入实体信息：坐标、实体组成 */

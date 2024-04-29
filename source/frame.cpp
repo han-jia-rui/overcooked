@@ -19,7 +19,6 @@ static void Order_update(stringstream &ss) {
     while (tmp >> s) {
       Order[i].require.push_back(s);
     }
-
   }
 }
 
@@ -32,8 +31,8 @@ static void Player_update(stringstream &ss) {
         Player[i].vy >> Player[i].live;
     getline(ss, s);
     stringstream tmp(s);
-    Player[i].container_hold = Container_T::None;
-    Player[i].entity.clear();
+    Player[i].entity.container = Container_T::None;
+    Player[i].entity.entity.clear();
     /*
         若若该玩家手里有东西，则接下来一个分号，分号后一个空格，空格后为一个实体。
         以下是可能的输入（省略前面的输入）：
@@ -47,7 +46,7 @@ static void Player_update(stringstream &ss) {
     while (tmp >> s) {
       if (s == ";" || s == "@" || s == "*" || s == ":")
         continue;
-      Player[i].entity.push_back(s);
+      Player[i].entity.entity.push_back(s);
     }
   }
 }
@@ -86,6 +85,10 @@ static void Entity_update(stringstream &ss) {
 
       if (s == "Plate")
         Entity[i].container = Container_T::Plate;
+      else if (s == "Pan")
+        Entity[i].container = Container_T::Pan;
+      else if (s == "Pot")
+        Entity[i].container = Container_T::Pot;
       else if (s == "DirtyPlates") {
         Entity[i].container = Container_T::DirtyPlates;
         tmp >> Entity[i].sum;

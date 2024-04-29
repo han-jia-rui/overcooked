@@ -95,8 +95,7 @@ struct Player_T {
   double vx;
   double vy;
   int live;
-  Container_T container_hold;
-  vector<string> entity;
+  Entity_T entity;
   Task_T task;
   string action;
 };

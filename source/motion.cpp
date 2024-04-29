@@ -23,7 +23,7 @@ void Move(Player_T &player, double x, double y) {
 
 void Pick(Player_T &player, Coordinate_T coordnate) {
   player.action = "";
-  if (!player.entity.empty())
+  if (!player.entity.entity.empty())
     return;
   Coordinate_T coord = getNearestPosition(coordnate.x, coordnate.y);
   Move(player, coord.x, coord.y);
@@ -48,7 +48,7 @@ void Pick(Player_T &player, Coordinate_T coordnate) {
 
 void Put(Player_T &player, Coordinate_T coordnate) {
   player.action = "";
-  if (player.entity.empty())
+  if (player.entity.entity.empty())
     return;
   Coordinate_T coord = getNearestPosition(coordnate.x, coordnate.y);
   Move(player, coord.x, coord.y);

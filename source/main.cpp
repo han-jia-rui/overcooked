@@ -18,7 +18,7 @@ int main() {
     cout << "Frame " << i << "\n";
     Player[0].action = "";
     Player[1].action = "";
-    if(Player[0].entity.empty())
+    if(Player[0].entity.entity.empty())
     Pick(Player[0], Ingredient[0].coord);
     else {
       for(auto entity : Entity){
