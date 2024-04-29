@@ -122,7 +122,7 @@ extern queue<Task_T> Task;
 // frame.cpp
 extern int Order_cnt;
 extern vector<Order_T> Order;
-extern int Grade;
+extern int Sales;
 
 // common.cpp
 Tile_Kind getTileKind(char ch);

@@ -5,7 +5,7 @@
 
 int Order_cnt;
 vector<Order_T> Order;
-int Grade;
+int Sales;
 
 static void Order_update(stringstream &ss){
   string s;
@@ -101,10 +101,7 @@ void frame_update(int Frame_cur) {
   string s;
   getline(cin, s, '\0');
   stringstream ss(s);
-  /*
-    如果输入流中还有数据，说明游戏已经在请求下一帧了
-    这时候我们应该跳过当前帧，以便能够及时响应游戏。
-  */
+
   if (cin.rdbuf()->in_avail() > 0) {
     cerr << "Warning: skipping frame " << Frame_cur
          << " to catch up with the game" << endl;
@@ -118,7 +115,7 @@ void frame_update(int Frame_cur) {
   assert(Frame_now == Frame_cur);
 
   int Frame_remain;
-  ss >> Frame_remain >> Grade;
+  ss >> Frame_remain >> Sales;
   assert(Frame_remain + Frame_cur == Frame_total);
 
   Order_update(ss);
