@@ -13,11 +13,11 @@ void Move(Player_T &player, double x, double y) {
   player.action = "Move ";
   if (player.coord.x < x - StopDistance)
     player.action += "R";
-  if (player.coord.x > x + StopDistance)
+  else if (player.coord.x > x + StopDistance)
     player.action += "L";
-  if (player.coord.y > y + StopDistance)
+  else if (player.coord.y > y + StopDistance)
     player.action += "U";
-  if (player.coord.y < y - StopDistance)
+  else if (player.coord.y < y - StopDistance)
     player.action += "D";
 }
 
