@@ -19,6 +19,7 @@ static void Order_update(stringstream &ss) {
     while (tmp >> s) {
       Order[i].require.push_back(s);
     }
+
   }
 }
 
