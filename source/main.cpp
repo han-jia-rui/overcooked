@@ -18,28 +18,28 @@ int main() {
     cout << "Frame " << i << "\n";
     Player[0].action = "";
     Player[1].action = "";
-    // if (Player[0].entity.container == Container_T::Plate &&
-    //     Player[0].entity.name.size() > 1)
-    //   Put(Player[0], ServiceWindow.coord);
-    // else {
-    //   for (auto entity : Entity) {
-    //     if (entity.container == Container_T::Plate && entity.name.size() > 1) {
-    //       Pick(Player[0], entity.coord);
-    //       break;
-    //     }
-    //   }
-    // }
-    // if (Player[0].action == "" && Player[0].entity.name.empty())
-    //   Pick(Player[0], Ingredient[0].coord);
-    // else if(Player[0].action == ""){
-    //   for (auto entity : Entity) {
-    //     if (entity.container == Container_T::Plate && entity.name.size() == 1) {
-    //       Put(Player[0], entity.coord);
-    //       break;
-    //     }
-    //   }
-    // }
-    Move(Player[1], ServiceWindow.coord.x, ServiceWindow.coord.y);
+    if (Player[0].entity.container == Container_T::Plate &&
+        Player[0].entity.name.size() > 1)
+      Put(Player[0], ServiceWindow.coord);
+    else {
+      for (auto entity : Entity) {
+        if (entity.container == Container_T::Plate && entity.name.size() > 1) {
+          Pick(Player[0], entity.coord);
+          break;
+        }
+      }
+    }
+    cerr << "Frame : " << i << " " << Player[0].action;
+    if (Player[0].action == "" && Player[0].entity.name.empty())
+      Pick(Player[0], Ingredient[0].coord);
+    else if(Player[0].action == ""){
+      for (auto entity : Entity) {
+        if (entity.container == Container_T::Plate && entity.name.size() == 1) {
+          Put(Player[0], entity.coord);
+          break;
+        }
+      }
+    }
 
     /* 合成一个字符串再输出，否则输出有可能会被打断 */
     string action = Player[0].action + '\n' + Player[1].action + '\n';
