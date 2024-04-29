@@ -29,9 +29,18 @@ int main() {
         }
       }
     }
-    if (Player[0].action == "" && Player[0].entity.name.empty())
-      Pick(Player[0], Ingredient[0].coord);
-    else if (Player[0].action == "") {
+    if (Player[0].action == "" && Player[0].entity.name.empty()) {
+      for (auto order : Order) {
+        for (auto ingredient : Ingredient) {
+          if (order.require[0] == ingredient.name)
+            Pick(Player[0], ingredient.coord);
+          if (Player[0].action != "")
+            break;
+        }
+        if (Player[0].action != "")
+          break;
+      }
+    } else if (Player[0].action == "") {
       for (auto entity : Entity) {
         if (entity.container == Container_T::Plate && entity.name.size() == 1) {
           Put(Player[0], entity.coord);
