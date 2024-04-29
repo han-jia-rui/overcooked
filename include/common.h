@@ -2,9 +2,9 @@
 #define COMMON_H
 
 #include <assert.h>
+#include <queue>
 #include <string>
 #include <vector>
-#include <queue>
 using namespace std;
 
 enum class Container_T {
@@ -46,10 +46,15 @@ enum class Tile_Kind {
   PlateRack,
 };
 
-
 struct Coordinate_T {
   double x, y;
   Face_T face;
+};
+
+struct Tile_T {
+  Tile_Kind tile_kind;
+  Coordinate_T coord;
+  int status;
 };
 
 struct Ingredient_T {
@@ -79,7 +84,7 @@ struct Entity_T {
   int sum;
 };
 
-struct Task_T{
+struct Task_T {
   Task_Kind task_kind = Task_Kind::None;
   Entity_T entity;
   Ingredient_T ingredient;
@@ -99,6 +104,7 @@ struct Player_T {
 // init.cpp
 extern int width, height;
 extern vector<vector<Tile_Kind>> map;
+extern Tile_T ChoppingStation, ServiceWindow, Stove;
 extern int Ingredient_cnt;
 extern vector<Ingredient_T> Ingredient;
 extern int Recipe_cnt;

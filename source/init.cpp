@@ -5,6 +5,7 @@
 
 int width, height;
 vector<vector<Tile_Kind>> map;
+Tile_T ChoppingStation, ServiceWindow, Stove;
 int Ingredient_cnt;
 vector<Ingredient_T> Ingredient;
 int Recipe_cnt;
@@ -36,6 +37,11 @@ static void read() {
       char ch;
       ss >> ch;
       map[j][i] = getTileKind(ch);
+      if(map[j][i] == Tile_Kind::ServiceWindow){
+        ServiceWindow.coord.x = j;
+        ServiceWindow.coord.y = i;
+        ServiceWindow.tile_kind = map[j][i];
+      }
     }
   }
 
