@@ -18,8 +18,8 @@ int main() {
     cout << "Frame " << i << "\n";
     Player[0].action = "";
     Player[1].action = "";
-    if(Player[0].entity.empty())Pick(Player[0], Ingredient[0].coord);
-    else Put(Player[0], Entity[2].coord);
+    Pick(Player[0], Ingredient[0].coord);
+    Move(Player[0], 1.5, 8);
 
     /* 合成一个字符串再输出，否则输出有可能会被打断 */
     string action = Player[0].action + '\n' + Player[1].action + '\n';
