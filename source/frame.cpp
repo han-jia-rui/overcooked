@@ -53,19 +53,23 @@ void frame_update(int Frame_cur) {
     stringstream tmp(s);
     Player[i].container_hold = Container_T::None;
     Player[i].entity.clear();
-    Player[i].entity.push_back(s);
-      /*
-          若若该玩家手里有东西，则接下来一个分号，分号后一个空格，空格后为一个实体。
-          以下是可能的输入（省略前面的输入）：
-           ;  : fish
-           ; @  : fish
-           ; @ Plate : fish
-           ; Plate
-           ; DirtyPlates 1
-          ...
-      */
+    while (tmp >> s) {
+      if (s == ";" || s == "@" || s == "*" || s == ":")
+        continue;
+      Player[i].entity.push_back(s);
+    }
+    /*
+        若若该玩家手里有东西，则接下来一个分号，分号后一个空格，空格后为一个实体。
+        以下是可能的输入（省略前面的输入）：
+         ;  : fish
+         ; @  : fish
+         ; @ Plate : fish
+         ; Plate
+         ; DirtyPlates 1
+        ...
+    */
 
-      /* 若你不需要处理这些，可直接忽略 */
+    /* 若你不需要处理这些，可直接忽略 */
   }
 
   ss >> Entity_cnt;

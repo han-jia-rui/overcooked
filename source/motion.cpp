@@ -22,10 +22,12 @@ string Move(Player_T player, double x, double y) {
   return s;
 }
 
-string Pick(Player_T palyer, Entity_T entity) {
+string Pick(Player_T player, Entity_T entity) {
   string s = "";
+  if (!player.entity.empty())
+    return s;
   Coordinate_T coord = getNearestPosition(entity.coord.x, entity.coord.y);
-  s = Move(palyer, coord.x, coord.y);
+  s = Move(player, coord.x, coord.y);
   if (s == "Move ") {
     s = "PutOrPick ";
   }
@@ -48,7 +50,8 @@ string Pick(Player_T palyer, Entity_T entity) {
 
 string getIngredient(Player_T palyer, Ingredient_T ingredient) {
   string s = "";
-  Coordinate_T coord = getNearestPosition(ingredient.coord.x, ingredient.coord.y);
+  Coordinate_T coord =
+      getNearestPosition(ingredient.coord.x, ingredient.coord.y);
   s = Move(palyer, coord.x, coord.y);
   if (s == "Move ") {
     s = "PutOrPick ";

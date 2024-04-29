@@ -4,6 +4,7 @@
 #include <assert.h>
 #include <string>
 #include <vector>
+#include <queue>
 using namespace std;
 
 enum class Container_T {
@@ -12,6 +13,14 @@ enum class Container_T {
   Pot,
   Plate,
   DirtyPlates,
+};
+
+enum class Task_Kind {
+  None,
+  Pick,
+  Put,
+  Interact,
+  Wait,
 };
 
 enum class Face_T {
@@ -37,6 +46,7 @@ enum class Tile_T {
   PlateRack,
 };
 
+
 struct Coordinate_T {
   double x, y;
   Face_T face;
@@ -61,6 +71,20 @@ struct Order_T {
   vector<string> require;
 };
 
+struct Entity_T {
+  Coordinate_T coord;
+  Container_T container;
+  vector<string> entity;
+  int currentFrame, totalFrame;
+  int sum;
+};
+
+struct Task_T{
+  Task_Kind task_kind = Task_Kind::None;
+  Entity_T entity;
+  Ingredient_T ingredient;
+};
+
 struct Player_T {
   Coordinate_T coord;
   double vx;
@@ -68,14 +92,7 @@ struct Player_T {
   int live;
   Container_T container_hold;
   vector<string> entity;
-};
-
-struct Entity_T {
-  Coordinate_T coord;
-  Container_T container;
-  vector<string> entity;
-  int currentFrame, totalFrame;
-  int sum;
+  Task_T task;
 };
 
 // init.cpp
@@ -92,6 +109,8 @@ extern int Player_cnt;
 extern vector<Player_T> Player;
 extern int Entity_cnt;
 extern vector<Entity_T> Entity;
+
+extern queue<Task_T> Task;
 
 // frame.cpp
 extern int Order_cnt;
