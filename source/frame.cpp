@@ -22,35 +22,10 @@ static void Order_update(stringstream &ss){
   }
 }
 
-void frame_update(int Frame_cur) {
+static void Player_update(stringstream &ss){
   string s;
-  stringstream ss;
-  getline(cin, s, '\0');
-  ss.str(s);
-  /*
-    如果输入流中还有数据，说明游戏已经在请求下一帧了
-    这时候我们应该跳过当前帧，以便能够及时响应游戏。
-  */
-  if (cin.rdbuf()->in_avail() > 0) {
-    cerr << "Warning: skipping frame " << Frame_cur
-         << " to catch up with the game" << endl;
-    assert(0);
-  }
-
-  ss >> s;
-  assert(s == "Frame");
-  int Frame_now;
-  ss >> Frame_now;
-  assert(Frame_now == Frame_cur);
-
-  int Frame_remain;
-  ss >> Frame_remain >> Grade;
-  assert(Frame_remain + Frame_cur == Frame_total);
-  /* 读入当前的订单剩余帧数、价格、以及配方 */
-  Order_update(ss);
   ss >> Player_cnt;
   assert(Player_cnt == 2);
-  /* 读入玩家坐标、x方向速度、y方向速度、剩余复活时间 */
   for (int i = 0; i < Player_cnt; i++) {
     ss >> Player[i].coord.x >> Player[i].coord.y >> Player[i].vx >>
         Player[i].vy >> Player[i].live;
@@ -76,7 +51,10 @@ void frame_update(int Frame_cur) {
 
     /* 若你不需要处理这些，可直接忽略 */
   }
+}
 
+static void Entity_update(stringstream &ss){
+  string s;
   ss >> Entity_cnt;
   /* 读入实体坐标 */
   for (int i = 0; i < Entity_cnt; i++) {
@@ -117,4 +95,37 @@ void frame_update(int Frame_cur) {
         Entity[i].entity.push_back(s);
     }
   }
+}
+
+void frame_update(int Frame_cur) {
+  string s;
+  stringstream ss;
+  getline(cin, s, '\0');
+  ss.str(s);
+  /*
+    如果输入流中还有数据，说明游戏已经在请求下一帧了
+    这时候我们应该跳过当前帧，以便能够及时响应游戏。
+  */
+  if (cin.rdbuf()->in_avail() > 0) {
+    cerr << "Warning: skipping frame " << Frame_cur
+         << " to catch up with the game" << endl;
+    assert(0);
+  }
+
+  ss >> s;
+  assert(s == "Frame");
+  int Frame_now;
+  ss >> Frame_now;
+  assert(Frame_now == Frame_cur);
+
+  int Frame_remain;
+  ss >> Frame_remain >> Grade;
+  assert(Frame_remain + Frame_cur == Frame_total);
+  /* 读入当前的订单剩余帧数、价格、以及配方 */
+  Order_update(ss);
+
+  Player_update(ss);
+
+  Entity_update(ss);
+
 }
