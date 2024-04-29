@@ -99,9 +99,8 @@ static void Entity_update(stringstream &ss){
 
 void frame_update(int Frame_cur) {
   string s;
-  stringstream ss;
   getline(cin, s, '\0');
-  ss.str(s);
+  stringstream ss(s);
   /*
     如果输入流中还有数据，说明游戏已经在请求下一帧了
     这时候我们应该跳过当前帧，以便能够及时响应游戏。
@@ -121,7 +120,7 @@ void frame_update(int Frame_cur) {
   int Frame_remain;
   ss >> Frame_remain >> Grade;
   assert(Frame_remain + Frame_cur == Frame_total);
-  /* 读入当前的订单剩余帧数、价格、以及配方 */
+
   Order_update(ss);
 
   Player_update(ss);
