@@ -1,4 +1,5 @@
 #include <common.h>
+#include <iostream>
 #include <math.h>
 #include <motion.h>
 
@@ -27,6 +28,7 @@ void Pick(Player_T &player, Coordinate_T coordnate) {
     return;
   Coordinate_T coord = getNearestPosition(coordnate.x, coordnate.y);
   Move(player, coord.x, coord.y);
+  cerr << player.action << endl;
   if (player.action == "Move ") {
     player.action = "PutOrPick ";
     switch (coord.face) {
@@ -44,6 +46,7 @@ void Pick(Player_T &player, Coordinate_T coordnate) {
       break;
     }
   }
+  cerr << player.action << endl;
 }
 
 void Put(Player_T &player, Coordinate_T coordnate) {
