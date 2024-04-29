@@ -48,11 +48,13 @@ string Pick(Player_T player, Entity_T entity) {
   return s;
 }
 
-string getIngredient(Player_T palyer, Ingredient_T ingredient) {
+string getIngredient(Player_T player, Ingredient_T ingredient) {
   string s = "";
+  if (!player.entity.empty())
+    return s;
   Coordinate_T coord =
       getNearestPosition(ingredient.coord.x, ingredient.coord.y);
-  s = Move(palyer, coord.x, coord.y);
+  s = Move(player, coord.x, coord.y);
   if (s == "Move ") {
     s = "PutOrPick ";
   }
