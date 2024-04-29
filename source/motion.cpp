@@ -22,11 +22,37 @@ string Move(Player_T player, double x, double y) {
   return s;
 }
 
-string Pick(Player_T player, Entity_T entity) {
+string Pick(Player_T player, Coordinate_T coordnate) {
   string s = "";
   if (!player.entity.empty())
     return s;
-  Coordinate_T coord = getNearestPosition(entity.coord.x, entity.coord.y);
+  Coordinate_T coord = getNearestPosition(coordnate.x, coordnate.y);
+  s = Move(player, coord.x, coord.y);
+  if (s == "Move ") {
+    s = "PutOrPick ";
+  }
+  switch (coord.face) {
+  case Face_T::UP:
+    s += "D";
+    break;
+  case Face_T::DOWN:
+    s += "U";
+    break;
+  case Face_T::LEFT:
+    s += "R";
+    break;
+  case Face_T::RIGHT:
+    s += "L";
+    break;
+  }
+  return s;
+}
+
+string Put(Player_T player, Coordinate_T coordnate) {
+  string s = "";
+  if (player.entity.empty())
+    return s;
+  Coordinate_T coord = getNearestPosition(coordnate.x, coordnate.y);
   s = Move(player, coord.x, coord.y);
   if (s == "Move ") {
     s = "PutOrPick ";

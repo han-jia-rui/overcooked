@@ -3,8 +3,9 @@
 
 #include <common.h>
 
-string Move(Player_T palyer, double x, double y);
-string Pick(Player_T palyer, Entity_T entity);
-string getIngredient(Player_T palyer, Ingredient_T ingredient);
+string Move(Player_T player, double x, double y);
+string Pick(Player_T player, Coordinate_T coordnate);
+string Put(Player_T player, Coordinate_T coordnate);
+string getIngredient(Player_T player, Ingredient_T ingredient);
 
 #endif
