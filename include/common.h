@@ -1,7 +1,7 @@
 #ifndef COMMON_H
 #define COMMON_H
 
-#include <assert.h>
+#include <cassert>
 #include <queue>
 #include <string>
 #include <vector>

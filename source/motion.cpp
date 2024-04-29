@@ -1,6 +1,6 @@
 #include <common.h>
 #include <iostream>
-#include <math.h>
+#include <cmath>
 #include <motion.h>
 
 const double StopDistance = 0.5;
