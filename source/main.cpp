@@ -22,7 +22,7 @@ int main() {
     Pick(Player[0], Ingredient[0].coord);
     else {
       for(auto entity : Entity){
-        if(entity.container == Container_T::Plate && entity.entity.empty()){
+        if(entity.container == Container_T::Plate && entity.entity.size() == 1){
           Put(Player[0], entity.coord);
           break;
         }

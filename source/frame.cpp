@@ -7,7 +7,7 @@ int Order_cnt;
 vector<Order_T> Order;
 int Sales;
 
-static void Order_update(stringstream &ss){
+static void Order_update(stringstream &ss) {
   string s;
   ss >> Order_cnt;
   Order.resize(Order_cnt);
@@ -22,7 +22,7 @@ static void Order_update(stringstream &ss){
   }
 }
 
-static void Player_update(stringstream &ss){
+static void Player_update(stringstream &ss) {
   string s;
   ss >> Player_cnt;
   assert(Player_cnt == 2);
@@ -33,11 +33,6 @@ static void Player_update(stringstream &ss){
     stringstream tmp(s);
     Player[i].container_hold = Container_T::None;
     Player[i].entity.clear();
-    while (tmp >> s) {
-      if (s == ";" || s == "@" || s == "*" || s == ":")
-        continue;
-      Player[i].entity.push_back(s);
-    }
     /*
         若若该玩家手里有东西，则接下来一个分号，分号后一个空格，空格后为一个实体。
         以下是可能的输入（省略前面的输入）：
@@ -48,12 +43,15 @@ static void Player_update(stringstream &ss){
          ; DirtyPlates 1
         ...
     */
-
-    /* 若你不需要处理这些，可直接忽略 */
+    while (tmp >> s) {
+      if (s == ";" || s == "@" || s == "*" || s == ":")
+        continue;
+      Player[i].entity.push_back(s);
+    }
   }
 }
 
-static void Entity_update(stringstream &ss){
+static void Entity_update(stringstream &ss) {
   string s;
   ss >> Entity_cnt;
   /* 读入实体坐标 */
@@ -74,25 +72,23 @@ static void Entity_update(stringstream &ss){
 
       */
 
-      /* 若你不需要处理这些，可直接忽略 */
       if (s == ":" || s == "@" || s == "*")
         continue;
+
       if (s == ";") {
         tmp >> Entity[i].currentFrame >> s >> Entity[i].totalFrame;
         assert(s == "/");
         break;
       }
 
-      /*
-          Todo: 其他容器
-      */
+      Entity[i].entity.push_back(s);
+
       if (s == "Plate")
         Entity[i].container = Container_T::Plate;
       else if (s == "DirtyPlates") {
         Entity[i].container = Container_T::DirtyPlates;
         tmp >> Entity[i].sum;
-      } else
-        Entity[i].entity.push_back(s);
+      }
     }
   }
 }
@@ -123,5 +119,4 @@ void frame_update(int Frame_cur) {
   Player_update(ss);
 
   Entity_update(ss);
-
 }
