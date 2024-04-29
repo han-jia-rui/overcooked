@@ -50,7 +50,7 @@ int main() {
         }
       }
     }
-    if (Player[1].action == "" && Player[1].entity.name.empty()) {
+    if (Player[1].action == "") {
       for (auto entity : Entity) {
         if (entity.container == Container_T::DirtyPlates &&
             entity.name.size() == 1) {
