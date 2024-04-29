@@ -58,7 +58,6 @@ int main() {
           break;
         }
       }
-
     } else if (Player[1].action == "") {
       Put(Player[1], Sink.coord);
     }
