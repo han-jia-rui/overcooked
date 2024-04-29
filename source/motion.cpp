@@ -1,5 +1,4 @@
 #include <common.h>
-#include <iostream>
 #include <cmath>
 #include <motion.h>
 

@@ -39,6 +39,27 @@ int main() {
         }
       }
     }
+    if (Player[1].entity.container == Container_T::Plate &&
+        Player[1].entity.name.size() > 1)
+      Put(Player[1], ServiceWindow.coord);
+    else {
+      for (auto entity : Entity) {
+        if (entity.container == Container_T::Plate && entity.name.size() > 1) {
+          Pick(Player[1], entity.coord);
+          break;
+        }
+      }
+    }
+    if (Player[1].action == "" && Player[1].entity.name.empty())
+      Pick(Player[1], Ingredient[1].coord);
+    else if(Player[1].action == ""){
+      for (auto entity : Entity) {
+        if (entity.container == Container_T::Plate && entity.name.size() == 1) {
+          Put(Player[1], entity.coord);
+          break;
+        }
+      }
+    }
 
     /* 合成一个字符串再输出，否则输出有可能会被打断 */
     string action = Player[0].action + '\n' + Player[1].action + '\n';
