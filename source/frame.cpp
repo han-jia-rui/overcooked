@@ -32,7 +32,7 @@ static void Player_update(stringstream &ss) {
     getline(ss, s);
     stringstream tmp(s);
     Player[i].entity.container = Container_T::None;
-    Player[i].entity.entity.clear();
+    Player[i].entity.name.clear();
     /*
         若若该玩家手里有东西，则接下来一个分号，分号后一个空格，空格后为一个实体。
         以下是可能的输入（省略前面的输入）：
@@ -46,7 +46,7 @@ static void Player_update(stringstream &ss) {
     while (tmp >> s) {
       if (s == ";" || s == "@" || s == "*" || s == ":")
         continue;
-      Player[i].entity.entity.push_back(s);
+      Player[i].entity.name.push_back(s);
     }
   }
 }
@@ -60,7 +60,7 @@ static void Entity_update(stringstream &ss) {
     getline(ss, s);
     std::stringstream tmp(s);
     Entity[i].container = Container_T::None;
-    Entity[i].entity.clear();
+    Entity[i].name.clear();
     Entity[i].currentFrame = Entity[i].totalFrame = 0;
     Entity[i].sum = 1;
     while (tmp >> s) {
@@ -81,7 +81,7 @@ static void Entity_update(stringstream &ss) {
         break;
       }
 
-      Entity[i].entity.push_back(s);
+      Entity[i].name.push_back(s);
 
       if (s == "Plate")
         Entity[i].container = Container_T::Plate;

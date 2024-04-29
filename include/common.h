@@ -79,7 +79,7 @@ struct Order_T {
 struct Entity_T {
   Coordinate_T coord;
   Container_T container;
-  vector<string> entity;
+  vector<string> name;
   int currentFrame, totalFrame;
   int sum;
 };

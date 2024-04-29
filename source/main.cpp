@@ -18,11 +18,11 @@ int main() {
     cout << "Frame " << i << "\n";
     Player[0].action = "";
     Player[1].action = "";
-    if(Player[0].entity.entity.empty())
+    if(Player[0].entity.name.empty())
     Pick(Player[0], Ingredient[0].coord);
     else {
       for(auto entity : Entity){
-        if(entity.container == Container_T::Plate && entity.entity.size() == 1){
+        if(entity.container == Container_T::Plate && entity.name.size() == 1){
           Put(Player[0], entity.coord);
           break;
         }

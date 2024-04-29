@@ -85,7 +85,7 @@ static void read() {
   for (int i = 0; i < Player_cnt; i++) {
     ss >> Player[i].coord.x >> Player[i].coord.y;
     Player[i].entity.container = Container_T::None;
-    Player[i].entity.entity.clear();
+    Player[i].entity.name.clear();
   }
 
   /* 读入实体信息：坐标、实体组成 */
@@ -93,7 +93,7 @@ static void read() {
   Entity.resize(Entity_cnt);
   for (int i = 0; i < Entity_cnt; i++) {
     ss >> Entity[i].coord.x >> Entity[i].coord.y >> s;
-    Entity[i].entity.push_back(s);
+    Entity[i].name.push_back(s);
   }
 }
 
