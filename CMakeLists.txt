@@ -21,7 +21,7 @@ add_custom_target(
     WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}"
 )
 add_dependencies(GitTraceCommit GitTraceAdd) # Avoid data race
-add_dependencies(Overcooked GitTraceCommit)
+# add_dependencies(Overcooked GitTraceCommit)
 add_custom_command(
     TARGET Overcooked
     POST_BUILD

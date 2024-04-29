@@ -31,7 +31,7 @@ submit:
 	$(eval FILE := ${TEMP}/${TOKEN}.zip)
 	@cd .. && zip -qr ${FILE} ${BASE}/.git
 	@echo "Created submission archive ${FILE}"
-	@curl -m 5 -w "\n" -X POST -F "TOKEN=${TOKEN}" -F "FILE=@${FILE}" \
-		https://exam.problemsolving.top:8085/api/v2/submission/lab
+	@curl -k -m 5 -w "\n" -X POST -F "TOKEN=${TOKEN}" -F "FILE=@${FILE}" \
+		https://exam.njups.top:8085/api/v2/submission/lab
 	@rm -r ${TEMP}
 
