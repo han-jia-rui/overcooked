@@ -1,3 +1,4 @@
+#include <cassert>
 #include <common.h>
 #include <init.h>
 #include <iostream>
@@ -66,8 +67,20 @@ static void read() {
   ss >> Recipe_cnt;
   Recipe.resize(Recipe_cnt);
   for (int i = 0; i < Recipe_cnt; i++) {
-    ss >> Recipe[i].time >> Recipe[i].nameBefore >> Recipe[i].operation >>
-        Recipe[i].nameAfter;
+    ss >> Recipe[i].frame >> Recipe[i].before;
+    string operation;
+    ss >> operation;
+
+    if (operation == "-chop->") {
+      Recipe[i].operation = Operation_Kind::Chop;
+    } else if (operation == "-pan->") {
+      Recipe[i].operation = Operation_Kind::Pan;
+    } else if (operation == "-pot->") {
+      Recipe[i].operation = Operation_Kind::Pot;
+    } else
+      assert(0);
+
+    ss >> Recipe[i].after;
   }
 
   /* 读入总帧数、当前采用的随机种子、一共可能出现的订单数量 */
@@ -77,7 +90,7 @@ static void read() {
   /* 读入订单的有效帧数、价格、权重、订单组成 */
   OrderTable.resize(OrderTable_cnt);
   for (int i = 0; i < OrderTable_cnt; i++) {
-    ss >> OrderTable[i].Frame_left >> OrderTable[i].price >>
+    ss >> OrderTable[i].frame_left >> OrderTable[i].price >>
         OrderTable[i].frequency;
     getline(ss, s);
     std::stringstream tmp(s);
@@ -91,8 +104,8 @@ static void read() {
   Player.resize(Player_cnt);
   for (int i = 0; i < Player_cnt; i++) {
     ss >> Player[i].coord.x >> Player[i].coord.y;
-    Player[i].entity.container = Container_T::None;
-    Player[i].entity.name.clear();
+    Player[i].entity.container = Container_Kind::None;
+    Player[i].entity.food.clear();
   }
 
   /* 读入实体信息：坐标、实体组成 */
@@ -100,7 +113,7 @@ static void read() {
   Entity.resize(Entity_cnt);
   for (int i = 0; i < Entity_cnt; i++) {
     ss >> Entity[i].coord.x >> Entity[i].coord.y >> s;
-    Entity[i].name.push_back(s);
+    Entity[i].food.push_back(s);
   }
 }
 

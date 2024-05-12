@@ -7,7 +7,7 @@ Coordinate_T getNearestPosition(int ix, int iy) {
   if (map[ix][iy] == Tile_Kind::Floor) {
     ret.x = double(ix) + 0.5;
     ret.y = double(iy) + 0.5;
-    ret.face = Face_T(0);
+    ret.face = Direction(0);
     return ret;
   } else {
     for (int i = 0; i < 4; i++) {
@@ -16,7 +16,7 @@ Coordinate_T getNearestPosition(int ix, int iy) {
         if (map[nx][ny] == Tile_Kind::Floor) {
           ret.x = double(nx) + 0.5;
           ret.y = double(ny) + 0.5;
-          ret.face = Face_T(i);
+          ret.face = Direction(i);
           return ret;
         }
       }
@@ -55,25 +55,25 @@ Tile_Kind getTileKind(char ch) {
     }
 }
 
-char getAbbrev(Tile_Kind kind) {
-  switch (kind) {
-  case Tile_Kind::IngredientBox:
-    return 'i';
-  case Tile_Kind::Trashbin:
-    return 't';
-  case Tile_Kind::ChoppingStation:
-    return 'c';
-  case Tile_Kind::ServiceWindow:
-    return '$';
-  case Tile_Kind::Stove:
-    return 's';
-  case Tile_Kind::PlateReturn:
-    return 'p';
-  case Tile_Kind::Sink:
-    return 'k';
-  case Tile_Kind::PlateRack:
-    return 'r';
-  default:
-    assert(0);
-  }
-}
+// char getAbbrev(Tile_Kind kind) {
+//   switch (kind) {
+//   case Tile_Kind::IngredientBox:
+//     return 'i';
+//   case Tile_Kind::Trashbin:
+//     return 't';
+//   case Tile_Kind::ChoppingStation:
+//     return 'c';
+//   case Tile_Kind::ServiceWindow:
+//     return '$';
+//   case Tile_Kind::Stove:
+//     return 's';
+//   case Tile_Kind::PlateReturn:
+//     return 'p';
+//   case Tile_Kind::Sink:
+//     return 'k';
+//   case Tile_Kind::PlateRack:
+//     return 'r';
+//   default:
+//     assert(0);
+//   }
+// }

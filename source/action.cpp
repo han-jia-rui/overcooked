@@ -23,23 +23,23 @@ void Move(Player_T &player, double x, double y) {
 
 void Pick(Player_T &player, Coordinate_T coordnate) {
   player.action = "";
-  if (!player.entity.name.empty())
+  if (!player.entity.food.empty())
     return;
   Coordinate_T coord = getNearestPosition(coordnate.x, coordnate.y);
   Move(player, coord.x, coord.y);
   if (player.action == "Move ") {
     player.action = "PutOrPick ";
     switch (coord.face) {
-    case Face_T::UP:
+    case Direction::UP:
       player.action += "D";
       break;
-    case Face_T::DOWN:
+    case Direction::DOWN:
       player.action += "U";
       break;
-    case Face_T::LEFT:
+    case Direction::LEFT:
       player.action += "R";
       break;
-    case Face_T::RIGHT:
+    case Direction::RIGHT:
       player.action += "L";
       break;
     }
@@ -48,23 +48,23 @@ void Pick(Player_T &player, Coordinate_T coordnate) {
 
 void Put(Player_T &player, Coordinate_T coordnate) {
   player.action = "";
-  if (player.entity.name.empty())
+  if (player.entity.food.empty())
     return;
   Coordinate_T coord = getNearestPosition(coordnate.x, coordnate.y);
   Move(player, coord.x, coord.y);
   if (player.action == "Move ") {
     player.action = "PutOrPick ";
     switch (coord.face) {
-    case Face_T::UP:
+    case Direction::UP:
       player.action += "D";
       break;
-    case Face_T::DOWN:
+    case Direction::DOWN:
       player.action += "U";
       break;
-    case Face_T::LEFT:
+    case Direction::LEFT:
       player.action += "R";
       break;
-    case Face_T::RIGHT:
+    case Direction::RIGHT:
       player.action += "L";
       break;
     }
@@ -73,23 +73,23 @@ void Put(Player_T &player, Coordinate_T coordnate) {
 
 void Interact(Player_T &player, Coordinate_T coordnate) {
   player.action = "";
-  if (!player.entity.name.empty())
+  if (!player.entity.food.empty())
     return;
   Coordinate_T coord = getNearestPosition(coordnate.x, coordnate.y);
   Move(player, coord.x, coord.y);
   if (player.action == "Move ") {
     player.action = "Interact ";
     switch (coord.face) {
-    case Face_T::UP:
+    case Direction::UP:
       player.action += "D";
       break;
-    case Face_T::DOWN:
+    case Direction::DOWN:
       player.action += "U";
       break;
-    case Face_T::LEFT:
+    case Direction::LEFT:
       player.action += "R";
       break;
-    case Face_T::RIGHT:
+    case Direction::RIGHT:
       player.action += "L";
       break;
     }

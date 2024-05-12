@@ -13,7 +13,7 @@ static void Order_update(stringstream &ss) {
   ss >> Order_cnt;
   Order.resize(Order_cnt);
   for (int i = 0; i < Order_cnt; i++) {
-    ss >> Order[i].Frame_left >> Order[i].price;
+    ss >> Order[i].frame_left >> Order[i].price;
     Order[i].require.clear();
     getline(ss, s);
     std::stringstream tmp(s);
@@ -32,8 +32,8 @@ static void Player_update(stringstream &ss) {
         Player[i].vy >> Player[i].live;
     getline(ss, s);
     stringstream tmp(s);
-    Player[i].entity.container = Container_T::None;
-    Player[i].entity.name.clear();
+    Player[i].entity.container = Container_Kind::None;
+    Player[i].entity.food.clear();
     /*
         若若该玩家手里有东西，则接下来一个分号，分号后一个空格，空格后为一个实体。
         以下是可能的输入（省略前面的输入）：
@@ -47,15 +47,15 @@ static void Player_update(stringstream &ss) {
     while (tmp >> s) {
       if (s == ";" || s == "@" || s == "*" || s == ":")
         continue;
-      Player[i].entity.name.push_back(s);
+      Player[i].entity.food.push_back(s);
       if (s == "Plate")
-        Player[i].entity.container = Container_T::Plate;
+        Player[i].entity.container = Container_Kind::Plate;
       else if (s == "Pan")
-        Player[i].entity.container = Container_T::Pan;
+        Player[i].entity.container = Container_Kind::Pan;
       else if (s == "Pot")
-        Player[i].entity.container = Container_T::Pot;
+        Player[i].entity.container = Container_Kind::Pot;
       else if (s == "DirtyPlates") {
-        Player[i].entity.container = Container_T::DirtyPlates;
+        Player[i].entity.container = Container_Kind::DirtyPlates;
         tmp >> Player[i].entity.sum;
       }
     }
@@ -70,9 +70,9 @@ static void Entity_update(stringstream &ss) {
     ss >> Entity[i].coord.x >> Entity[i].coord.y;
     getline(ss, s);
     std::stringstream tmp(s);
-    Entity[i].container = Container_T::None;
-    Entity[i].name.clear();
-    Entity[i].currentFrame = Entity[i].totalFrame = 0;
+    Entity[i].container = Container_Kind::None;
+    Entity[i].food.clear();
+    Entity[i].frame_cur = Entity[i].frame_total = 0;
     Entity[i].sum = 1;
     while (tmp >> s) {
       /*
@@ -87,21 +87,21 @@ static void Entity_update(stringstream &ss) {
         continue;
 
       if (s == ";") {
-        tmp >> Entity[i].currentFrame >> s >> Entity[i].totalFrame;
+        tmp >> Entity[i].frame_cur >> s >> Entity[i].frame_total;
         assert(s == "/");
         break;
       }
 
-      Entity[i].name.push_back(s);
+      Entity[i].food.push_back(s);
 
       if (s == "Plate")
-        Entity[i].container = Container_T::Plate;
+        Entity[i].container = Container_Kind::Plate;
       else if (s == "Pan")
-        Entity[i].container = Container_T::Pan;
+        Entity[i].container = Container_Kind::Pan;
       else if (s == "Pot")
-        Entity[i].container = Container_T::Pot;
+        Entity[i].container = Container_Kind::Pot;
       else if (s == "DirtyPlates") {
-        Entity[i].container = Container_T::DirtyPlates;
+        Entity[i].container = Container_Kind::DirtyPlates;
         tmp >> Entity[i].sum;
       }
     }

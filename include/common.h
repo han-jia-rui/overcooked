@@ -7,12 +7,12 @@
 #include <vector>
 using namespace std;
 
-enum class Container_T {
+enum class Container_Kind {
   None,
-  Pan,
-  Pot,
-  Plate,
-  DirtyPlates,
+  Pan,         // 煎锅
+  Pot,         // 煮锅
+  Plate,       // 盘子
+  DirtyPlates, // 脏盘子
 };
 
 enum class Task_Kind {
@@ -23,32 +23,37 @@ enum class Task_Kind {
   Wait,
 };
 
-enum class Face_T {
+enum class Direction {
   UP,
   DOWN,
   LEFT,
   RIGHT,
 };
 
+enum class Operation_Kind {
+  Chop, // 切菜
+  Pan, // 煎
+  Pot, // 煮
+};
+
 enum class Tile_Kind {
-  None,
-  Void,
-  Floor,
-  Wall,
-  Table,
-  IngredientBox,
-  Trashbin,
-  ChoppingStation,
-  ServiceWindow,
-  Stove,
-  PlateReturn,
-  Sink,
-  PlateRack,
+  Void,            // 悬崖
+  Floor,           // 地板
+  Wall,            // 墙
+  Table,           // 工作台
+  IngredientBox,   // 食材箱
+  Trashbin,        // 垃圾箱
+  ChoppingStation, // 切菜台
+  ServiceWindow,   // 出菜口
+  Stove,           // 灶台
+  PlateReturn,     // 盘子回收口
+  Sink,            // 洗碗台
+  PlateRack,       // 盘子架
 };
 
 struct Coordinate_T {
   double x, y;
-  Face_T face;
+  Direction face;
 };
 
 struct Tile_T {
@@ -64,13 +69,13 @@ struct Ingredient_T {
 };
 
 struct Recipe_T {
-  int time;
-  string nameBefore, nameAfter;
-  string operation;
+  int frame;
+  string before, after;
+  Operation_Kind operation;
 };
 
 struct Order_T {
-  int Frame_left;
+  int frame_left;
   int price;
   int frequency;
   vector<string> require;
@@ -78,9 +83,9 @@ struct Order_T {
 
 struct Entity_T {
   Coordinate_T coord;
-  Container_T container;
-  vector<string> name;
-  int currentFrame, totalFrame;
+  Container_Kind container;
+  vector<string> food;
+  int frame_cur, frame_total;
   int sum;
 };
 

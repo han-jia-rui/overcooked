@@ -2,7 +2,7 @@
 #include <frame.h>
 #include <init.h>
 #include <iostream>
-#include <motion.h>
+#include <action.h>
 
 int main() {
   ios::sync_with_stdio(false);
@@ -18,18 +18,18 @@ int main() {
     cout << "Frame " << i << "\n";
     Player[0].action = "";
     Player[1].action = "";
-    if (Player[0].entity.container == Container_T::Plate &&
-        Player[0].entity.name.size() > 1)
+    if (Player[0].entity.container == Container_Kind::Plate &&
+        Player[0].entity.food.size() > 1)
       Put(Player[0], ServiceWindow.coord);
     else {
       for (auto entity : Entity) {
-        if (entity.container == Container_T::Plate && entity.name.size() > 1) {
+        if (entity.container == Container_Kind::Plate && entity.food.size() > 1) {
           Pick(Player[0], entity.coord);
           break;
         }
       }
     }
-    if (Player[0].action == "" && Player[0].entity.name.empty()) {
+    if (Player[0].action == "" && Player[0].entity.food.empty()) {
       for (auto order : Order) {
         for (auto ingredient : Ingredient) {
           if (order.require[0] == ingredient.name)
@@ -42,17 +42,17 @@ int main() {
       }
     } else if (Player[0].action == "") {
       for (auto entity : Entity) {
-        if (entity.container == Container_T::Plate && entity.name.size() == 1) {
+        if (entity.container == Container_Kind::Plate && entity.food.size() == 1) {
           Put(Player[0], entity.coord);
           break;
         }
       }
     }
 
-    if (Player[1].action == "" && Player[1].entity.name.empty()) {
+    if (Player[1].action == "" && Player[1].entity.food.empty()) {
       for (auto entity : Entity) {
-        if (entity.container == Container_T::DirtyPlates &&
-            entity.name.size() == 1 && entity.coord.x == Sink.coord.x &&
+        if (entity.container == Container_Kind::DirtyPlates &&
+            entity.food.size() == 1 && entity.coord.x == Sink.coord.x &&
             Sink.coord.y == entity.coord.y) {
           Interact(Player[1], entity.coord);
           break;
@@ -61,8 +61,8 @@ int main() {
     }
     if (Player[1].action == "") {
       for (auto entity : Entity) {
-        if (entity.container == Container_T::DirtyPlates &&
-            entity.name.size() == 1) {
+        if (entity.container == Container_Kind::DirtyPlates &&
+            entity.food.size() == 1) {
           Pick(Player[1], entity.coord);
           break;
         }
