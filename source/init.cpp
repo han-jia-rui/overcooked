@@ -16,7 +16,7 @@ vector<Order_T> OrderTable;
 int Player_cnt;
 vector<Player_T> Player;
 int Entity_cnt;
-vector<Entity_T> Entity;
+Entity_T Entity[100];
 
 static void read() {
   string s;
@@ -90,7 +90,6 @@ static void read() {
 
   /* 读入实体信息：坐标、实体组成 */
   ss >> Entity_cnt;
-  Entity.resize(Entity_cnt);
   for (int i = 0; i < Entity_cnt; i++) {
     Entity[i].set(ss);
   }

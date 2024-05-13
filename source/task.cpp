@@ -29,6 +29,42 @@ void getFood(Player_T &player, string food) {
   }
 }
 
+void prepareOrder(Player_T &player, Order_T order) {
+    Tile_T ServiceWindow = getTile(Tile_Kind::ServiceWindow, Coordinate_T());
+    if (player.entity.container == Container_Kind::Plate &&
+        player.entity.food.size() > 0)
+      Put(player, ServiceWindow.coord);
+    else {
+      for (auto entity : Entity) {
+        if (entity.container == Container_Kind::Plate &&
+            entity.food.size() > 0) {
+          Pick(player, entity.coord);
+          break;
+        }
+      }
+    }
+    if (player.action.empty() && player.entity.food.empty()) {
+      for (auto order : Order) {
+        for (auto ingredient : Ingredient) {
+          if (order.require[0] == ingredient.name)
+            Pick(player, ingredient.coord);
+          if (!player.action.empty())
+            break;
+        }
+        if (!player.action.empty())
+          break;
+      }
+    } else if (player.action.empty()) {
+      for (auto entity : Entity) {
+        if (entity.container == Container_Kind::Plate &&
+            entity.food.size() == 0) {
+          Put(player, entity.coord);
+          break;
+        }
+      }
+    }
+}
+
 void washPlate(Player_T &player) {
   Tile_T Sink = getTile(Tile_Kind::Sink, Coordinate_T());
   if (player.entity.empty()) {

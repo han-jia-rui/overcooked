@@ -1,8 +1,8 @@
 #include <action.h>
 #include <frame.h>
 #include <init.h>
-#include <task.h>
 #include <iostream>
+#include <task.h>
 
 int main() {
   ios::sync_with_stdio(false);
@@ -18,40 +18,8 @@ int main() {
     cout << "Frame " << i << "\n";
     Player[0].action.clear();
     Player[1].action.clear();
-    Tile_T ServiceWindow = getTile(Tile_Kind::ServiceWindow, Coordinate_T());
-    if (Player[0].entity.container == Container_Kind::Plate &&
-        Player[0].entity.food.size() > 0)
-      Put(Player[0], ServiceWindow.coord);
-    else {
-      for (auto entity : Entity) {
-        if (entity.container == Container_Kind::Plate &&
-            entity.food.size() > 0) {
-          Pick(Player[0], entity.coord);
-          break;
-        }
-      }
-    }
-    if (Player[0].action.empty() && Player[0].entity.food.empty()) {
-      for (auto order : Order) {
-        for (auto ingredient : Ingredient) {
-          if (order.require[0] == ingredient.name)
-            Pick(Player[0], ingredient.coord);
-          if (!Player[0].action.empty())
-            break;
-        }
-        if (!Player[0].action.empty())
-          break;
-      }
-    } else if (Player[0].action.empty()) {
-      for (auto entity : Entity) {
-        if (entity.container == Container_Kind::Plate &&
-            entity.food.size() == 0) {
-          Put(Player[0], entity.coord);
-          break;
-        }
-      }
-    }
 
+    prepareOrder(Player[0], Order[0]);
     washPlate(Player[1]);
 
     /* 合成一个字符串再输出，否则输出有可能会被打断 */

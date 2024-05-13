@@ -145,7 +145,7 @@ extern vector<Order_T> OrderTable;
 extern int Player_cnt;
 extern vector<Player_T> Player;
 extern int Entity_cnt;
-extern vector<Entity_T> Entity;
+extern Entity_T Entity[100];
 
 extern queue<Task_T> Task;
 

@@ -5,5 +5,6 @@
 #include <action.h>
 
 void washPlate(Player_T &player);
+void prepareOrder(Player_T &player, Order_T order);
 
 #endif // !TASK_H
