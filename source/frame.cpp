@@ -42,7 +42,7 @@ static void Player_update(stringstream &ss) {
         ...
     */
     while (tmp >> s) {
-      if (s == ";" || s == "@" || s == "*" || s == ":")
+      if (s == ";" || s == "@" || s == "*" || s == ":" || s == "/" || isdigit(s[0]))
         continue;
       if (s == "Plate")
         Player[i].entity.container = Container_Kind::Plate;
@@ -63,6 +63,8 @@ static void Player_update(stringstream &ss) {
 static void Entity_update(stringstream &ss) {
   string s;
   ss >> Entity_cnt;
+  Entity.clear();
+  Entity.resize(Entity_cnt);
   for (int i = 0; i < Entity_cnt; i++) {
     Entity[i].set(ss);
   }

@@ -2,6 +2,7 @@
 #include <common.h>
 #include <iostream>
 #include <sstream>
+#include <vector>
 
 static int dx[4] = {0, 0, -1, 1}, dy[4] = {-1, 1, 0, 0};
 
@@ -59,19 +60,20 @@ Tile_Kind getTileKind(char ch) {
     }
 }
 
-Tile_T getTile(Tile_Kind tile_kind, Coordinate_T coord) {
-  Tile_T ret;
+vector<Tile_T> getTile(Tile_Kind tile_kind, Coordinate_T coord) {
+  vector<Tile_T> ret;
+  Tile_T tmp;
   for (int i = 0; i < height; i++) {
     for (int j = 0; j < width; j++) {
       if (Map[j][i] == tile_kind) {
-        ret.tile_kind = tile_kind;
-        ret.coord.x = j;
-        ret.coord.y = i;
-        return ret;
+        tmp.tile_kind = tile_kind;
+        tmp.coord.x = j;
+        tmp.coord.y = i;
+        ret.push_back(tmp);
       }
     }
   }
-  assert(0);
+  return ret;
 }
 
 string Action_T::toString() {

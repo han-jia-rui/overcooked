@@ -102,6 +102,12 @@ struct Entity_T {
     sum = 0;
   };
   bool empty() { return container == Container_Kind::None && food.empty(); }
+  bool findfood(string food) {
+    for (auto f : this->food)
+      if (f == food)
+        return true;
+    return false;
+  }
   void set(stringstream &ss);
 };
 
@@ -145,7 +151,7 @@ extern vector<Order_T> OrderTable;
 extern int Player_cnt;
 extern vector<Player_T> Player;
 extern int Entity_cnt;
-extern Entity_T Entity[100];
+extern vector<Entity_T> Entity;
 
 extern queue<Task_T> Task;
 
@@ -155,7 +161,7 @@ extern Order_T Order[100];
 extern int Sales;
 
 // common.cpp
-Tile_T getTile(Tile_Kind tile_kind, Coordinate_T coord);
+vector<Tile_T> getTile(Tile_Kind tile_kind, Coordinate_T coord);
 Tile_Kind getTileKind(char ch);
 Coordinate_T getNearestPosition(Coordinate_T coord);
 

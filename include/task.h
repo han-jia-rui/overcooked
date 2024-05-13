@@ -6,5 +6,6 @@
 
 void washPlate(Player_T &player);
 void prepareOrder(Player_T &player, Order_T order);
+void getFood(Player_T &player, string food);
 
 #endif // !TASK_H
