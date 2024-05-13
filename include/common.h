@@ -20,7 +20,14 @@ enum class Task_Kind {
   Pick,
   Put,
   Interact,
-  Wait,
+};
+
+enum class Action_Kind {
+  None,
+  Move,
+  Pick,
+  Put,
+  Interact,
 };
 
 enum class Direction {
@@ -32,8 +39,8 @@ enum class Direction {
 
 enum class Operation_Kind {
   Chop, // 切菜
-  Pan, // 煎
-  Pot, // 煮
+  Pan,  // 煎
+  Pot,  // 煮
 };
 
 enum class Tile_Kind {
@@ -87,6 +94,15 @@ struct Entity_T {
   vector<string> food;
   int frame_cur, frame_total;
   int sum;
+  void clear() {
+    coord.x = coord.y = 0;
+    container = Container_Kind::None;
+    food.clear();
+    frame_cur = frame_total = 0;
+    sum = 0;
+  };
+  bool empty() { return container == Container_Kind::None && food.empty(); }
+  void set(stringstream &ss);
 };
 
 struct Task_T {
@@ -95,20 +111,30 @@ struct Task_T {
   Ingredient_T ingredient;
 };
 
+struct Action_T {
+  Action_Kind action;
+  string direction;
+  void clear() {
+    action = Action_Kind::None;
+    direction = "";
+  };
+  void set(Action_Kind action) { this->action = action; };
+  bool empty() { return action == Action_Kind::None; };
+  string toString();
+};
+
 struct Player_T {
   Coordinate_T coord;
   double vx;
   double vy;
   int live;
   Entity_T entity;
-  Task_T task;
-  string action;
+  Action_T action;
 };
 
 // init.cpp
 extern int width, height;
-extern vector<vector<Tile_Kind>> map;
-extern Tile_T ChoppingStation, ServiceWindow, Stove, Sink;
+extern Tile_Kind Map[100][100];
 extern int Ingredient_cnt;
 extern vector<Ingredient_T> Ingredient;
 extern int Recipe_cnt;
@@ -125,12 +151,12 @@ extern queue<Task_T> Task;
 
 // frame.cpp
 extern int Order_cnt;
-extern vector<Order_T> Order;
+extern Order_T Order[100];
 extern int Sales;
 
 // common.cpp
+Tile_T getTile(Tile_Kind tile_kind, Coordinate_T coord);
 Tile_Kind getTileKind(char ch);
-inline char getAbbrev(Tile_Kind kind);
-Coordinate_T getNearestPosition(int x, int y);
+Coordinate_T getNearestPosition(Coordinate_T coord);
 
 #endif

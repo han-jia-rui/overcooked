@@ -1,96 +1,95 @@
+#include <action.h>
 #include <cmath>
-#include <common.h>
-#include <motion.h>
 
 const double StopDistance = 0.4;
 const double InteractDistance = 1.2;
 
-double dist(double x1, double y1, double x2, double y2) {
-  return sqrt(pow(x1 - x2, 2) + pow(y1 - y2, 2));
-}
+// double dist(double x1, double y1, double x2, double y2) {
+//   return sqrt(pow(x1 - x2, 2) + pow(y1 - y2, 2));
+// }
 
 void Move(Player_T &player, double x, double y) {
-  player.action = "Move ";
+  player.action.set(Action_Kind::Move);
   if (player.coord.x < x - StopDistance)
-    player.action += "R";
+    player.action.direction += "R";
   if (player.coord.x > x + StopDistance)
-    player.action += "L";
+    player.action.direction += "L";
   if (player.coord.y > y + StopDistance)
-    player.action += "U";
+    player.action.direction += "U";
   if (player.coord.y < y - StopDistance)
-    player.action += "D";
+    player.action.direction += "D";
+  if(player.action.direction.empty())
+    player.action.clear();
 }
 
 void Pick(Player_T &player, Coordinate_T coordnate) {
-  player.action = "";
-  if (!player.entity.food.empty())
-    return;
-  Coordinate_T coord = getNearestPosition(coordnate.x, coordnate.y);
+  player.action.clear();
+  Coordinate_T coord = getNearestPosition(coordnate);
   Move(player, coord.x, coord.y);
-  if (player.action == "Move ") {
-    player.action = "PutOrPick ";
+  if (player.action.empty()) {
+    player.action.set(Action_Kind::Pick);
     switch (coord.face) {
     case Direction::UP:
-      player.action += "D";
+      player.action.direction += "D";
       break;
     case Direction::DOWN:
-      player.action += "U";
+      player.action.direction += "U";
       break;
     case Direction::LEFT:
-      player.action += "R";
+      player.action.direction += "R";
       break;
     case Direction::RIGHT:
-      player.action += "L";
+      player.action.direction += "L";
       break;
     }
   }
 }
 
 void Put(Player_T &player, Coordinate_T coordnate) {
-  player.action = "";
-  if (player.entity.food.empty())
+  player.action.clear();
+  if (player.entity.empty())
     return;
-  Coordinate_T coord = getNearestPosition(coordnate.x, coordnate.y);
+  Coordinate_T coord = getNearestPosition(coordnate);
   Move(player, coord.x, coord.y);
-  if (player.action == "Move ") {
-    player.action = "PutOrPick ";
+  if (player.action.empty()) {
+    player.action.set(Action_Kind::Put);
     switch (coord.face) {
     case Direction::UP:
-      player.action += "D";
+      player.action.direction += "D";
       break;
     case Direction::DOWN:
-      player.action += "U";
+      player.action.direction += "U";
       break;
     case Direction::LEFT:
-      player.action += "R";
+      player.action.direction += "R";
       break;
     case Direction::RIGHT:
-      player.action += "L";
+      player.action.direction += "L";
       break;
     }
   }
 }
 
 void Interact(Player_T &player, Coordinate_T coordnate) {
-  player.action = "";
-  if (!player.entity.food.empty())
+  player.action.clear();
+  if (!player.entity.empty())
     return;
-  Coordinate_T coord = getNearestPosition(coordnate.x, coordnate.y);
+  Coordinate_T coord = getNearestPosition(coordnate);
   Move(player, coord.x, coord.y);
-  if (player.action == "Move ") {
-    player.action = "Interact ";
+  if (player.action.empty()) {
+    player.action.set(Action_Kind::Interact);
     switch (coord.face) {
     case Direction::UP:
-      player.action += "D";
+      player.action.direction += "D";
       break;
     case Direction::DOWN:
-      player.action += "U";
+      player.action.direction += "U";
       break;
     case Direction::LEFT:
-      player.action += "R";
+      player.action.direction += "R";
       break;
     case Direction::RIGHT:
-      player.action += "L";
+      player.action.direction += "L";
       break;
     }
   }

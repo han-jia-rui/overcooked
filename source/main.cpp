@@ -1,8 +1,8 @@
-#include <common.h>
+#include <action.h>
 #include <frame.h>
 #include <init.h>
+#include <task.h>
 #include <iostream>
-#include <action.h>
 
 int main() {
   ios::sync_with_stdio(false);
@@ -16,67 +16,50 @@ int main() {
 
     /* 输出当前帧的操作，此处仅作示例 */
     cout << "Frame " << i << "\n";
-    Player[0].action = "";
-    Player[1].action = "";
+    Player[0].action.clear();
+    Player[1].action.clear();
+    Tile_T ServiceWindow = getTile(Tile_Kind::ServiceWindow, Coordinate_T());
     if (Player[0].entity.container == Container_Kind::Plate &&
-        Player[0].entity.food.size() > 1)
+        Player[0].entity.food.size() > 0)
       Put(Player[0], ServiceWindow.coord);
     else {
       for (auto entity : Entity) {
-        if (entity.container == Container_Kind::Plate && entity.food.size() > 1) {
+        if (entity.container == Container_Kind::Plate &&
+            entity.food.size() > 0) {
           Pick(Player[0], entity.coord);
           break;
         }
       }
     }
-    if (Player[0].action == "" && Player[0].entity.food.empty()) {
+    if (Player[0].action.empty() && Player[0].entity.food.empty()) {
       for (auto order : Order) {
         for (auto ingredient : Ingredient) {
           if (order.require[0] == ingredient.name)
             Pick(Player[0], ingredient.coord);
-          if (Player[0].action != "")
+          if (!Player[0].action.empty())
             break;
         }
-        if (Player[0].action != "")
+        if (!Player[0].action.empty())
           break;
       }
-    } else if (Player[0].action == "") {
+    } else if (Player[0].action.empty()) {
       for (auto entity : Entity) {
-        if (entity.container == Container_Kind::Plate && entity.food.size() == 1) {
+        if (entity.container == Container_Kind::Plate &&
+            entity.food.size() == 0) {
           Put(Player[0], entity.coord);
           break;
         }
       }
     }
 
-    if (Player[1].action == "" && Player[1].entity.food.empty()) {
-      for (auto entity : Entity) {
-        if (entity.container == Container_Kind::DirtyPlates &&
-            entity.food.size() == 1 && entity.coord.x == Sink.coord.x &&
-            Sink.coord.y == entity.coord.y) {
-          Interact(Player[1], entity.coord);
-          break;
-        }
-      }
-    }
-    if (Player[1].action == "") {
-      for (auto entity : Entity) {
-        if (entity.container == Container_Kind::DirtyPlates &&
-            entity.food.size() == 1) {
-          Pick(Player[1], entity.coord);
-          break;
-        }
-      }
-    }
-    if (Player[1].action == "") {
-      Put(Player[1], Sink.coord);
-    }
+    washPlate(Player[1]);
 
     /* 合成一个字符串再输出，否则输出有可能会被打断 */
-    string action = Player[0].action + '\n' + Player[1].action + '\n';
+    string action =
+        Player[0].action.toString() + '\n' + Player[1].action.toString() + '\n';
     cout << action;
 
-    /* 不要忘记刷新输出流，否则游戏将无法及时收到响应 */
+    cerr.flush();
     cout.flush();
   }
 }

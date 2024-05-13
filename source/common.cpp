@@ -1,10 +1,14 @@
+#include <cassert>
 #include <common.h>
+#include <iostream>
+#include <sstream>
 
 static int dx[4] = {0, 0, -1, 1}, dy[4] = {-1, 1, 0, 0};
 
-Coordinate_T getNearestPosition(int ix, int iy) {
+Coordinate_T getNearestPosition(Coordinate_T coord) {
   Coordinate_T ret;
-  if (map[ix][iy] == Tile_Kind::Floor) {
+  int ix = coord.x, iy = coord.y;
+  if (Map[ix][iy] == Tile_Kind::Floor) {
     ret.x = double(ix) + 0.5;
     ret.y = double(iy) + 0.5;
     ret.face = Direction(0);
@@ -13,7 +17,7 @@ Coordinate_T getNearestPosition(int ix, int iy) {
     for (int i = 0; i < 4; i++) {
       int nx = ix + dx[i], ny = iy + dy[i];
       if (nx >= 0 && nx < width && ny >= 0 && ny < height) {
-        if (map[nx][ny] == Tile_Kind::Floor) {
+        if (Map[nx][ny] == Tile_Kind::Floor) {
           ret.x = double(nx) + 0.5;
           ret.y = double(ny) + 0.5;
           ret.face = Direction(i);
@@ -55,25 +59,78 @@ Tile_Kind getTileKind(char ch) {
     }
 }
 
-// char getAbbrev(Tile_Kind kind) {
-//   switch (kind) {
-//   case Tile_Kind::IngredientBox:
-//     return 'i';
-//   case Tile_Kind::Trashbin:
-//     return 't';
-//   case Tile_Kind::ChoppingStation:
-//     return 'c';
-//   case Tile_Kind::ServiceWindow:
-//     return '$';
-//   case Tile_Kind::Stove:
-//     return 's';
-//   case Tile_Kind::PlateReturn:
-//     return 'p';
-//   case Tile_Kind::Sink:
-//     return 'k';
-//   case Tile_Kind::PlateRack:
-//     return 'r';
-//   default:
-//     assert(0);
-//   }
-// }
+Tile_T getTile(Tile_Kind tile_kind, Coordinate_T coord) {
+  Tile_T ret;
+  for (int i = 0; i < height; i++) {
+    for (int j = 0; j < width; j++) {
+      if (Map[j][i] == tile_kind) {
+        ret.tile_kind = tile_kind;
+        ret.coord.x = j;
+        ret.coord.y = i;
+        return ret;
+      }
+    }
+  }
+  assert(0);
+}
+
+string Action_T::toString() {
+  string ret;
+  switch (action) {
+  case Action_Kind::Move:
+    ret = "Move";
+    break;
+  case Action_Kind::Pick:
+    ret = "PutOrPick";
+    break;
+  case Action_Kind::Put:
+    ret = "PutOrPick";
+    break;
+  case Action_Kind::Interact:
+    ret = "Interact";
+    break;
+  default:
+    ret = "";
+    break;
+  }
+  ret += " " + direction;
+  return ret;
+};
+
+void Entity_T::set(stringstream &ss) {
+  this->clear();
+  ss >> coord.x >> coord.y;
+  string s;
+  getline(ss, s);
+  stringstream tmp(s);
+  sum = 1;
+  while (tmp >> s) {
+    /*
+        @ Plate : fish
+        : fish
+        DirtyPlates 1 ; 15 / 180
+    */
+
+    if (s == ":" || s == "@" || s == "*")
+      continue;
+
+    if (s == ";") {
+      tmp >> frame_cur >> s >> frame_total;
+      assert(s == "/");
+      break;
+    }
+
+    if (s == "Plate")
+      container = Container_Kind::Plate;
+    else if (s == "Pan")
+      container = Container_Kind::Pan;
+    else if (s == "Pot")
+      container = Container_Kind::Pot;
+    else if (s == "DirtyPlates") {
+      container = Container_Kind::DirtyPlates;
+      tmp >> sum;
+    } else {
+      food.push_back(s);
+    }
+  }
+}

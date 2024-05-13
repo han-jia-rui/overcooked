@@ -5,8 +5,7 @@
 #include <sstream>
 
 int width, height;
-vector<vector<Tile_Kind>> map;
-Tile_T ChoppingStation, ServiceWindow, Stove, Sink;
+Tile_Kind Map[100][100];
 int Ingredient_cnt;
 vector<Ingredient_T> Ingredient;
 int Recipe_cnt;
@@ -22,34 +21,16 @@ vector<Entity_T> Entity;
 static void read() {
   string s;
   int frame;
-
-  /* 读取初始地图信息 */
   getline(std::cin, s, '\0');
   stringstream ss(s);
 
+  /* 读取初始地图信息 */
   ss >> width >> height;
-  map.resize(height);
-  for (int i = 0; i < height; i++) {
-    map[i].resize(width);
-  }
-
   for (int i = 0; i < height; i++) {
     for (int j = 0; j < width; j++) {
       char ch;
       ss >> ch;
-      map[j][i] = getTileKind(ch);
-      switch (map[j][i]) {
-      case Tile_Kind::ServiceWindow:
-        ServiceWindow.coord.x = j;
-        ServiceWindow.coord.y = i;
-        break;
-      case Tile_Kind::Sink:
-        Sink.coord.x = j;
-        Sink.coord.y = i;
-        break;
-      default:
-        break;
-      }
+      Map[j][i] = getTileKind(ch);
     }
   }
 
@@ -83,11 +64,11 @@ static void read() {
     ss >> Recipe[i].after;
   }
 
-  /* 读入总帧数、当前采用的随机种子、一共可能出现的订单数量 */
+  /* 读入总帧数、当前采用的随机种子*/
   ss >> Frame_total >> randomizeSeed;
 
-  ss >> OrderTable_cnt;
   /* 读入订单的有效帧数、价格、权重、订单组成 */
+  ss >> OrderTable_cnt;
   OrderTable.resize(OrderTable_cnt);
   for (int i = 0; i < OrderTable_cnt; i++) {
     ss >> OrderTable[i].frame_left >> OrderTable[i].price >>
@@ -105,15 +86,13 @@ static void read() {
   for (int i = 0; i < Player_cnt; i++) {
     ss >> Player[i].coord.x >> Player[i].coord.y;
     Player[i].entity.container = Container_Kind::None;
-    Player[i].entity.food.clear();
   }
 
   /* 读入实体信息：坐标、实体组成 */
   ss >> Entity_cnt;
   Entity.resize(Entity_cnt);
   for (int i = 0; i < Entity_cnt; i++) {
-    ss >> Entity[i].coord.x >> Entity[i].coord.y >> s;
-    Entity[i].food.push_back(s);
+    Entity[i].set(ss);
   }
 }
 
