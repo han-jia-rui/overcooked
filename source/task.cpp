@@ -28,19 +28,23 @@ void Chop(Player_T &player, Recipe_T recipe) {
 }
 
 void PanOrPot(Player_T &player, Recipe_T recipe) {
-  assert(recipe.operation == Operation_Kind::Pot || recipe.operation == Operation_Kind::Pan);
+  assert(recipe.operation == Operation_Kind::Pot ||
+         recipe.operation == Operation_Kind::Pan);
   Entity_T stove;
   for (auto entity : Entity) {
-    if (recipe.operation == Operation_Kind::Pot && entity.container == Container_Kind::Pot) {
+    if (recipe.operation == Operation_Kind::Pot &&
+        entity.container == Container_Kind::Pot) {
       stove = entity;
       break;
     }
-    if (recipe.operation == Operation_Kind::Pan && entity.container == Container_Kind::Pan) {
+    if (recipe.operation == Operation_Kind::Pan &&
+        entity.container == Container_Kind::Pan) {
       stove = entity;
       break;
     }
   }
-  assert(stove.container == Container_Kind::Pot || stove.container == Container_Kind::Pan);
+  assert(stove.container == Container_Kind::Pot ||
+         stove.container == Container_Kind::Pan);
   if (stove.findfood(recipe.before)) {
     Interact(player, stove.coord);
   }

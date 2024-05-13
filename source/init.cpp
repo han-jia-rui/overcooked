@@ -2,6 +2,8 @@
 #include <common.h>
 #include <init.h>
 #include <iostream>
+#include <iterator>
+#include <ostream>
 #include <sstream>
 
 int width, height;
