@@ -154,8 +154,8 @@ void prepareOrder(Player_T &player, Order_T order) {
           cerr << "Get " << food << " from plate\n";
           getFood(player, food);
           CheckAction;
-          cerr << "Put " << food << " to plate\n";
-          Put(player, entity.coord);
+          if (player.entity.findfood(food))
+            Put(player, entity.coord);
           CheckAction;
         }
       }
