@@ -1,4 +1,5 @@
 #include <cassert>
+#include <iostream>
 #include <string>
 #include <task.h>
 #include <vector>
@@ -152,6 +153,7 @@ void prepareOrder(Player_T &player, Order_T order) {
         if (!entity.findfood(food)) {
           getFood(player, food);
           CheckAction;
+          cerr << "Put " << food << " to plate\n";
           Put(player, entity.coord);
           CheckAction;
         }
