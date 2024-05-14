@@ -10,34 +10,41 @@ const double InteractDistance = 1.2;
 // }
 //
 void setDirection(Player_T &player, Coordinate_T coord) {
-    switch (coord.face) {
-    case Direction::UP:
-      player.action.direction += "D";
-      break;
-    case Direction::DOWN:
-      player.action.direction += "U";
-      break;
-    case Direction::LEFT:
-      player.action.direction += "R";
-      break;
-    case Direction::RIGHT:
-      player.action.direction += "L";
-      break;
-    }
+  switch (coord.face) {
+  case Direction::UP:
+    player.action.direction += "D";
+    break;
+  case Direction::DOWN:
+    player.action.direction += "U";
+    break;
+  case Direction::LEFT:
+    player.action.direction += "R";
+    break;
+  case Direction::RIGHT:
+    player.action.direction += "L";
+    break;
+  }
 }
 
 void Move(Player_T &player, double x, double y) {
   player.action.set(Action_Kind::Move);
-  if (player.coord.x < x - StopDistance)
+  if (player.coord.x < x - StopDistance) {
     player.action.direction += "R";
-  if (player.coord.x > x + StopDistance)
+    return;
+  }
+  if (player.coord.x > x + StopDistance) {
     player.action.direction += "L";
-  if (player.coord.y > y + StopDistance)
+    return;
+  }
+  if (player.coord.y > y + StopDistance) {
     player.action.direction += "U";
-  if (player.coord.y < y - StopDistance)
+    return;
+  }
+  if (player.coord.y < y - StopDistance) {
     player.action.direction += "D";
-  if(player.action.direction.empty())
-    player.action.clear();
+    return;
+  }
+  player.action.clear();
 }
 
 void Pick(Player_T &player, Coordinate_T coordnate) {
