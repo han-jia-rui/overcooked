@@ -46,7 +46,8 @@ void PanOrPot(Player_T &player, Recipe_T recipe) {
   assert(stove.container == Container_Kind::Pot ||
          stove.container == Container_Kind::Pan);
   if (stove.findfood(recipe.before)) {
-    Interact(player, stove.coord);
+    return;
+    // Interact(player, stove.coord);
   }
   CheckAction;
   getFood(player, recipe.before);
@@ -155,7 +156,7 @@ void prepareOrder(Player_T &player, Order_T order) {
           CheckAction;
         }
       }
-      break;
+      // break;
     }
   }
 }
