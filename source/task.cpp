@@ -151,7 +151,7 @@ void prepareOrder(Player_T &player, Order_T order) {
     if (entity.container == Container_Kind::Plate) {
       for (auto food : order.require) {
         if (!entity.findfood(food)) {
-          cerr << "Get " << food << " from plate\n";
+          // cerr << "Get " << food << " from plate\n";
           getFood(player, food);
           CheckAction;
           if (player.entity.findfood(food))
