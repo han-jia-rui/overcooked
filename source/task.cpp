@@ -180,14 +180,14 @@ void washPlate(Player_T &player) {
     }
   }
   CheckAction;
-  Put(player, Sink.coord);
-  CheckAction;
   for (auto entity : Entity) {
     if (entity.container == Container_Kind::DirtyPlates) {
       Pick(player, entity.coord);
       break;
     }
   }
+  CheckAction;
+  Put(player, Sink.coord);
   CheckAction;
   tmp = getTile(Tile_Kind::PlateReturn, player.coord);
   Tile_T PlateReturn = tmp[0];
