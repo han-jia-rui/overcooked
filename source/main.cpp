@@ -20,7 +20,7 @@ int main() {
     Player[1].action.clear();
 
     if (Player[0].live == 0)
-      prepareOrder(Player[0], Order[0]);
+      prepareOrder(Player[0]);
     if (Player[1].live == 0)
       washPlate(Player[1]);
 
