@@ -1,5 +1,4 @@
 #include <cassert>
-#include <iostream>
 #include <string>
 #include <task.h>
 #include <vector>
@@ -154,10 +153,10 @@ void prepareOrder(Player_T &player) {
     if (entity.container == Container_Kind::Plate) {
       for (auto food : Order[0].require) {
         if (!entity.findfood(food)) {
-          cerr << "Get " << food << " from plate\n";
+          // cerr << "Get " << food << " from plate\n";
           getFood(player, food);
           CheckAction;
-          cerr << "Put " << food << " to plate\n";
+          // cerr << "Put " << food << " to plate\n";
           if (player.entity.findfood(food))
             Put(player, entity.coord);
           CheckAction;
@@ -181,6 +180,8 @@ void washPlate(Player_T &player) {
     }
   }
   CheckAction;
+  Put(player, Sink.coord);
+  CheckAction;
   for (auto entity : Entity) {
     if (entity.container == Container_Kind::DirtyPlates) {
       Pick(player, entity.coord);
@@ -188,5 +189,7 @@ void washPlate(Player_T &player) {
     }
   }
   CheckAction;
-  Put(player, Sink.coord);
+  tmp = getTile(Tile_Kind::PlateReturn, player.coord);
+  Tile_T PlateReturn = tmp[0];
+  Move(player, PlateReturn.coord.x, PlateReturn.coord.y);
 }
