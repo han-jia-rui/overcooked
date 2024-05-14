@@ -147,6 +147,7 @@ void prepareOrder(Player_T &player) {
   CheckAction;
   for (auto order : Order) {
     service(player, order);
+    CheckAction;
   }
   CheckAction;
   int order_cnt = 0;
