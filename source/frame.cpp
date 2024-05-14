@@ -4,12 +4,14 @@
 #include <sstream>
 
 int Order_cnt;
-Order_T Order[100];
+vector<Order_T> Order;
 int Sales;
 
 static void Order_update(stringstream &ss) {
   string s;
   ss >> Order_cnt;
+  Order.clear();
+  Order.resize(Order_cnt);
   for (int i = 0; i < Order_cnt; i++) {
     ss >> Order[i].frame_left >> Order[i].price;
     Order[i].require.clear();

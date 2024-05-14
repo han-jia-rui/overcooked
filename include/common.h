@@ -157,7 +157,7 @@ extern queue<Task_T> Task;
 
 // frame.cpp
 extern int Order_cnt;
-extern Order_T Order[100];
+extern vector<Order_T> Order;
 extern int Sales;
 
 // common.cpp
