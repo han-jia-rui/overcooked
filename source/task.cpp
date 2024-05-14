@@ -145,15 +145,14 @@ void putStove(Player_T &player) {
 void prepareOrder(Player_T &player) {
   putStove(player);
   CheckAction;
-  for (auto order : Order) {
-    service(player, order);
-    CheckAction;
-  }
+  // for (auto order : Order) {
+    service(player, Order[0]);
+    // CheckAction;
+  // }
   CheckAction;
-  int order_cnt = 0;
   for (auto entity : Entity) {
     if (entity.container == Container_Kind::Plate) {
-      for (auto food : Order[order_cnt].require) {
+      for (auto food : Order[0].require) {
         if (!entity.findfood(food)) {
           cerr << "Get " << food << " from plate\n";
           getFood(player, food);
@@ -164,8 +163,7 @@ void prepareOrder(Player_T &player) {
           CheckAction;
         }
       }
-      order_cnt++;
-      // break;
+      break;
     }
   }
 }
