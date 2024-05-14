@@ -2,7 +2,7 @@
 #include <action.h>
 #include <cmath>
 
-const double StopDistance = 0.5;
+const double StopDistance = 0.2;
 const double InteractDistance = 1.2;
 
 // double dist(double x1, double y1, double x2, double y2) {
@@ -10,41 +10,34 @@ const double InteractDistance = 1.2;
 // }
 //
 void setDirection(Player_T &player, Coordinate_T coord) {
-  switch (coord.face) {
-  case Direction::UP:
-    player.action.direction += "D";
-    break;
-  case Direction::DOWN:
-    player.action.direction += "U";
-    break;
-  case Direction::LEFT:
-    player.action.direction += "R";
-    break;
-  case Direction::RIGHT:
-    player.action.direction += "L";
-    break;
-  }
+    switch (coord.face) {
+    case Direction::UP:
+      player.action.direction += "D";
+      break;
+    case Direction::DOWN:
+      player.action.direction += "U";
+      break;
+    case Direction::LEFT:
+      player.action.direction += "R";
+      break;
+    case Direction::RIGHT:
+      player.action.direction += "L";
+      break;
+    }
 }
 
 void Move(Player_T &player, double x, double y) {
   player.action.set(Action_Kind::Move);
-  if (player.coord.x < x - StopDistance) {
+  if (player.coord.x < x - StopDistance)
     player.action.direction += "R";
-    return;
-  }
-  if (player.coord.x > x + StopDistance) {
+  if (player.coord.x > x + StopDistance)
     player.action.direction += "L";
-    return;
-  }
-  if (player.coord.y > y + StopDistance) {
+  if (player.coord.y > y + StopDistance)
     player.action.direction += "U";
-    return;
-  }
-  if (player.coord.y < y - StopDistance) {
+  if (player.coord.y < y - StopDistance)
     player.action.direction += "D";
-    return;
-  }
-  player.action.clear();
+  if(player.action.direction.empty())
+    player.action.clear();
 }
 
 void Pick(Player_T &player, Coordinate_T coordnate) {
