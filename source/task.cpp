@@ -1,4 +1,3 @@
-#include "common.h"
 #include <cassert>
 #include <string>
 #include <task.h>
@@ -162,10 +161,10 @@ void prepareOrder(Player_T &player) {
   }
   CheckAction;
   getFood(player, Order[0].require[0]);
-  CheckAction;
-  vector<Tile_T> tmp = getTile(Tile_Kind::PlateRack, player.coord);
-  Tile_T PlateRack = tmp[0];
-  Move(player, PlateRack.coord.x, PlateRack.coord.y);
+  // CheckAction;
+  // vector<Tile_T> tmp = getTile(Tile_Kind::PlateRack, player.coord);
+  // Tile_T PlateRack = tmp[0];
+  // Move(player, PlateRack.coord.x, PlateRack.coord.y);
 }
 
 void washPlate(Player_T &player) {
