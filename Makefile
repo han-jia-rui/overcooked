@@ -13,7 +13,7 @@ all:
 	@make -C build
 	@if [[ ! -e build-win/Makefile ]]; then \
 		mkdir -p build-win; \
-		cd build && cmake .. -DCMAKE_BUILD_TYPE=Debug -DFOR_WIN=ON; fi
+		cd build-win && cmake .. -DCMAKE_BUILD_TYPE=Debug -DFOR_WIN=ON; fi
 	@make -C build-win
 
 clean:
