@@ -144,10 +144,10 @@ void putStove(Player_T &player) {
 void prepareOrder(Player_T &player) {
   putStove(player);
   CheckAction;
-  // for (auto order : Order) {
+  for (auto order : Order) {
     service(player, Order[0]);
-    // CheckAction;
-  // }
+    CheckAction;
+  }
   CheckAction;
   for (auto entity : Entity) {
     if (entity.container == Container_Kind::Plate) {
@@ -162,11 +162,13 @@ void prepareOrder(Player_T &player) {
           CheckAction;
         }
       }
-      break;
     }
   }
+  CheckAction;
+  getFood(player, Order[0].require[0]);
 }
 
+static int sta = 0;
 void washPlate(Player_T &player) {
   vector<Tile_T> tmp = getTile(Tile_Kind::Sink, Coordinate_T());
   Tile_T Sink = tmp[0];
@@ -175,6 +177,8 @@ void washPlate(Player_T &player) {
       if (entity.container == Container_Kind::DirtyPlates &&
           entity.coord.x == Sink.coord.x && Sink.coord.y == entity.coord.y) {
         Interact(player, entity.coord);
+        if (entity.frame_cur == 20 && entity.sum == 1)
+          sta ^= 1;
         break;
       }
     }
@@ -187,7 +191,10 @@ void washPlate(Player_T &player) {
     }
   }
   CheckAction;
-  Put(player, Sink.coord);
+  if (player.entity.container == Container_Kind::DirtyPlates &&
+      player.entity.sum >= 2) {
+    Put(player, Sink.coord);
+  }
   CheckAction;
   tmp = getTile(Tile_Kind::PlateReturn, player.coord);
   Tile_T PlateReturn = tmp[0];
