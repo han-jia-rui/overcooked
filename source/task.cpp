@@ -1,3 +1,4 @@
+#include "common.h"
 #include <cassert>
 #include <string>
 #include <task.h>
@@ -144,11 +145,6 @@ void putStove(Player_T &player) {
 void prepareOrder(Player_T &player) {
   putStove(player);
   CheckAction;
-  for (auto order : Order) {
-    service(player, Order[0]);
-    CheckAction;
-  }
-  CheckAction;
   for (auto entity : Entity) {
     if (entity.container == Container_Kind::Plate) {
       for (auto food : Order[0].require) {
@@ -173,6 +169,12 @@ void prepareOrder(Player_T &player) {
 }
 
 void washPlate(Player_T &player) {
+  if (player.entity.container != Container_Kind::DirtyPlates)
+    for (auto order : Order) {
+      service(player, Order[0]);
+      CheckAction;
+    }
+  CheckAction;
   vector<Tile_T> tmp = getTile(Tile_Kind::Sink, Coordinate_T());
   Tile_T Sink = tmp[0];
   if (player.entity.empty()) {
