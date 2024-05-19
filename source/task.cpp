@@ -168,7 +168,6 @@ void prepareOrder(Player_T &player) {
   getFood(player, Order[0].require[0]);
 }
 
-static int sta = 0;
 void washPlate(Player_T &player) {
   vector<Tile_T> tmp = getTile(Tile_Kind::Sink, Coordinate_T());
   Tile_T Sink = tmp[0];
@@ -177,8 +176,6 @@ void washPlate(Player_T &player) {
       if (entity.container == Container_Kind::DirtyPlates &&
           entity.coord.x == Sink.coord.x && Sink.coord.y == entity.coord.y) {
         Interact(player, entity.coord);
-        if (entity.frame_cur == 20 && entity.sum == 1)
-          sta ^= 1;
         break;
       }
     }
