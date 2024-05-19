@@ -185,10 +185,12 @@ void washPlate(Player_T &player) {
     }
   }
   CheckAction;
-  for (auto entity : Entity) {
-    if (entity.container == Container_Kind::DirtyPlates) {
-      Pick(player, entity.coord);
-      break;
+  if (player.entity.container == Container_Kind::None) {
+    for (auto entity : Entity) {
+      if (entity.container == Container_Kind::DirtyPlates) {
+        Pick(player, entity.coord);
+        break;
+      }
     }
   }
   CheckAction;

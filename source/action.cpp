@@ -2,8 +2,8 @@
 #include <action.h>
 #include <cmath>
 
-const double StopDistance = 0.4;
-const double VelocityCo = 10;
+const double StopDistance = 0.45;
+const double VelocityCo = 25;
 const double InteractDistance = 1.2;
 
 void setDirection(Player_T &player, Coordinate_T coord) {
@@ -27,7 +27,7 @@ void Move(Player_T &player, double x, double y) {
   player.action.set(Action_Kind::Move);
   if (x - player.coord.x > StopDistance)
     player.action.direction += "R";
-  if (player.coord.x > x + StopDistance)
+  if (player.coord.x - x > StopDistance)
     player.action.direction += "L";
   if (player.coord.y > y + StopDistance)
     player.action.direction += "U";
