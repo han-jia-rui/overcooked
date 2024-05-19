@@ -29,7 +29,7 @@ test: all
 	@cd ../QtOvercooked && wine runner.exe -p ../overcooked-2022/build-win/main-win.exe -l $(shell find ../overcooked-2022/maps -name "level${LEVEL}-${MAP}.txt")
 
 test-linux: all
-	@cd ../QtOvercooked && runner -p ../overcooked-2022/build-win/main-win.exe -l $(shell find ../overcooked-2022/maps -name "level${LEVEL}-${MAP}.txt")
+	@cd ../QtOvercooked && ./runner -p ../overcooked-2022/build/main -l $(shell find ../overcooked-2022/maps -name "level${LEVEL}-${MAP}.txt")
 
 play:
 	@cd ../QtOvercooked && wine QtOvercooked.exe -l $(shell find ../overcooked-2022/maps -name "level${LEVEL}-${MAP}.txt")
