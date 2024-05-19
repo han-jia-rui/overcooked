@@ -192,7 +192,7 @@ void washPlate(Player_T &player) {
   }
   CheckAction;
   if (player.entity.container == Container_Kind::DirtyPlates &&
-      player.entity.sum >= 2) {
+      player.entity.sum >= 1) {
     Put(player, Sink.coord);
   }
   CheckAction;
