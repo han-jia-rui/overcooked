@@ -2,7 +2,7 @@
 #include <action.h>
 #include <cmath>
 
-const double StopDistance = 0.5;
+const double StopDistance = 0.4;
 const double VelocityCo = 10;
 const double InteractDistance = 1.2;
 
