@@ -5,10 +5,6 @@
 const double StopDistance = 0.48;
 const double InteractDistance = 1.2;
 
-// double dist(double x1, double y1, double x2, double y2) {
-//   return sqrt(pow(x1 - x2, 2) + pow(y1 - y2, 2));
-// }
-//
 void setDirection(Player_T &player, Coordinate_T coord) {
     switch (coord.face) {
     case Direction::UP:
