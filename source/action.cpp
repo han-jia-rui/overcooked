@@ -2,7 +2,7 @@
 #include <action.h>
 #include <cmath>
 
-const double StopDistance = 0.49;
+const double StopDistance = 0.5;
 const double InteractDistance = 1.2;
 
 void setDirection(Player_T &player, Coordinate_T coord) {
