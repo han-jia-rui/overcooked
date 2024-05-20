@@ -1,6 +1,5 @@
 #include <action.h>
 #include <cassert>
-#include <cmath>
 #include <iostream>
 
 constexpr double Distance = 0.5;
@@ -34,13 +33,13 @@ void Move(Player_T &player, Coordinate_T target) {
   // Stop
   if (abs(player.coord.x - next.x) > Distance &&
       abs(player.coord.y - next.y) > Radius) {
-    next.x = floor(player.coord.x) + 0.5;
-    next.y = floor(player.coord.y) + 0.5;
+    next.x = int(player.coord.x) + 0.5;
+    next.y = int(player.coord.y) + 0.5;
   }
   if (abs(player.coord.y - next.y) > Distance &&
       abs(player.coord.x - next.x) > Radius) {
-    next.x = floor(player.coord.x) + 0.5;
-    next.y = floor(player.coord.y) + 0.5;
+    next.x = int(player.coord.x) + 0.5;
+    next.y = int(player.coord.y) + 0.5;
   }
   cerr << "Move " << next.x << " " << next.y << endl;
   cerr.flush();
