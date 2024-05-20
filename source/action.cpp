@@ -1,5 +1,4 @@
 #include <action.h>
-#include <cassert>
 #include <iostream>
 
 constexpr double Distance = 0.5;
@@ -31,13 +30,13 @@ void Move(Player_T &player, Coordinate_T target) {
   double x_stop = player.vx * player.vx / (2 * Acceleration) + Radius;
   double y_stop = player.vy * player.vy / (2 * Acceleration) + Radius;
   // Stop
-  if (abs(player.coord.x - next.x) > Distance &&
-      abs(player.coord.y - next.y) > Radius) {
+  if (std::abs(player.coord.x - next.x) > Distance &&
+      std::abs(player.coord.y - next.y) > Radius) {
     next.x = int(player.coord.x) + 0.5;
     next.y = int(player.coord.y) + 0.5;
   }
-  if (abs(player.coord.y - next.y) > Distance &&
-      abs(player.coord.x - next.x) > Radius) {
+  if (std::abs(player.coord.y - next.y) > Distance &&
+      std::abs(player.coord.x - next.x) > Radius) {
     next.x = int(player.coord.x) + 0.5;
     next.y = int(player.coord.y) + 0.5;
   }
@@ -60,8 +59,8 @@ void Move(Player_T &player, Coordinate_T target) {
 
 void Pick(Player_T &player, Coordinate_T target) {
   Coordinate_T coord = getNearestPosition(target);
-  if (abs(player.coord.x - coord.x) < InteractDistance &&
-      abs(player.coord.y - coord.y) < InteractDistance) {
+  if (std::abs(player.coord.x - coord.x) < InteractDistance &&
+      std::abs(player.coord.y - coord.y) < InteractDistance) {
     player.action.set(Action_Kind::Pick);
     setDirection(player, coord);
     return;
@@ -73,8 +72,8 @@ void Put(Player_T &player, Coordinate_T target) {
   if (player.entity.empty())
     return;
   Coordinate_T coord = getNearestPosition(target);
-  if (abs(player.coord.x - coord.x) < InteractDistance &&
-      abs(player.coord.y - coord.y) < InteractDistance) {
+  if (std::abs(player.coord.x - coord.x) < InteractDistance &&
+      std::abs(player.coord.y - coord.y) < InteractDistance) {
     player.action.set(Action_Kind::Put);
     setDirection(player, coord);
     return;
@@ -86,8 +85,8 @@ void Interact(Player_T &player, Coordinate_T target) {
   if (!player.entity.empty())
     return;
   Coordinate_T coord = getNearestPosition(target);
-  if (abs(player.coord.x - coord.x) < InteractDistance &&
-      abs(player.coord.y - coord.y) < InteractDistance) {
+  if (std::abs(player.coord.x - coord.x) < InteractDistance &&
+      std::abs(player.coord.y - coord.y) < InteractDistance) {
     player.action.set(Action_Kind::Interact);
     setDirection(player, coord);
     return;
