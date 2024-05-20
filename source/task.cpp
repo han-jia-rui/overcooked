@@ -1,4 +1,3 @@
-#include <cassert>
 #include <string>
 #include <task.h>
 #include <vector>
@@ -8,6 +7,12 @@
     if (!player.action.empty())                                                \
       return;                                                                  \
   } while (0)
+
+void gotoTile(Player_T &player, Tile_Kind tile) {
+  vector<Tile_T> tmp = getTile(tile, player.coord);
+  Tile_T target = tmp[0];
+  Move(player, target.coord.x, target.coord.y);
+}
 
 void Chop(Player_T &player, Recipe_T recipe) {
   assert(recipe.operation == Operation_Kind::Chop);
@@ -47,7 +52,6 @@ void PanOrPot(Player_T &player, Recipe_T recipe) {
          stove.container == Container_Kind::Pan);
   if (stove.findfood(recipe.before)) {
     return;
-    // Interact(player, stove.coord);
   }
   CheckAction;
   getFood(player, recipe.before);
@@ -70,9 +74,24 @@ bool checkOrder(vector<string> require, vector<string> cur) {
   return true;
 }
 
+bool checkGet(string food_now, string food_target) {
+  if (food_now == food_target)
+    return true;
+  for (auto recipe : Recipe) {
+    if (food_target == recipe.after) {
+      return checkGet(food_now, recipe.before);
+    }
+  }
+  return false;
+}
+
 void getFood(Player_T &player, string food) {
   if (player.entity.food.size() == 1 && player.entity.food[0] == food)
     return;
+  if (player.entity.food.size() == 1 &&
+      !checkGet(player.entity.food[0], food)) {
+    return;
+  }
   for (auto entity : Entity) {
     if (entity.findfood(food) && entity.container != Container_Kind::Plate) {
       Pick(player, entity.coord);
@@ -127,23 +146,24 @@ void putStove(Player_T &player) {
     return;
   vector<Tile_T> tmp = getTile(Tile_Kind::Stove, Coordinate_T());
   for (auto Stove : tmp) {
-    bool flag = false;
+    bool used = false;
     for (auto entity : Entity) {
-      if (entity.coord.x == Stove.coord.x && entity.coord.y == Stove.coord.y) {
-        flag = true;
+      if (entity.coord == Stove.coord) {
+        used = true;
         break;
       }
     }
-    if (!flag) {
+    if (!used) {
       Put(player, Stove.coord);
       return;
     }
   }
 }
 
-void prepareOrder(Player_T &player) {
+void Scheme1(Player_T &player) {
   putStove(player);
   CheckAction;
+
   int plate_cnt = 0;
   for (auto entity : Entity) {
     if (entity.container == Container_Kind::Plate) {
@@ -175,7 +195,7 @@ void prepareOrder(Player_T &player) {
   CheckAction;
 }
 
-void washPlate(Player_T &player) {
+void Scheme2(Player_T &player) {
   if (player.entity.container != Container_Kind::DirtyPlates)
     for (auto order : Order) {
       service(player, Order[0]);
@@ -208,7 +228,4 @@ void washPlate(Player_T &player) {
     Put(player, Sink.coord);
   }
   CheckAction;
-  // tmp = getTile(Tile_Kind::PlateReturn, player.coord);
-  // Tile_T PlateReturn = tmp[0];
-  // Move(player, PlateReturn.coord.x, PlateReturn.coord.y);
 }

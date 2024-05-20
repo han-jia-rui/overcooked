@@ -61,6 +61,9 @@ enum class Tile_Kind {
 struct Coordinate_T {
   double x, y;
   Direction face;
+  bool operator==(const Coordinate_T &coord) const {
+    return x == coord.x && y == coord.y;
+  };
 };
 
 struct Tile_T {
