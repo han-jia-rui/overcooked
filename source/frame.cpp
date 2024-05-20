@@ -21,7 +21,7 @@ void Map_update() {
   for (auto player : Player) {
     if (player.live != 0)
       continue;
-    map[(int)player.coord.y][(int)player.coord.x] = false;
+    map[(int)player.coord.x][(int)player.coord.y] = false;
   }
 }
 

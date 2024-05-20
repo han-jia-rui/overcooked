@@ -1,9 +1,13 @@
-#include "common.h"
 #include <action.h>
+#include <cassert>
 #include <cmath>
+#include <iostream>
 
-const double StopDistance = 0.4;
-const double InteractDistance = 1.2;
+constexpr double Distance = 0.5;
+constexpr double Acceleration = 25;
+constexpr double Radius = 0.1;
+constexpr double InteractDistance = 0.2;
+constexpr double Velocity = 0;
 
 void setDirection(Player_T &player, Coordinate_T coord) {
   switch (coord.face) {
@@ -23,51 +27,71 @@ void setDirection(Player_T &player, Coordinate_T coord) {
 }
 
 void Move(Player_T &player, Coordinate_T target) {
-  if (target.x - player.coord.x > StopDistance) {
-    player.action.set(Action_Kind::Move);
+  player.action.set(Action_Kind::Move);
+  Coordinate_T next = getNextPosition(player.coord, target);
+  double x_stop = player.vx * player.vx / (2 * Acceleration) + Radius;
+  double y_stop = player.vy * player.vy / (2 * Acceleration) + Radius;
+  // Stop
+  if (fabs(player.coord.x - next.x) > Distance &&
+      fabs(player.coord.y - next.y) > Radius) {
+    next.x = floor(player.coord.x) + 0.5;
+    next.y = floor(player.coord.y) + 0.5;
+  }
+  if (fabs(player.coord.y - next.y) > Distance &&
+      fabs(player.coord.x - next.x) > Radius) {
+    next.x = floor(player.coord.x) + 0.5;
+    next.y = floor(player.coord.y) + 0.5;
+  }
+  cerr << "Move " << next.x << " " << next.y << endl;
+  cerr.flush();
+  // Set direction
+  if (next.x - player.coord.x > x_stop) {
     player.action.direction += "R";
-    return;
   }
-  if (player.coord.x - target.x > StopDistance) {
-    player.action.set(Action_Kind::Move);
+  if (player.coord.x - next.x > x_stop) {
     player.action.direction += "L";
-    return;
   }
-  if (player.coord.y - target.y > StopDistance)
+  if (player.coord.y - next.y > y_stop) {
     player.action.direction += "U";
-  if (target.y - player.coord.y > StopDistance)
+  }
+  if (next.y - player.coord.y > y_stop) {
     player.action.direction += "D";
-  if (player.action.direction.empty())
-    player.action.clear();
+  }
 }
 
 void Pick(Player_T &player, Coordinate_T target) {
   Coordinate_T coord = getNearestPosition(target);
-  Move(player, coord);
-  if (player.action.empty()) {
+  if (fabs(player.coord.x - coord.x) < InteractDistance &&
+      fabs(player.coord.y - coord.y) < InteractDistance) {
     player.action.set(Action_Kind::Pick);
     setDirection(player, coord);
+    return;
   }
+  Move(player, coord);
 }
 
 void Put(Player_T &player, Coordinate_T target) {
   if (player.entity.empty())
     return;
   Coordinate_T coord = getNearestPosition(target);
-  Move(player, coord);
-  if (player.action.empty()) {
+  if (fabs(player.coord.x - coord.x) < InteractDistance &&
+      fabs(player.coord.y - coord.y) < InteractDistance) {
     player.action.set(Action_Kind::Put);
     setDirection(player, coord);
+    return;
   }
+  Move(player, coord);
 }
 
 void Interact(Player_T &player, Coordinate_T target) {
   if (!player.entity.empty())
     return;
   Coordinate_T coord = getNearestPosition(target);
-  Move(player, coord);
-  if (player.action.empty()) {
+  if (fabs(player.coord.x - coord.x) < InteractDistance &&
+      fabs(player.coord.y - coord.y) < InteractDistance) {
     player.action.set(Action_Kind::Interact);
     setDirection(player, coord);
+    return;
   }
+  Move(player, coord);
 }

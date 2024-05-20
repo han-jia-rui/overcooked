@@ -2,7 +2,6 @@
 #define COMMON_H
 
 #include <cassert>
-#include <queue>
 #include <string>
 #include <vector>
 using namespace std;
@@ -13,13 +12,6 @@ enum class Container_Kind {
   Pot,         // 煮锅
   Plate,       // 盘子
   DirtyPlates, // 脏盘子
-};
-
-enum class Task_Kind {
-  None,
-  Pick,
-  Put,
-  Interact,
 };
 
 enum class Action_Kind {
@@ -114,12 +106,6 @@ struct Entity_T {
   void set(stringstream &ss);
 };
 
-struct Task_T {
-  Task_Kind task_kind = Task_Kind::None;
-  Entity_T entity;
-  Ingredient_T ingredient;
-};
-
 struct Action_T {
   Action_Kind action;
   string direction;
@@ -156,8 +142,6 @@ extern vector<Player_T> Player;
 extern int Entity_cnt;
 extern vector<Entity_T> Entity;
 
-extern queue<Task_T> Task;
-
 // frame.cpp
 extern int Order_cnt;
 extern vector<Order_T> Order;
@@ -168,5 +152,6 @@ extern bool map[100][100];
 vector<Tile_T> getTile(Tile_Kind tile_kind, Coordinate_T coord);
 Tile_Kind getTileKind(char ch);
 Coordinate_T getNearestPosition(Coordinate_T coord);
+Coordinate_T getNextPosition(Coordinate_T st, Coordinate_T ed);
 
 #endif

@@ -1,13 +1,92 @@
 #include <cassert>
+#include <cmath>
 #include <common.h>
+#include <cstring>
 #include <iostream>
+#include <queue>
 #include <sstream>
 #include <vector>
 
 static int dx[4] = {0, 0, -1, 1}, dy[4] = {-1, 1, 0, 0};
+struct node {
+  int x, y;
+  node() : x(0), y(0){}; // default constructor
+  node(int x, int y) : x(x), y(y){};
+  node &operator+=(const node &rhs) {
+    x += rhs.x;
+    y += rhs.y;
+    return *this;
+  };
+  bool operator==(const node &rhs) const { return x == rhs.x && y == rhs.y; };
+  bool bound(int width, int height) {
+    return x >= 0 && x < width && y >= 0 && y < height;
+  };
+  int direction(const node &rhs) const {
+    if (x == rhs.x) {
+      return 0;
+    } else if (y == rhs.y) {
+      return 1;
+    }
+    return -1;
+  }
+};
+static node dir[4] = {node(0, -1), node(0, 1), node(-1, 0), node(1, 0)};
+
+node bfs(node start, node end) {
+  int vis[100][100];
+  node pred[100][100]; // predecessor map
+  memset(vis, 0, sizeof(vis));
+  queue<node> q;
+  q.push(start);
+  while (!q.empty()) {
+    node cur = q.front();
+    q.pop();
+    if (cur.x == end.x && cur.y == end.y) {
+      break;
+    }
+    for (int i = 0; i < 4; i++) {
+      node next = cur;
+      next += dir[i];
+      if (next.bound(width, height) && !vis[next.x][next.y] &&
+          map[next.x][next.y]) {
+        vis[next.x][next.y] = vis[cur.x][cur.y] + 1;
+        pred[next.x][next.y] = cur; // record the predecessor
+        q.push(next);
+      }
+    }
+  }
+  if (!vis[end.x][end.y]) {
+    return start;
+  }
+  // Get the first change of direction
+  vector<node> path;
+  for (node at = end; at != start; at = pred[at.x][at.y]) {
+    path.push_back(at);
+  }
+  reverse(path.begin(), path.end());
+  for (int i = 0; i < path.size(); i++) {
+    if (start.direction(path[i]) == -1) {
+      return path[i - 1];
+    }
+  }
+  return path.back();
+}
+
+Coordinate_T getNextPosition(Coordinate_T st, Coordinate_T ed) {
+  node start(st.x, st.y), end(ed.x, ed.y);
+  if (start == end)
+    return ed;
+  node tmp;
+  tmp = bfs(start, end);
+  assert(tmp.direction(start) != -1);
+  Coordinate_T ret;
+  ret = Coordinate_T((double)tmp.x + 0.5, (double)tmp.y + 0.5);
+  return ret;
+}
 
 Coordinate_T getNearestPosition(Coordinate_T coord) {
   Coordinate_T ret;
+  node pos(coord.x, coord.y);
   int ix = coord.x, iy = coord.y;
   if (Map[ix][iy] == Tile_Kind::Floor) {
     ret.x = double(ix) + 0.5;
