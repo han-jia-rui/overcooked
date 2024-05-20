@@ -22,22 +22,27 @@ void setDirection(Player_T &player, Coordinate_T coord) {
   }
 }
 
-void Move(Player_T &player, Coordinate_T coord) {
-  player.action.set(Action_Kind::Move);
-  if (coord.x - player.coord.x > StopDistance)
+void Move(Player_T &player, Coordinate_T target) {
+  if (target.x - player.coord.x > StopDistance) {
+    player.action.set(Action_Kind::Move);
     player.action.direction += "R";
-  if (player.coord.x - coord.x > StopDistance)
+    return;
+  }
+  if (player.coord.x - target.x > StopDistance) {
+    player.action.set(Action_Kind::Move);
     player.action.direction += "L";
-  if (player.coord.y > coord.y + StopDistance)
+    return;
+  }
+  if (player.coord.y - target.y > StopDistance)
     player.action.direction += "U";
-  if (player.coord.y < coord.y - StopDistance)
+  if (target.y - player.coord.y > StopDistance)
     player.action.direction += "D";
   if (player.action.direction.empty())
     player.action.clear();
 }
 
-void Pick(Player_T &player, Coordinate_T coordnate) {
-  Coordinate_T coord = getNearestPosition(coordnate);
+void Pick(Player_T &player, Coordinate_T target) {
+  Coordinate_T coord = getNearestPosition(target);
   Move(player, coord);
   if (player.action.empty()) {
     player.action.set(Action_Kind::Pick);
@@ -45,10 +50,10 @@ void Pick(Player_T &player, Coordinate_T coordnate) {
   }
 }
 
-void Put(Player_T &player, Coordinate_T coordnate) {
+void Put(Player_T &player, Coordinate_T target) {
   if (player.entity.empty())
     return;
-  Coordinate_T coord = getNearestPosition(coordnate);
+  Coordinate_T coord = getNearestPosition(target);
   Move(player, coord);
   if (player.action.empty()) {
     player.action.set(Action_Kind::Put);
@@ -56,10 +61,10 @@ void Put(Player_T &player, Coordinate_T coordnate) {
   }
 }
 
-void Interact(Player_T &player, Coordinate_T coordnate) {
+void Interact(Player_T &player, Coordinate_T target) {
   if (!player.entity.empty())
     return;
-  Coordinate_T coord = getNearestPosition(coordnate);
+  Coordinate_T coord = getNearestPosition(target);
   Move(player, coord);
   if (player.action.empty()) {
     player.action.set(Action_Kind::Interact);

@@ -9,7 +9,7 @@ int Sales;
 
 // 玩家可移动地图
 bool map[100][100];
-void updateMap() {
+void Map_update() {
   for (int i = 0; i < height; i++) {
     for (int j = 0; j < width; j++) {
       if (Map[i][j] == Tile_Kind::Floor)
@@ -117,4 +117,6 @@ void frame_update(int Frame_cur) {
   Player_update(ss);
 
   Entity_update(ss);
+
+  Map_update();
 }
