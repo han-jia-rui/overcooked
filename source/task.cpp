@@ -144,9 +144,21 @@ void putStove(Player_T &player) {
 void prepareOrder(Player_T &player) {
   putStove(player);
   CheckAction;
+  int plate_cnt = 0;
   for (auto entity : Entity) {
     if (entity.container == Container_Kind::Plate) {
-      for (auto food : Order[0].require) {
+      for (auto food : Order[plate_cnt].require) {
+        if (!entity.findfood(food) && food == "s_rice") {
+          // cerr << "Get " << food << " from plate\n";
+          getFood(player, food);
+          CheckAction;
+          // cerr << "Put " << food << " to plate\n";
+          if (player.entity.findfood(food))
+            Put(player, entity.coord);
+          CheckAction;
+        }
+      }
+      for (auto food : Order[plate_cnt].require) {
         if (!entity.findfood(food)) {
           // cerr << "Get " << food << " from plate\n";
           getFood(player, food);
@@ -157,14 +169,10 @@ void prepareOrder(Player_T &player) {
           CheckAction;
         }
       }
+      break;
     }
   }
   CheckAction;
-  getFood(player, Order[0].require[0]);
-  // CheckAction;
-  // vector<Tile_T> tmp = getTile(Tile_Kind::PlateRack, player.coord);
-  // Tile_T PlateRack = tmp[0];
-  // Move(player, PlateRack.coord.x, PlateRack.coord.y);
 }
 
 void washPlate(Player_T &player) {
@@ -200,7 +208,7 @@ void washPlate(Player_T &player) {
     Put(player, Sink.coord);
   }
   CheckAction;
-  tmp = getTile(Tile_Kind::PlateReturn, player.coord);
-  Tile_T PlateReturn = tmp[0];
-  Move(player, PlateReturn.coord.x, PlateReturn.coord.y);
+  // tmp = getTile(Tile_Kind::PlateReturn, player.coord);
+  // Tile_T PlateReturn = tmp[0];
+  // Move(player, PlateReturn.coord.x, PlateReturn.coord.y);
 }

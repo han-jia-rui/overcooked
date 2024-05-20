@@ -7,10 +7,10 @@ MAP ?= 1
 
 
 all:
-	@if [[ ! -e build/Makefile ]]; then \
-		mkdir -p build; \
-		cd build && cmake .. -DCMAKE_BUILD_TYPE=Debug -DFOR_WIN=OFF; fi
-	@make -C build
+	# @if [[ ! -e build/Makefile ]]; then \
+	# 	mkdir -p build; \
+	# 	cd build && cmake .. -DCMAKE_BUILD_TYPE=Debug -DFOR_WIN=OFF; fi
+	# @make -C build
 	@if [[ ! -e build-win/Makefile ]]; then \
 		mkdir -p build-win; \
 		cd build-win && cmake .. -DCMAKE_BUILD_TYPE=Debug -DFOR_WIN=ON; fi
