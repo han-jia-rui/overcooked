@@ -7,6 +7,24 @@ int Order_cnt;
 vector<Order_T> Order;
 int Sales;
 
+// 玩家可移动地图
+bool map[100][100];
+void updateMap() {
+  for (int i = 0; i < height; i++) {
+    for (int j = 0; j < width; j++) {
+      if (Map[i][j] == Tile_Kind::Floor)
+        map[i][j] = true;
+      else
+        map[i][j] = false;
+    }
+  }
+  for (auto player : Player) {
+    if (player.live != 0)
+      continue;
+    map[(int)player.coord.y][(int)player.coord.x] = false;
+  }
+}
+
 static void Order_update(stringstream &ss) {
   string s;
   ss >> Order_cnt;
@@ -44,7 +62,8 @@ static void Player_update(stringstream &ss) {
         ...
     */
     while (tmp >> s) {
-      if (s == ";" || s == "@" || s == "*" || s == ":" || s == "/" || isdigit(s[0]))
+      if (s == ";" || s == "@" || s == "*" || s == ":" || s == "/" ||
+          isdigit(s[0]))
         continue;
       if (s == "Plate")
         Player[i].entity.container = Container_Kind::Plate;

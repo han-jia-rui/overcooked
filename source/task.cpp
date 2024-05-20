@@ -11,7 +11,8 @@
 void gotoTile(Player_T &player, Tile_Kind tile) {
   vector<Tile_T> tmp = getTile(tile, player.coord);
   Tile_T target = tmp[0];
-  Move(player, target.coord.x, target.coord.y);
+  Coordinate_T coord = getNearestPosition(target.coord);
+  Move(player, coord);
 }
 
 void Chop(Player_T &player, Recipe_T recipe) {
@@ -167,17 +168,6 @@ void Scheme1(Player_T &player) {
   int plate_cnt = 0;
   for (auto entity : Entity) {
     if (entity.container == Container_Kind::Plate) {
-      for (auto food : Order[plate_cnt].require) {
-        if (!entity.findfood(food) && food == "s_rice") {
-          // cerr << "Get " << food << " from plate\n";
-          getFood(player, food);
-          CheckAction;
-          // cerr << "Put " << food << " to plate\n";
-          if (player.entity.findfood(food))
-            Put(player, entity.coord);
-          CheckAction;
-        }
-      }
       for (auto food : Order[plate_cnt].require) {
         if (!entity.findfood(food)) {
           // cerr << "Get " << food << " from plate\n";

@@ -162,6 +162,7 @@ extern queue<Task_T> Task;
 extern int Order_cnt;
 extern vector<Order_T> Order;
 extern int Sales;
+extern bool map[100][100];
 
 // common.cpp
 vector<Tile_T> getTile(Tile_Kind tile_kind, Coordinate_T coord);

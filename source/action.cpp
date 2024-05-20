@@ -22,15 +22,15 @@ void setDirection(Player_T &player, Coordinate_T coord) {
   }
 }
 
-void Move(Player_T &player, double x, double y) {
+void Move(Player_T &player, Coordinate_T coord) {
   player.action.set(Action_Kind::Move);
-  if (x - player.coord.x > StopDistance)
+  if (coord.x - player.coord.x > StopDistance)
     player.action.direction += "R";
-  if (player.coord.x - x > StopDistance)
+  if (player.coord.x - coord.x > StopDistance)
     player.action.direction += "L";
-  if (player.coord.y > y + StopDistance)
+  if (player.coord.y > coord.y + StopDistance)
     player.action.direction += "U";
-  if (player.coord.y < y - StopDistance)
+  if (player.coord.y < coord.y - StopDistance)
     player.action.direction += "D";
   if (player.action.direction.empty())
     player.action.clear();
@@ -38,7 +38,7 @@ void Move(Player_T &player, double x, double y) {
 
 void Pick(Player_T &player, Coordinate_T coordnate) {
   Coordinate_T coord = getNearestPosition(coordnate);
-  Move(player, coord.x, coord.y);
+  Move(player, coord);
   if (player.action.empty()) {
     player.action.set(Action_Kind::Pick);
     setDirection(player, coord);
@@ -49,7 +49,7 @@ void Put(Player_T &player, Coordinate_T coordnate) {
   if (player.entity.empty())
     return;
   Coordinate_T coord = getNearestPosition(coordnate);
-  Move(player, coord.x, coord.y);
+  Move(player, coord);
   if (player.action.empty()) {
     player.action.set(Action_Kind::Put);
     setDirection(player, coord);
@@ -60,7 +60,7 @@ void Interact(Player_T &player, Coordinate_T coordnate) {
   if (!player.entity.empty())
     return;
   Coordinate_T coord = getNearestPosition(coordnate);
-  Move(player, coord.x, coord.y);
+  Move(player, coord);
   if (player.action.empty()) {
     player.action.set(Action_Kind::Interact);
     setDirection(player, coord);
