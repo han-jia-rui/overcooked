@@ -1,13 +1,7 @@
-#include <cassert>
-#include <cmath>
+#include <algorithm>
 #include <common.h>
 #include <cstring>
-#include <iostream>
 #include <queue>
-#include <sstream>
-#include <vector>
-
-double getAbs(double x) { return x > 0 ? x : -x; }
 
 static int dx[4] = {0, 0, -1, 1}, dy[4] = {-1, 1, 0, 0};
 struct node {
