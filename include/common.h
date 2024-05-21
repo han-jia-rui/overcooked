@@ -153,5 +153,6 @@ vector<Tile_T> getTile(Tile_Kind tile_kind, Coordinate_T coord);
 Tile_Kind getTileKind(char ch);
 Coordinate_T getNearestPosition(Coordinate_T coord);
 Coordinate_T getNextPosition(Coordinate_T st, Coordinate_T ed);
+double getAbs(double x);
 
 #endif
