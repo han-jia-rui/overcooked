@@ -192,30 +192,30 @@ void Scheme2(Player_T &player) {
       CheckAction;
     }
   CheckAction;
-  // vector<Tile_T> tmp = getTile(Tile_Kind::Sink, Coordinate_T());
-  // Tile_T Sink = tmp[0];
-  // if (player.entity.empty()) {
-  //   for (auto entity : Entity) {
-  //     if (entity.container == Container_Kind::DirtyPlates &&
-  //         entity.coord.x == Sink.coord.x && Sink.coord.y == entity.coord.y) {
-  //       Interact(player, entity.coord);
-  //       break;
-  //     }
-  //   }
-  // }
-  // CheckAction;
-  // if (player.entity.container == Container_Kind::None) {
-  //   for (auto entity : Entity) {
-  //     if (entity.container == Container_Kind::DirtyPlates) {
-  //       Pick(player, entity.coord);
-  //       break;
-  //     }
-  //   }
-  // }
-  // CheckAction;
-  // if (player.entity.container == Container_Kind::DirtyPlates &&
-  //     player.entity.sum >= 1) {
-  //   Put(player, Sink.coord);
-  // }
-  // CheckAction;
+  vector<Tile_T> tmp = getTile(Tile_Kind::Sink, Coordinate_T());
+  Tile_T Sink = tmp[0];
+  if (player.entity.empty()) {
+    for (auto entity : Entity) {
+      if (entity.container == Container_Kind::DirtyPlates &&
+          entity.coord.x == Sink.coord.x && Sink.coord.y == entity.coord.y) {
+        Interact(player, entity.coord);
+        break;
+      }
+    }
+  }
+  CheckAction;
+  if (player.entity.container == Container_Kind::None) {
+    for (auto entity : Entity) {
+      if (entity.container == Container_Kind::DirtyPlates) {
+        Pick(player, entity.coord);
+        break;
+      }
+    }
+  }
+  CheckAction;
+  if (player.entity.container == Container_Kind::DirtyPlates &&
+      player.entity.sum >= 1) {
+    Put(player, Sink.coord);
+  }
+  CheckAction;
 }
