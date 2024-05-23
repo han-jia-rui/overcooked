@@ -32,13 +32,13 @@ void Move(Player_T &player, Coordinate_T target) {
   // Stop
   if (abs(player.coord.x - next.x) > Distance &&
       abs(player.coord.y - next.y) > Radius) {
-    next.x = int(player.coord.x) + 0.5;
-    next.y = int(player.coord.y) + 0.5;
+    next.x = static_cast<int>(player.coord.x) + 0.5;
+    next.y = static_cast<int>(player.coord.y) + 0.5;
   }
   if (abs(player.coord.y - next.y) > Distance &&
       abs(player.coord.x - next.x) > Radius) {
-    next.x = int(player.coord.x) + 0.5;
-    next.y = int(player.coord.y) + 0.5;
+    next.x = static_cast<int>(player.coord.x) + 0.5;
+    next.y = static_cast<int>(player.coord.y) + 0.5;
   }
   cerr << "Move " << next.x << " " << next.y << endl;
   cerr.flush();

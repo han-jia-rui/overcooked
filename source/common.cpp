@@ -7,17 +7,22 @@
 static int dx[4] = {0, 0, -1, 1}, dy[4] = {-1, 1, 0, 0};
 struct node {
   int x, y;
-  node() : x(0), y(0){}; // default constructor
-  node(int x, int y) : x(x), y(y){};
+  node() : x(0), y(0) {} // default constructor
+
+  node(int x, int y) : x(x), y(y) {}
+
   node &operator+=(const node &rhs) {
     x += rhs.x;
     y += rhs.y;
     return *this;
-  };
-  bool operator==(const node &rhs) const { return x == rhs.x && y == rhs.y; };
+  }
+
+  bool operator==(const node &rhs) const { return x == rhs.x && y == rhs.y; }
+
   bool bound(int width, int height) {
     return x >= 0 && x < width && y >= 0 && y < height;
-  };
+  }
+
   int direction(const node &rhs) const {
     if (x == rhs.x) {
       return 0;
@@ -77,7 +82,8 @@ Coordinate_T getNextPosition(Coordinate_T st, Coordinate_T ed) {
   tmp = bfs(start, end);
   assert(tmp.direction(start) != -1);
   Coordinate_T ret;
-  ret = Coordinate_T((double)tmp.x + 0.5, (double)tmp.y + 0.5);
+  ret = Coordinate_T(static_cast<double>(tmp.x + 0.5),
+                     static_cast<double>(tmp.y + 0.5));
   return ret;
 }
 
@@ -86,8 +92,8 @@ Coordinate_T getNearestPosition(Coordinate_T coord) {
   node pos(coord.x, coord.y);
   int ix = coord.x, iy = coord.y;
   if (Map[ix][iy] == Tile_Kind::Floor) {
-    ret.x = double(ix) + 0.5;
-    ret.y = double(iy) + 0.5;
+    ret.x = static_cast<double>(ix) + 0.5;
+    ret.y = static_cast<double>(iy) + 0.5;
     ret.face = Direction(0);
     return ret;
   } else {
@@ -95,8 +101,8 @@ Coordinate_T getNearestPosition(Coordinate_T coord) {
       int nx = ix + dx[i], ny = iy + dy[i];
       if (nx >= 0 && nx < width && ny >= 0 && ny < height) {
         if (Map[nx][ny] == Tile_Kind::Floor) {
-          ret.x = double(nx) + 0.5;
-          ret.y = double(ny) + 0.5;
+          ret.x = static_cast<double>(nx) + 0.5;
+          ret.y = static_cast<double>(ny) + 0.5;
           ret.face = Direction(i);
           return ret;
         }
@@ -107,9 +113,9 @@ Coordinate_T getNearestPosition(Coordinate_T coord) {
 }
 
 Tile_Kind getTileKind(char ch) {
-  if (isalpha(ch) && isupper(ch))
+  if (isalpha(ch) && isupper(ch)) {
     return Tile_Kind::IngredientBox;
-  else
+  } else {
     switch (ch) {
     case '_':
       return Tile_Kind::Void;
@@ -134,6 +140,7 @@ Tile_Kind getTileKind(char ch) {
     default:
       assert(0);
     }
+  }
 }
 
 vector<Tile_T> getTile(Tile_Kind tile_kind, Coordinate_T coord) {
@@ -173,7 +180,7 @@ string Action_T::toString() {
   }
   ret += " " + direction;
   return ret;
-};
+}
 
 void Entity_T::set(stringstream &ss) {
   this->clear();
@@ -204,11 +211,13 @@ void Entity_T::set(stringstream &ss) {
       container = Container_Kind::Pan;
     else if (s == "Pot")
       container = Container_Kind::Pot;
-    else if (s == "DirtyPlates") {
-      container = Container_Kind::DirtyPlates;
-      tmp >> sum;
-    } else {
-      food.push_back(s);
+    else {
+      if (s == "DirtyPlates") {
+        container = Container_Kind::DirtyPlates;
+        tmp >> sum;
+      } else {
+        food.push_back(s);
+      }
     }
   }
 }

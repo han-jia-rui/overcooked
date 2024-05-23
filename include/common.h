@@ -55,7 +55,7 @@ struct Coordinate_T {
   Direction face;
   bool operator==(const Coordinate_T &coord) const {
     return x == coord.x && y == coord.y;
-  };
+  }
 };
 
 struct Tile_T {
@@ -95,7 +95,7 @@ struct Entity_T {
     food.clear();
     frame_cur = frame_total = 0;
     sum = 0;
-  };
+  }
   bool empty() { return container == Container_Kind::None && food.empty(); }
   bool findfood(string food) {
     for (auto f : this->food)
@@ -112,9 +112,9 @@ struct Action_T {
   void clear() {
     action = Action_Kind::None;
     direction = "";
-  };
-  void set(Action_Kind action) { this->action = action; };
-  bool empty() { return action == Action_Kind::None; };
+  }
+  void set(Action_Kind action) { this->action = action; }
+  bool empty() { return action == Action_Kind::None; }
   string toString();
 };
 
