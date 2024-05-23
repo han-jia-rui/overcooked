@@ -4,6 +4,7 @@
 #include <cassert>
 #include <string>
 #include <vector>
+#include <unordered_set>
 using namespace std;
 
 enum class Container_Kind {
@@ -86,7 +87,7 @@ struct Order_T {
 struct Entity_T {
   Coordinate_T coord;
   Container_Kind container;
-  vector<string> food;
+  std::unordered_set<string> food;
   int frame_cur, frame_total;
   int sum;
   void clear() {
@@ -97,11 +98,8 @@ struct Entity_T {
     sum = 0;
   }
   bool empty() { return container == Container_Kind::None && food.empty(); }
-  bool findfood(string food) {
-    for (auto f : this->food)
-      if (f == food)
-        return true;
-    return false;
+  bool findfood(const string& food) {
+    return this->food.find(food) != this->food.end();
   }
   void set(stringstream &ss);
 };
