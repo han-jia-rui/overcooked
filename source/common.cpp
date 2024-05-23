@@ -216,7 +216,7 @@ void Entity_T::set(stringstream &ss) {
         container = Container_Kind::DirtyPlates;
         tmp >> sum;
       } else {
-        food.push_back(s);
+        food.insert(s);
       }
     }
   }

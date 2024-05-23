@@ -75,7 +75,7 @@ static void Player_update(stringstream &ss) {
         Player[i].entity.container = Container_Kind::DirtyPlates;
         tmp >> Player[i].entity.sum;
       } else {
-        Player[i].entity.food.push_back(s);
+        Player[i].entity.food.insert(s);
       }
     }
   }
