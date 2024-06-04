@@ -158,6 +158,11 @@ void Scheme1(Player_T &player) {
   putStove(player);
   CheckAction;
 
+  for (auto order : Order) {
+    service(player, Order[0]);
+    CheckAction;
+  }
+  CheckAction;
   int plate_cnt = 0;
   for (auto entity : Entity) {
     if (entity.container == Container_Kind::Plate) {
@@ -179,13 +184,13 @@ void Scheme1(Player_T &player) {
 }
 
 void Scheme2(Player_T &player) {
-  if (player.entity.container != Container_Kind::DirtyPlates) {
-    for (auto order : Order) {
-      service(player, Order[0]);
-      CheckAction;
-    }
-  }
-  CheckAction;
+  // if (player.entity.container != Container_Kind::DirtyPlates) {
+  //   for (auto order : Order) {
+  //     service(player, Order[0]);
+  //     CheckAction;
+  //   }
+  // }
+  // CheckAction;
   vector<Tile_T> tmp = getTile(Tile_Kind::Sink, Coordinate_T());
   Tile_T Sink = tmp[0];
   if (player.entity.empty()) {
