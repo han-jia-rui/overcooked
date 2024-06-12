@@ -1,3 +1,4 @@
+#include <iostream>
 #include <string>
 #include <task.h>
 #include <unordered_set>
@@ -168,10 +169,10 @@ void Scheme1(Player_T &player) {
     if (entity.container == Container_Kind::Plate) {
       for (auto food : Order[plate_cnt].require) {
         if (!entity.findfood(food)) {
-          // cerr << "Get " << food << " from plate\n";
+          std::cerr << "Get " << food << " from plate\n";
           getFood(player, food);
           CheckAction;
-          // cerr << "Put " << food << " to plate\n";
+          std::cerr << "Put " << food << " to plate\n";
           if (player.entity.findfood(food))
             Put(player, entity.coord);
           CheckAction;

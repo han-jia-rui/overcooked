@@ -2,54 +2,46 @@
 #define COMMON_H
 
 #include <cassert>
+#include <enum.h>
 #include <string>
-#include <vector>
 #include <unordered_set>
-using namespace std;
+#include <vector>
 
-enum class Container_Kind {
-  None,
-  Pan,         // 煎锅
-  Pot,         // 煮锅
-  Plate,       // 盘子
-  DirtyPlates, // 脏盘子
-};
+struct Coordinate_T;
 
-enum class Action_Kind {
-  None,
-  Move,
-  Pick,
-  Put,
-  Interact,
-};
-
-enum class Direction {
-  UP,
-  DOWN,
-  LEFT,
-  RIGHT,
-};
-
-enum class Operation_Kind {
-  Chop, // 切菜
-  Pan,  // 煎
-  Pot,  // 煮
-};
-
-enum class Tile_Kind {
-  Void,            // 悬崖
-  Floor,           // 地板
-  Wall,            // 墙
-  Table,           // 工作台
-  IngredientBox,   // 食材箱
-  Trashbin,        // 垃圾箱
-  ChoppingStation, // 切菜台
-  ServiceWindow,   // 出菜口
-  Stove,           // 灶台
-  PlateReturn,     // 盘子回收口
-  Sink,            // 洗碗台
-  PlateRack,       // 盘子架
-};
+// class Map_T {
+// private:
+//   vector<vector<Tile_Kind>> map;
+//   int height, weight;
+// public:
+//   Map_T(int height, int weight) : height(height), weight(weight) {
+//     map.resize(height);
+//     for (int i = 0; i < height; i++) {
+//       map[i].resize(weight);
+//     }
+//   }
+//   Tile_Kind getTileKind(int x, int y) {
+//     return map[x][y];
+//   }
+//   void setTileKind(int x, int y, Tile_Kind tile_kind) {
+//     map[x][y] = tile_kind;
+//   }
+//   vector<Tile_T> getTile(Tile_Kind tile_kind, Coordinate_T coord) {
+//     vector<Tile_T> ret;
+//     Tile_T tmp;
+//     for (int i = 0; i < height; i++) {
+//       for (int j = 0; j < weight; j++) {
+//         if (map[j][i] == tile_kind) {
+//           tmp.tile_kind = tile_kind;
+//           tmp.coord.x = j;
+//           tmp.coord.y = i;
+//           ret.push_back(tmp);
+//         }
+//       }
+//     }
+//     return ret;
+//   }
+// };
 
 struct Coordinate_T {
   double x, y;
@@ -66,14 +58,14 @@ struct Tile_T {
 };
 
 struct Ingredient_T {
-  string name;
+  std::string name;
   Coordinate_T coord;
   int price;
 };
 
 struct Recipe_T {
   int frame;
-  string before, after;
+  std::string before, after;
   Operation_Kind operation;
 };
 
@@ -81,13 +73,13 @@ struct Order_T {
   int frame_left;
   int price;
   int frequency;
-  vector<string> require;
+  std::vector<std::string> require;
 };
 
 struct Entity_T {
   Coordinate_T coord;
   Container_Kind container;
-  std::unordered_set<string> food;
+  std::unordered_set<std::string> food;
   int frame_cur, frame_total;
   int sum;
   void clear() {
@@ -98,22 +90,22 @@ struct Entity_T {
     sum = 0;
   }
   bool empty() { return container == Container_Kind::None && food.empty(); }
-  bool findfood(const string& food) {
+  bool findfood(const std::string &food) {
     return this->food.find(food) != this->food.end();
   }
-  void set(stringstream &ss);
+  void set(std::stringstream &ss);
 };
 
 struct Action_T {
   Action_Kind action;
-  string direction;
+  std::string direction;
   void clear() {
     action = Action_Kind::None;
     direction = "";
   }
   void set(Action_Kind action) { this->action = action; }
   bool empty() { return action == Action_Kind::None; }
-  string toString();
+  std::string toString();
 };
 
 struct Player_T {
@@ -129,26 +121,25 @@ struct Player_T {
 extern int width, height;
 extern Tile_Kind Map[100][100];
 extern int Ingredient_cnt;
-extern vector<Ingredient_T> Ingredient;
+extern std::vector<Ingredient_T> Ingredient;
 extern int Recipe_cnt;
-extern vector<Recipe_T> Recipe;
+extern std::vector<Recipe_T> Recipe;
 extern int Frame_total, randomizeSeed;
 extern int OrderTable_cnt;
-extern vector<Order_T> OrderTable;
+extern std::vector<Order_T> OrderTable;
 extern int Player_cnt;
-extern vector<Player_T> Player;
+extern std::vector<Player_T> Player;
 extern int Entity_cnt;
-extern vector<Entity_T> Entity;
+extern std::vector<Entity_T> Entity;
 
 // frame.cpp
 extern int Order_cnt;
-extern vector<Order_T> Order;
+extern std::vector<Order_T> Order;
 extern int Sales;
 extern bool map[100][100];
 
 // common.cpp
-vector<Tile_T> getTile(Tile_Kind tile_kind, Coordinate_T coord);
-Tile_Kind getTileKind(char ch);
+std::vector<Tile_T> getTile(Tile_Kind tile_kind, Coordinate_T coord);
 Coordinate_T getNearestPosition(Coordinate_T coord);
 Coordinate_T getNextPosition(Coordinate_T st, Coordinate_T ed);
 

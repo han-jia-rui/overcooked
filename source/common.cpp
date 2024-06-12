@@ -19,9 +19,7 @@ struct node {
 
   bool operator==(const node &rhs) const { return x == rhs.x && y == rhs.y; }
 
-  bool bound(int width, int height) {
-    return x >= 0 && x < width && y >= 0 && y < height;
-  }
+  bool bound(int w, int h) { return x >= 0 && x < w && y >= 0 && y < h; }
 
   int direction(const node &rhs) const {
     if (x == rhs.x) {
@@ -38,7 +36,7 @@ node bfs(node start, node end) {
   int vis[100][100];
   node pred[100][100]; // predecessor map
   memset(vis, 0, sizeof(vis));
-  queue<node> q;
+  std::queue<node> q;
   q.push(start);
   while (!q.empty()) {
     node cur = q.front();
@@ -61,7 +59,7 @@ node bfs(node start, node end) {
     return start;
   }
   // Get the first change of direction
-  vector<node> path;
+  std::vector<node> path;
   for (node at = end; at != start; at = pred[at.x][at.y]) {
     path.push_back(at);
   }
@@ -112,39 +110,8 @@ Coordinate_T getNearestPosition(Coordinate_T coord) {
   assert(0);
 }
 
-Tile_Kind getTileKind(char ch) {
-  if (isalpha(ch) && isupper(ch)) {
-    return Tile_Kind::IngredientBox;
-  } else {
-    switch (ch) {
-    case '_':
-      return Tile_Kind::Void;
-    case '.':
-      return Tile_Kind::Floor;
-    case '*':
-      return Tile_Kind::Table;
-    case 't':
-      return Tile_Kind::Trashbin;
-    case 'c':
-      return Tile_Kind::ChoppingStation;
-    case '$':
-      return Tile_Kind::ServiceWindow;
-    case 's':
-      return Tile_Kind::Stove;
-    case 'p':
-      return Tile_Kind::PlateReturn;
-    case 'k':
-      return Tile_Kind::Sink;
-    case 'r':
-      return Tile_Kind::PlateRack;
-    default:
-      assert(0);
-    }
-  }
-}
-
-vector<Tile_T> getTile(Tile_Kind tile_kind, Coordinate_T coord) {
-  vector<Tile_T> ret;
+std::vector<Tile_T> getTile(Tile_Kind tile_kind, Coordinate_T coord) {
+  std::vector<Tile_T> ret;
   Tile_T tmp;
   for (int i = 0; i < height; i++) {
     for (int j = 0; j < width; j++) {
@@ -159,35 +126,18 @@ vector<Tile_T> getTile(Tile_Kind tile_kind, Coordinate_T coord) {
   return ret;
 }
 
-string Action_T::toString() {
-  string ret;
-  switch (action) {
-  case Action_Kind::Move:
-    ret = "Move";
-    break;
-  case Action_Kind::Pick:
-    ret = "PutOrPick";
-    break;
-  case Action_Kind::Put:
-    ret = "PutOrPick";
-    break;
-  case Action_Kind::Interact:
-    ret = "Interact";
-    break;
-  default:
-    ret = "";
-    break;
-  }
+std::string Action_T::toString() {
+  std::string ret = action2str(action);
   ret += " " + direction;
   return ret;
 }
 
-void Entity_T::set(stringstream &ss) {
+void Entity_T::set(std::stringstream &ss) {
   this->clear();
   ss >> coord.x >> coord.y;
-  string s;
+  std::string s;
   getline(ss, s);
-  stringstream tmp(s);
+  std::stringstream tmp(s);
   sum = 1;
   while (tmp >> s) {
     /*
