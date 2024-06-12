@@ -76,11 +76,13 @@ struct Order_T {
 struct Entity_T {
   Coordinate_T coord;
   Container_Kind container;
+  bool fixed;
   std::unordered_set<std::string> food_list;
   int frame_cur, frame_total;
   int sum;
   void clear() {
     coord.x = coord.y = 0;
+    fixed = false;
     container = Container_Kind::None;
     food_list.clear();
     frame_cur = frame_total = 0;
