@@ -1,5 +1,6 @@
 #include <cassert>
 #include <common.h>
+#include <enum.h>
 #include <init.h>
 #include <iostream>
 #include <sstream>
@@ -7,22 +8,21 @@
 int width, height;
 Tile_Kind Map[100][100];
 int Ingredient_cnt;
-vector<Ingredient_T> Ingredient;
+std::vector<Ingredient_T> Ingredient;
 int Recipe_cnt;
-vector<Recipe_T> Recipe;
+std::vector<Recipe_T> Recipe;
 int Frame_total, randomizeSeed;
 int OrderTable_cnt;
-vector<Order_T> OrderTable;
+std::vector<Order_T> OrderTable;
 int Player_cnt;
-vector<Player_T> Player;
+std::vector<Player_T> Player;
 int Entity_cnt;
-vector<Entity_T> Entity;
+std::vector<Entity_T> Entity;
 
 static void read() {
-  string s;
-  int frame;
+  std::string s;
   getline(std::cin, s, '\0');
-  stringstream ss(s);
+  std::stringstream ss(s);
 
   /* 读取初始地图信息 */
   ss >> width >> height;
@@ -30,7 +30,7 @@ static void read() {
     for (int j = 0; j < width; j++) {
       char ch;
       ss >> ch;
-      Map[j][i] = getTileKind(ch);
+      Map[j][i] = char2tile(ch);
     }
   }
 
@@ -49,7 +49,7 @@ static void read() {
   Recipe.resize(Recipe_cnt);
   for (int i = 0; i < Recipe_cnt; i++) {
     ss >> Recipe[i].frame >> Recipe[i].before;
-    string operation;
+    std::string operation;
     ss >> operation;
 
     if (operation == "-chop->") {

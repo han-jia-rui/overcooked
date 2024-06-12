@@ -11,7 +11,7 @@
   } while (0)
 
 void gotoTile(Player_T &player, Tile_Kind tile) {
-  vector<Tile_T> tmp = getTile(tile, player.coord);
+  std::vector<Tile_T> tmp = getTile(tile, player.coord);
   Tile_T target = tmp[0];
   Coordinate_T coord = getNearestPosition(target.coord);
   Move(player, coord);
@@ -19,7 +19,7 @@ void gotoTile(Player_T &player, Tile_Kind tile) {
 
 void Chop(Player_T &player, Recipe_T recipe) {
   assert(recipe.operation == Operation_Kind::Chop);
-  vector<Tile_T> tmp = getTile(Tile_Kind::ChoppingStation, player.coord);
+  std::vector<Tile_T> tmp = getTile(Tile_Kind::ChoppingStation, player.coord);
   Tile_T ChoppingStation = tmp[0];
   for (auto entity : Entity) {
     if (entity.findfood(recipe.before) &&
@@ -62,7 +62,7 @@ void PanOrPot(Player_T &player, Recipe_T recipe) {
   Put(player, stove.coord);
 }
 
-bool checkGet(Entity_T entity, string food_target) {
+bool checkGet(Entity_T entity, std::string food_target) {
   if (entity.findfood(food_target))
     return true;
   for (auto recipe : Recipe) {
@@ -73,7 +73,7 @@ bool checkGet(Entity_T entity, string food_target) {
   return false;
 }
 
-void getFood(Player_T &player, string food) {
+void getFood(Player_T &player, std::string food) {
   if (player.entity.food.size() == 1 && player.entity.findfood(food))
     return;
   if (player.entity.food.size() == 1 && !checkGet(player.entity, food)) {
@@ -109,7 +109,7 @@ void getFood(Player_T &player, string food) {
   }
 }
 
-bool checkOrder(vector<string> require, Entity_T entity) {
+bool checkOrder(std::vector<std::string> require, Entity_T entity) {
   for (auto rs : require) {
     if (!entity.findfood(rs))
       return false;
@@ -118,7 +118,7 @@ bool checkOrder(vector<string> require, Entity_T entity) {
 }
 
 void service(Player_T &player, Order_T order) {
-  vector<Tile_T> tmp = getTile(Tile_Kind::ServiceWindow, Coordinate_T());
+  std::vector<Tile_T> tmp = getTile(Tile_Kind::ServiceWindow, Coordinate_T());
   Tile_T ServiceWindow = tmp[0];
   if (player.entity.container == Container_Kind::Plate &&
       checkOrder(order.require, player.entity))
@@ -139,7 +139,7 @@ void putStove(Player_T &player) {
   if (player.entity.container != Container_Kind::Pot &&
       player.entity.container != Container_Kind::Pan)
     return;
-  vector<Tile_T> tmp = getTile(Tile_Kind::Stove, Coordinate_T());
+  std::vector<Tile_T> tmp = getTile(Tile_Kind::Stove, Coordinate_T());
   for (auto Stove : tmp) {
     bool used = false;
     for (auto entity : Entity) {
@@ -192,7 +192,7 @@ void Scheme2(Player_T &player) {
     }
   }
   CheckAction;
-  vector<Tile_T> tmp = getTile(Tile_Kind::Sink, Coordinate_T());
+  std::vector<Tile_T> tmp = getTile(Tile_Kind::Sink, Coordinate_T());
   Tile_T Sink = tmp[0];
   if (player.entity.empty()) {
     for (auto entity : Entity) {

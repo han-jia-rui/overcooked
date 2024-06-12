@@ -5,9 +5,9 @@
 #include <task.h>
 
 int main() {
-  ios::sync_with_stdio(false);
-  cerr.tie(nullptr);
-  cerr << std::nounitbuf;
+  std::ios::sync_with_stdio(false);
+  std::cerr.tie(nullptr);
+  std::cerr << std::nounitbuf;
 
   init();
 
@@ -15,7 +15,7 @@ int main() {
     frame_update(i);
 
     /* 输出当前帧的操作，此处仅作示例 */
-    cout << "Frame " << i << "\n";
+    std::cout << "Frame " << i << "\n";
     Player[0].action.clear();
     Player[1].action.clear();
 
@@ -25,11 +25,11 @@ int main() {
       Scheme2(Player[1]);
 
     /* 合成一个字符串再输出，否则输出有可能会被打断 */
-    string action =
+    std::string action =
         Player[0].action.toString() + '\n' + Player[1].action.toString() + '\n';
-    cout << action;
+    std::cout << action;
 
-    cerr.flush();
-    cout.flush();
+    std::cerr.flush();
+    std::cout.flush();
   }
 }

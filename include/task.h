@@ -6,6 +6,6 @@
 
 void Scheme2(Player_T &player);
 void Scheme1(Player_T &player);
-void getFood(Player_T &player, string food);
+void getFood(Player_T &player, std::string food);
 
 #endif // !TASK_H

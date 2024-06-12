@@ -4,7 +4,7 @@
 #include <sstream>
 
 int Order_cnt;
-vector<Order_T> Order;
+std::vector<Order_T> Order;
 int Sales;
 
 // 玩家可移动地图
@@ -25,8 +25,8 @@ void Map_update() {
   }
 }
 
-static void Order_update(stringstream &ss) {
-  string s;
+static void Order_update(std::stringstream &ss) {
+  std::string s;
   ss >> Order_cnt;
   Order.clear();
   Order.resize(Order_cnt);
@@ -41,15 +41,15 @@ static void Order_update(stringstream &ss) {
   }
 }
 
-static void Player_update(stringstream &ss) {
-  string s;
+static void Player_update(std::stringstream &ss) {
+  std::string s;
   ss >> Player_cnt;
   assert(Player_cnt == 2);
   for (int i = 0; i < Player_cnt; i++) {
     ss >> Player[i].coord.x >> Player[i].coord.y >> Player[i].vx >>
         Player[i].vy >> Player[i].live;
     getline(ss, s);
-    stringstream tmp(s);
+    std::stringstream tmp(s);
     Player[i].entity.clear();
     /*
         若若该玩家手里有东西，则接下来一个分号，分号后一个空格，空格后为一个实体。
@@ -81,8 +81,8 @@ static void Player_update(stringstream &ss) {
   }
 }
 
-static void Entity_update(stringstream &ss) {
-  string s;
+static void Entity_update(std::stringstream &ss) {
+  std::string s;
   ss >> Entity_cnt;
   Entity.clear();
   Entity.resize(Entity_cnt);
@@ -92,13 +92,13 @@ static void Entity_update(stringstream &ss) {
 }
 
 void frame_update(int Frame_cur) {
-  string s;
-  getline(cin, s, '\0');
-  stringstream ss(s);
+  std::string s;
+  getline(std::cin, s, '\0');
+  std::stringstream ss(s);
 
-  if (cin.rdbuf()->in_avail() > 0) {
-    cerr << "Warning: skipping frame " << Frame_cur
-         << " to catch up with the game" << endl;
+  if (std::cin.rdbuf()->in_avail() > 0) {
+    std::cerr << "Warning: skipping frame " << Frame_cur
+         << " to catch up with the game" << std::endl;
     assert(0);
   }
 
