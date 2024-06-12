@@ -17,6 +17,7 @@
       return;                                                                  \
   } while (0)
 
+void gotoTile(Player_T &player, Tile_Kind tile_kind);
 void getFood(Player_T &player, std::string food);
 void Chop(Player_T &player, Recipe_T recipe);
 void PanOrPot(Player_T &player, Recipe_T recipe);

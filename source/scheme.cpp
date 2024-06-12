@@ -1,13 +1,10 @@
+#include "enum.h"
+#include "task.h"
 #include <iostream>
 #include <scheme.h>
 
 void Scheme1(Player_T &player) {
   CheckAlive;
-  for (auto order : Order) {
-    service(player, Order[0]);
-    CheckAction;
-  }
-  CheckAction;
   putStove(player);
   CheckAction;
 
@@ -31,6 +28,11 @@ void Scheme1(Player_T &player) {
 
 void Scheme2(Player_T &player) {
   CheckAlive;
+  for (auto order : Order) {
+    service(player, Order[0]);
+    CheckAction;
+  }
+  CheckAction;
   Tile_T Sink = getFirstTile(Tile_Kind::Sink);
   if (player.entity.empty()) {
     for (auto entity : Entity) {
@@ -56,4 +58,5 @@ void Scheme2(Player_T &player) {
     Put(player, Sink.coord);
   }
   CheckAction;
+  gotoTile(player, Tile_Kind::PlateReturn);
 }

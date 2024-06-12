@@ -1,11 +1,11 @@
 #include <iostream>
 #include <task.h>
 
-// void gotoTile(Player_T &player, Tile_Kind tile_kind) {
-//   Tile_T target = getFirstTile(tile_kind);
-//   Coordinate_T coord = getNearestPosition(target.coord);
-//   Move(player, coord);
-// }
+void gotoTile(Player_T &player, Tile_Kind tile_kind) {
+  Tile_T target = getFirstTile(tile_kind);
+  Coordinate_T coord = getNearestPosition(target.coord);
+  Move(player, coord);
+}
 
 void Chop(Player_T &player, Recipe_T recipe) {
   Tile_T ChoppingStation = getFirstTile(Tile_Kind::ChoppingStation);
