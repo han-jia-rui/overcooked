@@ -41,6 +41,7 @@ node bfs(node start, node end) {
   }
   reverse(path.begin(), path.end());
   for (int i = 0; i < path.size(); i++) {
+    map[path[i].x][path[i].y] = false;
     if (start.direction(path[i]) == -1) {
       return path[i - 1];
     }
