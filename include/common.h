@@ -2,6 +2,7 @@
 #define COMMON_H
 
 #include <cassert>
+#include <cmath>
 #include <enum.h>
 #include <string>
 #include <unordered_set>
@@ -14,6 +15,9 @@ struct Coordinate_T {
   Coordinate_T() : x(0), y(0) {}
   bool operator==(const Coordinate_T &coord) const {
     return x == coord.x && y == coord.y;
+  }
+  double dist(const Coordinate_T &coord) const {
+    return sqrt((x - coord.x) * (x - coord.x) + (y - coord.y) * (y - coord.y));
   }
 };
 

@@ -1,8 +1,7 @@
-#include <action.h>
 #include <frame.h>
 #include <init.h>
 #include <iostream>
-#include <task.h>
+#include <scheme.h>
 
 int main() {
   std::ios::sync_with_stdio(false);
@@ -14,10 +13,10 @@ int main() {
   for (int i = 0; i < Frame_total; i++) {
     frame_update(i);
 
-    std::cout << "Frame " << i << "\n";
-
     Scheme1(Player[0]);
     Scheme2(Player[1]);
+
+    std::cout << "Frame " << i << "\n";
 
     std::string action =
         Player[0].action.toString() + '\n' + Player[1].action.toString() + '\n';

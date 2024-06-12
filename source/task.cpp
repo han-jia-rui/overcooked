@@ -1,20 +1,4 @@
-#include <iostream>
-#include <string>
 #include <task.h>
-#include <unordered_set>
-#include <vector>
-
-#define CheckAction                                                            \
-  do {                                                                         \
-    if (!player.action.empty())                                                \
-      return;                                                                  \
-  } while (0)
-
-#define CheckAlive                                                             \
-  do {                                                                         \
-    if (player.live != 0)                                                     \
-      return;                                                                  \
-  } while (0)
 
 void gotoTile(Player_T &player, Tile_Kind tile) {
   std::vector<Tile_T> tmp = getTile(tile, player.coord);
@@ -24,7 +8,6 @@ void gotoTile(Player_T &player, Tile_Kind tile) {
 }
 
 void Chop(Player_T &player, Recipe_T recipe) {
-  assert(recipe.operation == Operation_Kind::Chop);
   std::vector<Tile_T> tmp = getTile(Tile_Kind::ChoppingStation, player.coord);
   Tile_T ChoppingStation = tmp[0];
   for (auto entity : Entity) {
@@ -42,8 +25,6 @@ void Chop(Player_T &player, Recipe_T recipe) {
 }
 
 void PanOrPot(Player_T &player, Recipe_T recipe) {
-  assert(recipe.operation == Operation_Kind::Pot ||
-         recipe.operation == Operation_Kind::Pan);
   Entity_T stove;
   for (auto entity : Entity) {
     if (recipe.operation == Operation_Kind::Pot &&
@@ -57,11 +38,7 @@ void PanOrPot(Player_T &player, Recipe_T recipe) {
       break;
     }
   }
-  assert(stove.container == Container_Kind::Pot ||
-         stove.container == Container_Kind::Pan);
-  if (stove.findfood(recipe.before)) {
-    return;
-  }
+  Check(stove.findfood(recipe.before));
   CheckAction;
   getFood(player, recipe.before);
   CheckAction;
@@ -80,11 +57,8 @@ bool checkGet(Entity_T entity, std::string food_target) {
 }
 
 void getFood(Player_T &player, std::string food) {
-  if (player.entity.food_list.size() == 1 && player.entity.findfood(food))
-    return;
-  if (player.entity.food_list.size() == 1 && !checkGet(player.entity, food)) {
-    return;
-  }
+  Check(player.entity.food_list.size() == 1 && player.entity.findfood(food));
+  Check(player.entity.food_list.size() == 1 && !checkGet(player.entity, food));
   for (auto entity : Entity) {
     if (entity.findfood(food) && entity.container != Container_Kind::Plate) {
       Pick(player, entity.coord);
@@ -140,11 +114,9 @@ void service(Player_T &player, Order_T order) {
 }
 
 void putStove(Player_T &player) {
-  if (!player.entity.food_list.empty())
-    return;
-  if (player.entity.container != Container_Kind::Pot &&
-      player.entity.container != Container_Kind::Pan)
-    return;
+  Check(!player.entity.food_list.empty());
+  Check(player.entity.container != Container_Kind::Pot &&
+        player.entity.container != Container_Kind::Pan);
   std::vector<Tile_T> tmp = getTile(Tile_Kind::Stove, Coordinate_T());
   for (auto Stove : tmp) {
     bool used = false;
@@ -161,69 +133,3 @@ void putStove(Player_T &player) {
   }
 }
 
-void Scheme1(Player_T &player) {
-  CheckAlive;
-  putStove(player);
-  CheckAction;
-
-  // for (auto order : Order) {
-  //   service(player, Order[0]);
-  //   CheckAction;
-  // }
-  // CheckAction;
-  int plate_cnt = 0;
-  for (auto entity : Entity) {
-    if (entity.container == Container_Kind::Plate) {
-      for (auto food : Order[plate_cnt].require) {
-        if (!entity.findfood(food)) {
-          // std::cerr << "Get " << food << " from plate\n";
-          getFood(player, food);
-          CheckAction;
-          // std::cerr << "Put " << food << " to plate\n";
-          if (player.entity.findfood(food))
-            Put(player, entity.coord);
-          CheckAction;
-        }
-      }
-      break;
-    }
-  }
-  CheckAction;
-}
-
-void Scheme2(Player_T &player) {
-  CheckAlive;
-  if (player.entity.container != Container_Kind::DirtyPlates) {
-    for (auto order : Order) {
-      service(player, Order[0]);
-      CheckAction;
-    }
-  }
-  CheckAction;
-  std::vector<Tile_T> tmp = getTile(Tile_Kind::Sink, Coordinate_T());
-  Tile_T Sink = tmp[0];
-  if (player.entity.empty()) {
-    for (auto entity : Entity) {
-      if (entity.container == Container_Kind::DirtyPlates &&
-          entity.coord.x == Sink.coord.x && Sink.coord.y == entity.coord.y) {
-        Interact(player, entity.coord);
-        break;
-      }
-    }
-  }
-  CheckAction;
-  if (player.entity.container == Container_Kind::None) {
-    for (auto entity : Entity) {
-      if (entity.container == Container_Kind::DirtyPlates) {
-        Pick(player, entity.coord);
-        break;
-      }
-    }
-  }
-  CheckAction;
-  if (player.entity.container == Container_Kind::DirtyPlates &&
-      player.entity.sum >= 1) {
-    Put(player, Sink.coord);
-  }
-  CheckAction;
-}

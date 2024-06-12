@@ -5,7 +5,7 @@
 constexpr double Distance = 0.5;
 constexpr double Acceleration = 25;
 constexpr double Radius = 0.1;
-constexpr double InteractDistance = 0.2;
+constexpr double InteractDistance = 0.3;
 // constexpr double Velocity = 0;
 
 void setDirection(Player_T &player, Coordinate_T coord) {
@@ -62,8 +62,7 @@ void Move(Player_T &player, Coordinate_T target) {
 
 void Pick(Player_T &player, Coordinate_T target) {
   Coordinate_T coord = getNearestPosition(target);
-  if (std::abs(player.coord.x - coord.x) < InteractDistance &&
-      std::abs(player.coord.y - coord.y) < InteractDistance) {
+  if (player.coord.dist(coord) < InteractDistance) {
     player.action.set(Action_Kind::Pick);
     setDirection(player, coord);
     return;
@@ -75,8 +74,7 @@ void Put(Player_T &player, Coordinate_T target) {
   if (player.entity.empty())
     return;
   Coordinate_T coord = getNearestPosition(target);
-  if (std::abs(player.coord.x - coord.x) < InteractDistance &&
-      std::abs(player.coord.y - coord.y) < InteractDistance) {
+  if (player.coord.dist(coord) < InteractDistance) {
     player.action.set(Action_Kind::Put);
     setDirection(player, coord);
     return;
@@ -88,8 +86,7 @@ void Interact(Player_T &player, Coordinate_T target) {
   if (!player.entity.empty())
     return;
   Coordinate_T coord = getNearestPosition(target);
-  if (std::abs(player.coord.x - coord.x) < InteractDistance &&
-      std::abs(player.coord.y - coord.y) < InteractDistance) {
+  if (player.coord.dist(coord) < InteractDistance) {
     player.action.set(Action_Kind::Interact);
     setDirection(player, coord);
     return;
