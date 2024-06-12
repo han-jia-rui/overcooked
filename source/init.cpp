@@ -6,17 +6,12 @@
 #include <sstream>
 
 int width, height;
-Tile_Kind Map[100][100];
-int Ingredient_cnt;
+Tile_T Map[100][100];
 std::vector<Ingredient_T> Ingredient;
-int Recipe_cnt;
 std::vector<Recipe_T> Recipe;
 int Frame_total, randomizeSeed;
-int OrderTable_cnt;
 std::vector<Order_T> OrderTable;
-int Player_cnt;
 std::vector<Player_T> Player;
-int Entity_cnt;
 std::vector<Entity_T> Entity;
 
 static void read() {
@@ -30,11 +25,11 @@ static void read() {
     for (int j = 0; j < width; j++) {
       char ch;
       ss >> ch;
-      Map[j][i] = char2tile(ch);
+      Map[j][i].set(j, i, char2tile(ch));
     }
   }
 
-  /* 读入原料箱：位置、名字、以及采购单价 */
+  int Ingredient_cnt;
   ss >> Ingredient_cnt;
   Ingredient.resize(Ingredient_cnt);
   for (int i = 0; i < Ingredient_cnt; i++) {
@@ -44,30 +39,19 @@ static void read() {
         Ingredient[i].name >> Ingredient[i].price;
   }
 
-  /* 读入配方：加工时间、加工前的字符串表示、加工容器、加工后的字符串表示 */
+  int Recipe_cnt;
   ss >> Recipe_cnt;
   Recipe.resize(Recipe_cnt);
   for (int i = 0; i < Recipe_cnt; i++) {
     ss >> Recipe[i].frame >> Recipe[i].before;
-    std::string operation;
-    ss >> operation;
-
-    if (operation == "-chop->") {
-      Recipe[i].operation = Operation_Kind::Chop;
-    } else if (operation == "-pan->") {
-      Recipe[i].operation = Operation_Kind::Pan;
-    } else if (operation == "-pot->") {
-      Recipe[i].operation = Operation_Kind::Pot;
-    } else
-      assert(0);
-
+    ss >> s;
+    Recipe[i].operation = str2operation(s);
     ss >> Recipe[i].after;
   }
 
-  /* 读入总帧数、当前采用的随机种子*/
   ss >> Frame_total >> randomizeSeed;
 
-  /* 读入订单的有效帧数、价格、权重、订单组成 */
+  int OrderTable_cnt;
   ss >> OrderTable_cnt;
   OrderTable.resize(OrderTable_cnt);
   for (int i = 0; i < OrderTable_cnt; i++) {
@@ -79,16 +63,16 @@ static void read() {
       OrderTable[i].require.push_back(s);
   }
 
-  /* 读入玩家信息：初始坐标 */
+  int Player_cnt;
   ss >> Player_cnt;
   assert(Player_cnt == 2);
   Player.resize(Player_cnt);
-  for (int i = 0; i < Player_cnt; i++) {
-    ss >> Player[i].coord.x >> Player[i].coord.y;
-    Player[i].entity.container = Container_Kind::None;
+  for (auto &player : Player) {
+    player.clear();
+    ss >> player.coord.x >> player.coord.y;
   }
 
-  /* 读入实体信息：坐标、实体组成 */
+  int Entity_cnt;
   ss >> Entity_cnt;
   Entity.resize(Entity_cnt);
   for (int i = 0; i < Entity_cnt; i++) {

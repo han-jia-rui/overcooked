@@ -69,3 +69,39 @@ Container_Kind str2container(const std::string s) {
     container = Container_Kind::None;
   return container;
 }
+
+Operation_Kind str2operation(const std::string s) {
+  Operation_Kind operation;
+  if (s == "-chop->") {
+    operation = Operation_Kind::Chop;
+  } else if (s == "-pan->") {
+    operation = Operation_Kind::Pan;
+  } else if (s == "-pot->") {
+    operation = Operation_Kind::Pot;
+  } else {
+    assert(0);
+  }
+  return operation;
+}
+
+std::string container2str(const Container_Kind container) {
+  std::string str;
+  switch (container) {
+  case Container_Kind::Plate:
+    str = "Plate";
+    break;
+  case Container_Kind::Pan:
+    str = "Pan";
+    break;
+  case Container_Kind::Pot:
+    str = "Pot";
+    break;
+  case Container_Kind::DirtyPlates:
+    str = "DirtyPlates";
+    break;
+  default:
+    str = "None";
+    break;
+  }
+  return str;
+}

@@ -5,36 +5,11 @@
 #include <sstream>
 
 static int dx[4] = {0, 0, -1, 1}, dy[4] = {-1, 1, 0, 0};
-struct node {
-  int x, y;
-  node() : x(0), y(0) {} // default constructor
-
-  node(int x, int y) : x(x), y(y) {}
-
-  node &operator+=(const node &rhs) {
-    x += rhs.x;
-    y += rhs.y;
-    return *this;
-  }
-
-  bool operator==(const node &rhs) const { return x == rhs.x && y == rhs.y; }
-
-  bool bound(int w, int h) { return x >= 0 && x < w && y >= 0 && y < h; }
-
-  int direction(const node &rhs) const {
-    if (x == rhs.x) {
-      return 0;
-    } else if (y == rhs.y) {
-      return 1;
-    }
-    return -1;
-  }
-};
 static node dir[4] = {node(0, -1), node(0, 1), node(-1, 0), node(1, 0)};
 
 node bfs(node start, node end) {
   int vis[100][100];
-  node pred[100][100]; // predecessor map
+  node pred[100][100];
   memset(vis, 0, sizeof(vis));
   std::queue<node> q;
   q.push(start);
@@ -50,7 +25,7 @@ node bfs(node start, node end) {
       if (next.bound(width, height) && !vis[next.x][next.y] &&
           map[next.x][next.y]) {
         vis[next.x][next.y] = vis[cur.x][cur.y] + 1;
-        pred[next.x][next.y] = cur; // record the predecessor
+        pred[next.x][next.y] = cur;
         q.push(next);
       }
     }
@@ -80,8 +55,8 @@ Coordinate_T getNextPosition(Coordinate_T st, Coordinate_T ed) {
   tmp = bfs(start, end);
   assert(tmp.direction(start) != -1);
   Coordinate_T ret;
-  ret = Coordinate_T(static_cast<double>(tmp.x + 0.5),
-                     static_cast<double>(tmp.y + 0.5));
+  ret = Coordinate_T(static_cast<double>(tmp.x) + 0.5,
+                     static_cast<double>(tmp.y) + 0.5);
   return ret;
 }
 
@@ -89,37 +64,35 @@ Coordinate_T getNearestPosition(Coordinate_T coord) {
   Coordinate_T ret;
   node pos(coord.x, coord.y);
   int ix = coord.x, iy = coord.y;
-  if (Map[ix][iy] == Tile_Kind::Floor) {
+
+  if (Map[ix][iy].movable()) {
     ret.x = static_cast<double>(ix) + 0.5;
     ret.y = static_cast<double>(iy) + 0.5;
     ret.face = Direction(0);
     return ret;
-  } else {
-    for (int i = 0; i < 4; i++) {
-      int nx = ix + dx[i], ny = iy + dy[i];
-      if (nx >= 0 && nx < width && ny >= 0 && ny < height) {
-        if (Map[nx][ny] == Tile_Kind::Floor) {
-          ret.x = static_cast<double>(nx) + 0.5;
-          ret.y = static_cast<double>(ny) + 0.5;
-          ret.face = Direction(i);
-          return ret;
-        }
+  }
+
+  for (int i = 0; i < 4; i++) {
+    int nx = ix + dx[i], ny = iy + dy[i];
+    if (nx >= 0 && nx < width && ny >= 0 && ny < height) {
+      if (Map[nx][ny].movable()) {
+        ret.x = static_cast<double>(nx) + 0.5;
+        ret.y = static_cast<double>(ny) + 0.5;
+        ret.face = Direction(i);
+        return ret;
       }
     }
   }
+
   assert(0);
 }
 
 std::vector<Tile_T> getTile(Tile_Kind tile_kind, Coordinate_T coord) {
   std::vector<Tile_T> ret;
-  Tile_T tmp;
   for (int i = 0; i < height; i++) {
     for (int j = 0; j < width; j++) {
-      if (Map[j][i] == tile_kind) {
-        tmp.tile_kind = tile_kind;
-        tmp.coord.x = j;
-        tmp.coord.y = i;
-        ret.push_back(tmp);
+      if (Map[j][i].kind == tile_kind) {
+        ret.push_back(Map[j][i]);
       }
     }
   }
@@ -132,6 +105,12 @@ std::string Action_T::toString() {
   return ret;
 }
 
+/*
+Example Input:
+    @ Plate : fish
+    : fish
+    DirtyPlates 1 ; 15 / 180
+*/
 void Entity_T::set(std::stringstream &ss) {
   this->clear();
   ss >> coord.x >> coord.y;
@@ -140,34 +119,16 @@ void Entity_T::set(std::stringstream &ss) {
   std::stringstream tmp(s);
   sum = 1;
   while (tmp >> s) {
-    /*
-        @ Plate : fish
-        : fish
-        DirtyPlates 1 ; 15 / 180
-    */
-
-    if (s == ":" || s == "@" || s == "*")
+    if (s == ";" || s == "@" || s == "*" || s == ":" || s == "/" ||
+        isdigit(s[0]))
       continue;
-
-    if (s == ";") {
-      tmp >> frame_cur >> s >> frame_total;
-      assert(s == "/");
-      break;
-    }
-
-    if (s == "Plate")
-      container = Container_Kind::Plate;
-    else if (s == "Pan")
-      container = Container_Kind::Pan;
-    else if (s == "Pot")
-      container = Container_Kind::Pot;
-    else {
-      if (s == "DirtyPlates") {
-        container = Container_Kind::DirtyPlates;
+    Container_Kind container_tmp = str2container(s);
+    if (container_tmp != Container_Kind::None) {
+      if (container_tmp == Container_Kind::DirtyPlates)
         tmp >> sum;
-      } else {
-        food.insert(s);
-      }
+      container = container_tmp;
+      continue;
     }
+    food_list.insert(s);
   }
 }

@@ -1,11 +1,12 @@
 #include <action.h>
 #include <iostream>
+#include <string>
 
 constexpr double Distance = 0.5;
 constexpr double Acceleration = 25;
 constexpr double Radius = 0.1;
 constexpr double InteractDistance = 0.2;
-constexpr double Velocity = 0;
+// constexpr double Velocity = 0;
 
 void setDirection(Player_T &player, Coordinate_T coord) {
   switch (coord.face) {
@@ -40,6 +41,8 @@ void Move(Player_T &player, Coordinate_T target) {
     next.x = static_cast<int>(player.coord.x) + 0.5;
     next.y = static_cast<int>(player.coord.y) + 0.5;
   }
+  std::cerr << "Player " << player.coord.x << " " << player.coord.y
+            << std::endl;
   std::cerr << "Move " << next.x << " " << next.y << std::endl;
   // Set direction
   if (next.x - player.coord.x > x_stop) {
@@ -54,6 +57,7 @@ void Move(Player_T &player, Coordinate_T target) {
   if (next.y - player.coord.y > y_stop) {
     player.action.direction += "D";
   }
+  // std::cerr << player.action.toString() << std::endl;
 }
 
 void Pick(Player_T &player, Coordinate_T target) {

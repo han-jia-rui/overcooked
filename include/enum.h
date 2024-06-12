@@ -48,8 +48,10 @@ enum class Tile_Kind {
 };
 
 Tile_Kind char2tile(char ch);
-std::string action2str(Action_Kind action);
 Container_Kind str2container(const std::string s);
-std::string operation2str(Operation_Kind operation);
+Operation_Kind str2operation(const std::string s);
+
+std::string container2str(const Container_Kind container);
+std::string action2str(Action_Kind action);
 
 #endif

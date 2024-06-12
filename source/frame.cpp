@@ -3,7 +3,6 @@
 #include <iostream>
 #include <sstream>
 
-int Order_cnt;
 std::vector<Order_T> Order;
 int Sales;
 
@@ -12,24 +11,25 @@ bool map[100][100];
 void Map_update() {
   for (int i = 0; i < height; i++) {
     for (int j = 0; j < width; j++) {
-      if (Map[i][j] == Tile_Kind::Floor)
-        map[i][j] = true;
-      else
-        map[i][j] = false;
+      map[i][j] = Map[i][j].movable();
     }
   }
-  for (auto player : Player) {
+  for (auto &player : Player) {
     if (player.live != 0)
       continue;
-    map[(int)player.coord.x][(int)player.coord.y] = false;
+    int ix = static_cast<int>(player.coord.x);
+    int iy = static_cast<int>(player.coord.y);
+    map[ix][iy] = false;
   }
 }
 
 static void Order_update(std::stringstream &ss) {
-  std::string s;
+  int Order_cnt;
   ss >> Order_cnt;
   Order.clear();
   Order.resize(Order_cnt);
+
+  std::string s;
   for (int i = 0; i < Order_cnt; i++) {
     ss >> Order[i].frame_left >> Order[i].price;
     Order[i].require.clear();
@@ -42,52 +42,31 @@ static void Order_update(std::stringstream &ss) {
 }
 
 static void Player_update(std::stringstream &ss) {
-  std::string s;
+  int Player_cnt;
   ss >> Player_cnt;
   assert(Player_cnt == 2);
-  for (int i = 0; i < Player_cnt; i++) {
-    ss >> Player[i].coord.x >> Player[i].coord.y >> Player[i].vx >>
-        Player[i].vy >> Player[i].live;
+
+  std::string s;
+  for (auto &player : Player) {
+    player.clear();
+    ss >> player.coord.x >> player.coord.y >> player.vx >> player.vy >>
+        player.live;
     getline(ss, s);
-    std::stringstream tmp(s);
-    Player[i].entity.clear();
-    /*
-        若若该玩家手里有东西，则接下来一个分号，分号后一个空格，空格后为一个实体。
-        以下是可能的输入（省略前面的输入）：
-         ;  : fish
-         ; @  : fish
-         ; @ Plate : fish
-         ; Plate
-         ; DirtyPlates 1
-        ...
-    */
-    while (tmp >> s) {
-      if (s == ";" || s == "@" || s == "*" || s == ":" || s == "/" ||
-          isdigit(s[0]))
-        continue;
-      if (s == "Plate")
-        Player[i].entity.container = Container_Kind::Plate;
-      else if (s == "Pan")
-        Player[i].entity.container = Container_Kind::Pan;
-      else if (s == "Pot")
-        Player[i].entity.container = Container_Kind::Pot;
-      else if (s == "DirtyPlates") {
-        Player[i].entity.container = Container_Kind::DirtyPlates;
-        tmp >> Player[i].entity.sum;
-      } else {
-        Player[i].entity.food.insert(s);
-      }
-    }
+    std::stringstream tmp;
+    tmp << player.coord.x << " " << player.coord.y << " " << s;
+    player.entity.set(tmp);
   }
 }
 
 static void Entity_update(std::stringstream &ss) {
-  std::string s;
+  int Entity_cnt;
   ss >> Entity_cnt;
   Entity.clear();
   Entity.resize(Entity_cnt);
-  for (int i = 0; i < Entity_cnt; i++) {
-    Entity[i].set(ss);
+
+  for (auto &entity : Entity) {
+    entity.clear();
+    entity.set(ss);
   }
 }
 
@@ -98,7 +77,7 @@ void frame_update(int Frame_cur) {
 
   if (std::cin.rdbuf()->in_avail() > 0) {
     std::cerr << "Warning: skipping frame " << Frame_cur
-         << " to catch up with the game" << std::endl;
+              << " to catch up with the game" << std::endl;
     assert(0);
   }
 

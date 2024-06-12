@@ -10,6 +10,12 @@
       return;                                                                  \
   } while (0)
 
+#define CheckAlive                                                             \
+  do {                                                                         \
+    if (player.live != 0)                                                     \
+      return;                                                                  \
+  } while (0)
+
 void gotoTile(Player_T &player, Tile_Kind tile) {
   std::vector<Tile_T> tmp = getTile(tile, player.coord);
   Tile_T target = tmp[0];
@@ -74,9 +80,9 @@ bool checkGet(Entity_T entity, std::string food_target) {
 }
 
 void getFood(Player_T &player, std::string food) {
-  if (player.entity.food.size() == 1 && player.entity.findfood(food))
+  if (player.entity.food_list.size() == 1 && player.entity.findfood(food))
     return;
-  if (player.entity.food.size() == 1 && !checkGet(player.entity, food)) {
+  if (player.entity.food_list.size() == 1 && !checkGet(player.entity, food)) {
     return;
   }
   for (auto entity : Entity) {
@@ -134,7 +140,7 @@ void service(Player_T &player, Order_T order) {
 }
 
 void putStove(Player_T &player) {
-  if (!player.entity.food.empty())
+  if (!player.entity.food_list.empty())
     return;
   if (player.entity.container != Container_Kind::Pot &&
       player.entity.container != Container_Kind::Pan)
@@ -156,6 +162,7 @@ void putStove(Player_T &player) {
 }
 
 void Scheme1(Player_T &player) {
+  CheckAlive;
   putStove(player);
   CheckAction;
 
@@ -169,10 +176,10 @@ void Scheme1(Player_T &player) {
     if (entity.container == Container_Kind::Plate) {
       for (auto food : Order[plate_cnt].require) {
         if (!entity.findfood(food)) {
-          std::cerr << "Get " << food << " from plate\n";
+          // std::cerr << "Get " << food << " from plate\n";
           getFood(player, food);
           CheckAction;
-          std::cerr << "Put " << food << " to plate\n";
+          // std::cerr << "Put " << food << " to plate\n";
           if (player.entity.findfood(food))
             Put(player, entity.coord);
           CheckAction;
@@ -185,6 +192,7 @@ void Scheme1(Player_T &player) {
 }
 
 void Scheme2(Player_T &player) {
+  CheckAlive;
   if (player.entity.container != Container_Kind::DirtyPlates) {
     for (auto order : Order) {
       service(player, Order[0]);
