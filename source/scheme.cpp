@@ -1,3 +1,4 @@
+#include <iostream>
 #include <scheme.h>
 
 void Scheme1(Player_T &player) {
@@ -5,20 +6,13 @@ void Scheme1(Player_T &player) {
   putStove(player);
   CheckAction;
 
-  // for (auto order : Order) {
-  //   service(player, Order[0]);
-  //   CheckAction;
-  // }
-  // CheckAction;
   int plate_cnt = 0;
   for (auto entity : Entity) {
     if (entity.container == Container_Kind::Plate) {
       for (auto food : Order[plate_cnt].require) {
         if (!entity.findfood(food)) {
-          // std::cerr << "Get " << food << " from plate\n";
           getFood(player, food);
           CheckAction;
-          // std::cerr << "Put " << food << " to plate\n";
           if (player.entity.findfood(food))
             Put(player, entity.coord);
           CheckAction;
@@ -32,15 +26,12 @@ void Scheme1(Player_T &player) {
 
 void Scheme2(Player_T &player) {
   CheckAlive;
-  if (player.entity.container != Container_Kind::DirtyPlates) {
-    for (auto order : Order) {
-      service(player, Order[0]);
-      CheckAction;
-    }
+  for (auto order : Order) {
+    service(player, Order[0]);
+    CheckAction;
   }
   CheckAction;
-  std::vector<Tile_T> tmp = getTile(Tile_Kind::Sink, Coordinate_T());
-  Tile_T Sink = tmp[0];
+  Tile_T Sink = getFirstTile(Tile_Kind::Sink);
   if (player.entity.empty()) {
     for (auto entity : Entity) {
       if (entity.container == Container_Kind::DirtyPlates &&

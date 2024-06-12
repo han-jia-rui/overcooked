@@ -7,7 +7,7 @@
 
 #define Check(x)                                                               \
   do {                                                                         \
-    if (x)                                                                     \
+    if (!(x))                                                                  \
       return;                                                                  \
   } while (0)
 
@@ -18,7 +18,6 @@
   } while (0)
 
 void getFood(Player_T &player, std::string food);
-void gotoTile(Player_T &player, Tile_Kind tile);
 void Chop(Player_T &player, Recipe_T recipe);
 void PanOrPot(Player_T &player, Recipe_T recipe);
 void service(Player_T &player, Order_T order);

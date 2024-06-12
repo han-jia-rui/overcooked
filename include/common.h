@@ -93,6 +93,16 @@ struct Entity_T {
     return this->food_list.find(food) != this->food_list.end();
   }
   void set(std::stringstream &ss);
+  bool checkOrder(Order_T order) {
+    if (order.require.size() != food_list.size())
+      return false;
+    for (auto rs : order.require) {
+      if (!findfood(rs))
+        return false;
+    }
+    return true;
+  }
+  bool is(Container_Kind kind) { return container == kind; }
 };
 
 struct Action_T {
@@ -139,8 +149,10 @@ extern int Sales;
 extern bool map[100][100];
 
 // common.cpp
-std::vector<Tile_T> getTile(Tile_Kind tile_kind, Coordinate_T coord);
+std::vector<Tile_T> getTile(Tile_Kind tile_kind);
+Tile_T getFirstTile(Tile_Kind tile_kind);
 Coordinate_T getNearestPosition(Coordinate_T coord);
 Coordinate_T getNextPosition(Coordinate_T st, Coordinate_T ed);
+bool isTileUsed(Tile_T tile);
 
 #endif

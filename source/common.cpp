@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <cassert>
 #include <common.h>
 #include <cstring>
 #include <queue>
@@ -87,7 +88,7 @@ Coordinate_T getNearestPosition(Coordinate_T coord) {
   assert(0);
 }
 
-std::vector<Tile_T> getTile(Tile_Kind tile_kind, Coordinate_T coord) {
+std::vector<Tile_T> getTile(Tile_Kind tile_kind) {
   std::vector<Tile_T> ret;
   for (int i = 0; i < height; i++) {
     for (int j = 0; j < width; j++) {
@@ -97,6 +98,14 @@ std::vector<Tile_T> getTile(Tile_Kind tile_kind, Coordinate_T coord) {
     }
   }
   return ret;
+}
+
+Tile_T getFirstTile(Tile_Kind tile_kind) {
+  std::vector<Tile_T> tmp = getTile(tile_kind);
+  if (!tmp.empty())
+    return tmp[0];
+  assert(0);
+  return Tile_T();
 }
 
 std::string Action_T::toString() {
@@ -131,4 +140,15 @@ void Entity_T::set(std::stringstream &ss) {
     }
     food_list.insert(s);
   }
+}
+
+bool isTileUsed(Tile_T tile) {
+  bool used = false;
+  for (auto entity : Entity) {
+    if (entity.coord == tile.coord) {
+      used = true;
+      break;
+    }
+  }
+  return used;
 }

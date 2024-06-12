@@ -1,15 +1,14 @@
+#include <iostream>
 #include <task.h>
 
-void gotoTile(Player_T &player, Tile_Kind tile) {
-  std::vector<Tile_T> tmp = getTile(tile, player.coord);
-  Tile_T target = tmp[0];
-  Coordinate_T coord = getNearestPosition(target.coord);
-  Move(player, coord);
-}
+// void gotoTile(Player_T &player, Tile_Kind tile_kind) {
+//   Tile_T target = getFirstTile(tile_kind);
+//   Coordinate_T coord = getNearestPosition(target.coord);
+//   Move(player, coord);
+// }
 
 void Chop(Player_T &player, Recipe_T recipe) {
-  std::vector<Tile_T> tmp = getTile(Tile_Kind::ChoppingStation, player.coord);
-  Tile_T ChoppingStation = tmp[0];
+  Tile_T ChoppingStation = getFirstTile(Tile_Kind::ChoppingStation);
   for (auto entity : Entity) {
     if (entity.findfood(recipe.before) &&
         entity.coord.x == ChoppingStation.coord.x &&
@@ -28,17 +27,17 @@ void PanOrPot(Player_T &player, Recipe_T recipe) {
   Entity_T stove;
   for (auto entity : Entity) {
     if (recipe.operation == Operation_Kind::Pot &&
-        entity.container == Container_Kind::Pot) {
+        entity.is(Container_Kind::Pot)) {
       stove = entity;
       break;
     }
     if (recipe.operation == Operation_Kind::Pan &&
-        entity.container == Container_Kind::Pan) {
+        entity.is(Container_Kind::Pan)) {
       stove = entity;
       break;
     }
   }
-  Check(stove.findfood(recipe.before));
+  Check(!stove.findfood(recipe.before));
   CheckAction;
   getFood(player, recipe.before);
   CheckAction;
@@ -46,6 +45,8 @@ void PanOrPot(Player_T &player, Recipe_T recipe) {
 }
 
 bool checkGet(Entity_T entity, std::string food_target) {
+  if (entity.food_list.empty())
+    return true;
   if (entity.findfood(food_target))
     return true;
   for (auto recipe : Recipe) {
@@ -57,10 +58,10 @@ bool checkGet(Entity_T entity, std::string food_target) {
 }
 
 void getFood(Player_T &player, std::string food) {
-  Check(player.entity.food_list.size() == 1 && player.entity.findfood(food));
-  Check(player.entity.food_list.size() == 1 && !checkGet(player.entity, food));
+  Check(!player.entity.findfood(food));
+  Check(checkGet(player.entity, food));
   for (auto entity : Entity) {
-    if (entity.findfood(food) && entity.container != Container_Kind::Plate) {
+    if (entity.findfood(food) && !entity.is(Container_Kind::Plate)) {
       Pick(player, entity.coord);
       break;
     }
@@ -89,47 +90,31 @@ void getFood(Player_T &player, std::string food) {
   }
 }
 
-bool checkOrder(std::vector<std::string> require, Entity_T entity) {
-  for (auto rs : require) {
-    if (!entity.findfood(rs))
-      return false;
-  }
-  return true;
-}
-
 void service(Player_T &player, Order_T order) {
-  std::vector<Tile_T> tmp = getTile(Tile_Kind::ServiceWindow, Coordinate_T());
-  Tile_T ServiceWindow = tmp[0];
-  if (player.entity.container == Container_Kind::Plate &&
-      checkOrder(order.require, player.entity))
+  Tile_T ServiceWindow = getFirstTile(Tile_Kind::ServiceWindow);
+  if (player.entity.is(Container_Kind::Plate) &&
+      player.entity.checkOrder(order))
     Put(player, ServiceWindow.coord);
   CheckAction;
+
+  Check(player.entity.container == Container_Kind::None);
   for (auto entity : Entity) {
-    if (entity.container == Container_Kind::Plate &&
-        checkOrder(order.require, entity)) {
+    if (entity.container == Container_Kind::Plate && entity.checkOrder(order)) {
       Pick(player, entity.coord);
-      break;
+      CheckAction;
     }
   }
 }
 
 void putStove(Player_T &player) {
-  Check(!player.entity.food_list.empty());
-  Check(player.entity.container != Container_Kind::Pot &&
-        player.entity.container != Container_Kind::Pan);
-  std::vector<Tile_T> tmp = getTile(Tile_Kind::Stove, Coordinate_T());
+  Check(player.entity.food_list.empty());
+  Check(player.entity.is(Container_Kind::Pot) ||
+        player.entity.is(Container_Kind::Pan));
+  std::vector<Tile_T> tmp = getTile(Tile_Kind::Stove);
   for (auto Stove : tmp) {
-    bool used = false;
-    for (auto entity : Entity) {
-      if (entity.coord == Stove.coord) {
-        used = true;
-        break;
-      }
-    }
-    if (!used) {
+    if (!isTileUsed(Stove)) {
       Put(player, Stove.coord);
       return;
     }
   }
 }
-

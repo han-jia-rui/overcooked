@@ -41,9 +41,9 @@ void Move(Player_T &player, Coordinate_T target) {
     next.x = static_cast<int>(player.coord.x) + 0.5;
     next.y = static_cast<int>(player.coord.y) + 0.5;
   }
-  std::cerr << "Player " << player.coord.x << " " << player.coord.y
-            << std::endl;
-  std::cerr << "Move " << next.x << " " << next.y << std::endl;
+  // std::cerr << "Player " << player.coord.x << " " << player.coord.y
+            // << std::endl;
+  // std::cerr << "Move " << next.x << " " << next.y << std::endl;
   // Set direction
   if (next.x - player.coord.x > x_stop) {
     player.action.direction += "R";
